@@ -37,6 +37,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@decisaosistemas/angular-ds/assets/ds/ds.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -104,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d57758df-bfe2-4bcb-8790-53b1b9046cf4"
   }
 }
