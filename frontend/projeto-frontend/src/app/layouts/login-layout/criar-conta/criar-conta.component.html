@@ -8,6 +8,7 @@
             <ds-input-text
               [labelInput]="'Nome teste'"
               [placeholderInputText]="'Insira seu nome'"
+              [control]="criarContaForm.controls.nome"
             ></ds-input-text>
           </div>
         </div>
@@ -16,6 +17,7 @@
             <ds-input-text
               [labelInput]="'E-mail'"
               [placeholderInputText]="'Insira seu e-mail'"
+              [control]="criarContaForm.controls.email"
             ></ds-input-text>
           </div>
         </div>
@@ -24,6 +26,10 @@
             <ds-input-text
               [labelInput]="'Senha'"
               [placeholderInputText]="'Insira a nova senha'"
+              [control]="criarContaForm.controls.senha"
+              (valueChangeEvento)="
+              verificarSenha($event, criarContaForm.controls.senha)
+            "
             ></ds-input-text>
           </div>
         </div>
@@ -32,6 +38,11 @@
             <ds-input-text
               [labelInput]="'Confirmar senha'"
               [placeholderInputText]="'Repita a senha inserida'"
+              [control]="criarContaForm.controls.senha2"
+              (valueChangeEvento)="
+              verificarSenha($event, criarContaForm.controls.senha2);
+              verificarSeSenhasSaoIguais()
+            "
             ></ds-input-text>
           </div>
         </div>
@@ -41,12 +52,14 @@
               class="ds-d-inline-block width-100"
               [tipoBotao]="'PRIMARY'"
               [labelButton]="'Criar conta'"
+              [isDesabilitado]="verificarSeFormularioEInvalido()"
             ></ds-button>
           </div>
         </div>
         <div class="centralizar">* Campos obrigatórios</div>
         <div class="centralizar">
           Já possui cadastro?
+          <a class="ds-ml-2" [routerLink]="'/login'">Faça Log in</a>
         </div>
       </div>
     </div>
