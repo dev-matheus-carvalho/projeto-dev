@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
-import { IConta, IContaModel, IContaModelCreate } from '../../../domain/protocols/models/conta';
+import { IConta, IContaModel, IContaModelCreate } from '../../../domain/protocols/models/entity/objectValues/conta';
 
 export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate> implements IContaModel {
   public idUsuario!: string;
@@ -40,15 +40,29 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
   }
 
   static association(pModels: Models): void {
-    this.belongsTo(pModels.conta, {
-      as: 'conta',
-      foreignKey: 'idUsuario',
+    this.hasOne(pModels.pagador, {
+      as: 'pagador',
+      foreignKey: {
+        field: 'idUsuario',
+        name: 'idUsuario',
+      },
     });
 
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
+    this.hasMany(pModels.lote, {
+      as: 'lote',
+      foreignKey: {
+        field: 'idUsuario',
+        name: 'idUsuario',
+      },
+    });
+
+    this.hasMany(pModels.titulo, {
+      as: 'titulo',
+      foreignKey: {
+        field: 'idUsuario',
+        name: 'idUsuario',
+      },
+    });
 
   //   this.hasMany(pModels.email, {
   //     as: 'emails',

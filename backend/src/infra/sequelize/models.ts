@@ -3,11 +3,17 @@ import { Sequelize } from 'sequelize/types';
 import ContaSequelizeModel from './models/ContaSequelizeModels';
 import PagadorSequelizeModel from './models/PagadorSequelizeModel';
 import LoteSequelizeModel from './models/LoteSequelizeModel';
+import TituloSequelizeModel from './models/TituloSequelizeModel';
+import MovimentacaoSequelizeModel from './models/MovimentacaoSequelizeModel';
+import LancamentosSequelizeModel from './models/LancamentosSequelizeModel';
 
 export default class Models {
-  // public conta: typeof ContaSequelizeModel = ContaSequelizeModel;
-  // public pagador: typeof PagadorSequelizeModel = PagadorSequelizeModel;
-  // public lote: typeof LoteSequelizeModel = LoteSequelizeModel;
+  public conta: typeof ContaSequelizeModel = ContaSequelizeModel;
+  public pagador: typeof PagadorSequelizeModel = PagadorSequelizeModel;
+  public lote: typeof LoteSequelizeModel = LoteSequelizeModel;
+  public titulo: typeof TituloSequelizeModel = TituloSequelizeModel;
+  public movimentacao: typeof MovimentacaoSequelizeModel = MovimentacaoSequelizeModel;
+  public lancamentos: typeof LancamentosSequelizeModel = LancamentosSequelizeModel;
 
 
   constructor(sequelize: Sequelize) {

@@ -2,16 +2,15 @@ export interface ITitulo {
   idTitulo: string;
   numeroTitulo: string;
   tipoTitulo: string;
-  valorTotalTitulo: number;
   vencimento: Date;
   situaçao: string;
-  duplicataChaveNota: string;
-  duplicataSerieNota: string;
-  duplicataDataEmissao: Date;
-  duplicataNumeroFatura: string;
-  duplicataNumeroLiquidoFatura: string;
-  duplicataValorLiquidoFatura: number;
-  chequeCmc7: string;
+  duplicataChaveNota?: string;
+  duplicataNumeroNota?: string;
+  duplicataSerieNota?: string;
+  duplicataDataEmissao?: Date;
+  duplicataNumeroFatura?: string;
+  duplicataValorLiquidoFatura?: number;
+  chequeCmc7?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

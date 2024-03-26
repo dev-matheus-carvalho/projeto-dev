@@ -1,13 +1,12 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
-import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../domain/protocols/models/pagador';
+import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../domain/protocols/models/entity/objectValues/pagador';
 
 export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModelCreate> implements IPagadorModel {
   public idPagador!: string;
   public nome!: string;
   public identificacao!: string;
-  public senha!: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -22,7 +21,8 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
           allowNull: false,
         },
         identificacao: {
-          type: DataTypes.TEXT
+          type: DataTypes.TEXT,
+          allowNull: false
         }
       },
       {
@@ -36,10 +36,13 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
   }
 
   static association(pModels: Models): void {
-    // this.belongsTo(pModels.pagador, {
-    //   as: 'pagador',
-    //   foreignKey: 'idPagador',
-    // });
+    this.belongsTo(pModels.conta, {
+      as: 'conta',
+      foreignKey: {
+        field: 'idUsuario',
+        name: 'idUsuario',
+      },
+    });
 
   //   this.hasOne(pModels.cliente, {
   //     as: 'cliente',

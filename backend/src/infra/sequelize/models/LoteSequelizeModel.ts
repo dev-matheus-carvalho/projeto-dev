@@ -1,10 +1,11 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
-import { ISituacao, ISituacaoModel, ISituacaoModelCreate } from '../../../domain/protocols/models/lote';
+import { Ilote, IloteModel, IloteModelCreate } from '../../../domain/protocols/models/entity/objectValues/lote';
 
-export default class LoteSequelizeModel extends Model<ISituacao, ISituacaoModelCreate> implements ISituacaoModel {
-  public idSituacao!: string;
+export default class LoteSequelizeModel extends Model<Ilote, IloteModelCreate> implements IloteModel {
+  public idLote!: string;
+  public situacao!: string;
   public dataLote!: Date;
   public dataEnvio!: Date;
   public valorTotalTitulo!: number;
@@ -13,9 +14,13 @@ export default class LoteSequelizeModel extends Model<ISituacao, ISituacaoModelC
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
-        idSituacao: {
+        idLote: {
           type: DataTypes.UUID,
           primaryKey: true,
+          allowNull: false,
+        },
+        situacao: {
+          type: DataTypes.TEXT,
           allowNull: false,
         },
         dataLote: {
@@ -46,10 +51,13 @@ export default class LoteSequelizeModel extends Model<ISituacao, ISituacaoModelC
   }
 
   static association(pModels: Models): void {
-    // this.belongsTo(pModels.lote, {
-    //   as: 'lote',
-    //   foreignKey: 'idSituacao',
-    // });
+    this.belongsTo(pModels.conta, {
+      as: 'conta',
+      foreignKey: {
+        field: 'idUsuario',
+        name: 'idUsuario',
+      },
+    });
 
   //   this.hasOne(pModels.cliente, {
   //     as: 'cliente',
