@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SenhasUtil } from '../../../shared/services/utils/senhaUtil';
+import { ToasterService } from '@decisaosistemas/angular-ds';
+import { ICriarContaRequest } from '../../../shared/services/models/conta/ICriarContaReq';
+import { ErrorsUtil } from '../../../shared/services/utils/errosUtil';
 
 @Component({
   selector: 'app-criar-conta',
@@ -17,6 +20,11 @@ export class CriarContaComponent {
   });
 
   public formularioInvalido = false;
+  public errosCustomizados = ErrorsUtil.getErrors;
+
+  constructor(
+    private toasterService: ToasterService,
+  ) { }
 
   public verificarSenha(pSenha: string, pFormControl: FormControl): void {
     if (pSenha !== '') {
@@ -41,5 +49,13 @@ export class CriarContaComponent {
     }
     return false;
   }
+
+  // public buildCriarContaObject(): ICriarContaRequest {
+  //   return {
+  //     email: this.criarContaForm.controls.email.value!,
+  //    senha: this.criarContaForm.controls.senha.value!,
+  //     nome: this.criarContaForm.controls.nome.value!,
+  //  }
+  // }
 
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ButtonModule, InputModule } from '@decisaosistemas/angular-ds';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { LoginLayoutModule } from './layouts/login-layout/login-layout.module';
+import { ToasterControllerComponent } from './shared/services/components/toaster-controller/toaster-controller/toaster-controller.component';
 
 @NgModule({
   declarations: [
