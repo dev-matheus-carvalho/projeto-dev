@@ -6,6 +6,7 @@ export interface IMovimentacao {
   valorTotalJuros: number;
   valorTotalDesconto: number;
   dataUltimoRecebimento?: Date;
+  statusRecebimento: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
