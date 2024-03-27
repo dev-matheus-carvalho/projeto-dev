@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Toaster, ToasterService, } from '@decisaosistemas/angular-ds';
+import { Toaster} from '@decisaosistemas/angular-ds';
 import { Subscription } from 'rxjs';
+import { ToasterService } from './toaster-controller.service';
+
 
 @Component({
   selector: 'ds-toaster-controller',

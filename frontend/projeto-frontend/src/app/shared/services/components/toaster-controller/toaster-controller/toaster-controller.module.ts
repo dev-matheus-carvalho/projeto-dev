@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToasterModule, ToasterService } from '@decisaosistemas/angular-ds';
 import { ToasterControllerComponent } from './toaster-controller.component';
+import { ToasterService } from './toaster-controller.service';
+import { ToasterModule } from '@decisaosistemas/angular-ds';
 
 
 @NgModule({
