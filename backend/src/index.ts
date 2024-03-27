@@ -26,17 +26,11 @@ const jwtServices = new JwtServices();
 
 const autenticadoGuard = new AutenticadoGuard(jwtServices);
 
-// const rootUsecase = new RootUsecase();
-// const rootController = new RootController(rootUsecase);
-// const rootEntrypoint = new RootEntrypoint(rootController, []);
+/* ===================== EntryPoints ========================== */
 
-// const criarContaUsecase = new CriarContaUsecase(contaRepository, criptografiaServices);
-// const criarContaController = new CriarContaController(criarContaUsecase);
-// const criarContaEntrypoint = new CriarContaEntrypoint(criarContaController, []);
+// Conta
 
-// const loginUsecase = new LoginUsecase(contaRepository, criptografiaServices, jwtServices, assertUtils);
-// const loginController = new LoginController(loginUsecase);
-// const loginEntrypoint = new LoginEntrypoint(loginController, []);
+const criarContaEntryPoint = new CriarContaEntrypoint();
 
 const entryPoints: EntryPoint[] = [];
 

@@ -1,4 +1,4 @@
-import Conta from '../../implementations/entity/objectValues/Conta';
+import { Conta } from '../../implementations/entity/objectValues/Conta';
 import IUnitOfWork from '../models/UnitOfWork';
 
 export default interface IContaRepository {
