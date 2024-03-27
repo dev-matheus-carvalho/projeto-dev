@@ -59,6 +59,14 @@ export default class LoteSequelizeModel extends Model<Ilote, IloteModelCreate> i
       },
     });
 
+    this.hasMany(pModels.titulo, {
+      as: 'titulo',
+      foreignKey: {
+        field: 'idLote',
+        name: 'idLote',
+      },
+    });
+
   //   this.hasOne(pModels.cliente, {
   //     as: 'cliente',
   //     foreignKey: 'idPessoa',

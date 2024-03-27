@@ -40,7 +40,7 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
   }
 
   static association(pModels: Models): void {
-    this.hasOne(pModels.pagador, {
+    this.hasMany(pModels.pagador, {
       as: 'pagador',
       foreignKey: {
         field: 'idUsuario',

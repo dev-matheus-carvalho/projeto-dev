@@ -44,6 +44,14 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
       },
     });
 
+    this.hasMany(pModels.titulo, {
+      as: 'titulo',
+      foreignKey: {
+        field: 'idPagador',
+        name: 'idPagador',
+      },
+    });
+
   //   this.hasOne(pModels.cliente, {
   //     as: 'cliente',
   //     foreignKey: 'idPessoa',

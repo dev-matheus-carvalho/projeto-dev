@@ -89,10 +89,37 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
       },
     });
 
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
+    this.belongsTo(pModels.pagador, {
+      as: 'pagador',
+      foreignKey: {
+        field: 'idPagador',
+        name: 'idPagador',
+      },
+    });
+
+    this.belongsTo(pModels.lote, {
+      as: 'lote',
+      foreignKey: {
+        field: 'idLote',
+        name: 'idLote',
+      },
+    });
+
+    this.hasOne(pModels.movimentacao, {
+      as: 'movimentacao',
+      foreignKey: {
+        field: 'idTitulo',
+        name: 'idTitulo',
+      },
+    });
+
+    this.hasMany(pModels.lancamentos, {
+      as: 'lancamentos',
+      foreignKey: {
+        field: 'idTitulo',
+        name: 'idTitulo',
+      },
+    });
 
   //   this.hasMany(pModels.email, {
   //     as: 'emails',
