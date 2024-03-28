@@ -4,7 +4,12 @@ import db from '../../../infra/sequelize/db';
 import IUnitOfWork from '../../protocols/models/UnitOfWork';
 
 export default class UnitOfWork implements IUnitOfWork {
+  // public readonly tokenAutohrization: string;
   private transition: Transaction | undefined;
+
+  // constructor(pTokenAuthorization: string) {
+  //   this.tokenAutohrization = pTokenAuthorization;
+  // }
 
   public async init(): Promise<void> {
     if (this.transition !== undefined) {

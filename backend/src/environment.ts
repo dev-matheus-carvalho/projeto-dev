@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { IEnviroment } from './domain/protocols/models/enviroment';
+import { IEnviroment } from './domain/protocols/models/entity/objectValues/enviroment';
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: `${process.cwd()}/environments/prod` });

@@ -1,7 +1,7 @@
-import Conta from '../../implementations/entity/objectValues/Conta';
-import IUnitOfWork from '../models/UnitOfWork';
+import UnitOfWork from '../../implementations/entity/UnitOfWork';
+import { Conta } from '../../implementations/entity/objectValues/Conta';
 
 export default interface IContaRepository {
-  buscaContaPorEmail(pUnitOfWork: IUnitOfWork, pEmail: string): Promise<Conta | null>;
-  criar(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta>;
+  criar(pUnitOfWork: UnitOfWork, pConta: Conta): Promise<Conta>;
+  buscaContaPorEmail(pUnitOfWork: UnitOfWork, pEmail: string): Promise<Conta | null>;
 }

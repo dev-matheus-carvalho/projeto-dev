@@ -1,4 +1,4 @@
-import { IEntrypointData } from '../../../protocols/models/entryPointData';
+import { IEntrypointData } from '../../../protocols/models/entity/objectValues/entryPointData';
 
 export default class EntrypointData<TBody = any, TParametros = any> implements IEntrypointData {
   public tokenAuthorization: string = '';

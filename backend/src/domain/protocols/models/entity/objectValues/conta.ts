@@ -1,5 +1,4 @@
 export interface IConta {
-  idUsuario: string;
   nome: string;
   email: string;
   senha: string;
