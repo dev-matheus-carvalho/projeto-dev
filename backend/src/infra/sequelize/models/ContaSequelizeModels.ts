@@ -4,7 +4,6 @@ import type Models from '../models';
 import { IConta, IContaModel, IContaModelCreate } from '../../../domain/protocols/models/entity/objectValues/conta';
 
 export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate> implements IContaModel {
-  public idUsuario!: string;
   public nome!: string;
   public email!: string;
   public senha!: string;
@@ -12,11 +11,6 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
-        idUsuario: {
-          type: DataTypes.UUID,
-          primaryKey: true,
-          allowNull: false,
-        },
         nome: {
           type: DataTypes.TEXT,
           allowNull: false,
@@ -34,7 +28,7 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
         freezeTableName: true,
         tableName: 'conta',
         underscored: false,
-        indexes: [{ fields: ['idUsuario'] }, { fields: ['email'] }],
+        indexes: [{ fields: ['email'] }],
       },
     );
   }
@@ -43,24 +37,24 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
     this.hasMany(pModels.pagador, {
       as: 'pagador',
       foreignKey: {
-        field: 'idUsuario',
-        name: 'idUsuario',
+        field: 'email',
+        name: 'email',
       },
     });
 
     this.hasMany(pModels.lote, {
       as: 'lote',
       foreignKey: {
-        field: 'idUsuario',
-        name: 'idUsuario',
+        field: 'email',
+        name: 'email',
       },
     });
 
     this.hasMany(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'idUsuario',
-        name: 'idUsuario',
+        field: 'email',
+        name: 'email',
       },
     });
 

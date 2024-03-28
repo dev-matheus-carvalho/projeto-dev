@@ -1,10 +1,9 @@
 import { IConta, IContaModel, IContaModelCreate } from '../../../protocols/models/entity/objectValues/conta';
-
+import { uuidv4 } from 'uuidv7';
 export class Conta implements IConta {
 
-  public idUsuario: string = '';
-  public email: string = '';
   public nome: string = '';
+  public email: string = '';
   public senha: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -12,9 +11,8 @@ export class Conta implements IConta {
   constructor(pValores?: IContaModel) {
     if (pValores === undefined) return;
 
-    this.idUsuario = pValores.idUsuario ?? this.idUsuario;
-    this.email = pValores.email ?? this.email;
     this.nome = pValores.nome ?? this.nome;
+    this.email = pValores.email ?? this.email;
     this.senha = pValores.senha ?? this.senha;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
@@ -24,8 +22,8 @@ export class Conta implements IConta {
 
   public gerarObjCriar(): IContaModelCreate {
     return {
-      email: this.email,
       nome: this.nome,
+      email: this.email,
       senha: this.senha,
     };
   }

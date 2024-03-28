@@ -84,8 +84,8 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
     this.belongsTo(pModels.conta, {
       as: 'conta',
       foreignKey: {
-        field: 'idUsuario',
-        name: 'idUsuario',
+        field: 'email',
+        name: 'email',
       },
     });
 

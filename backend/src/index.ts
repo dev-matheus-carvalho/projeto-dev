@@ -10,11 +10,13 @@ import EntryPoint from './domain/implementations/entity/entryPoint/EntryPoint';
 import JwtServices from './domain/implementations/services/Jwt.service';
 import { BufferUtils } from './domain/implementations/utils/buffer.utils';
 import { CriptografiaServices } from './domain/implementations/services/criptografia.services';
-import CriarContaController from './application/controllers/conta/criarContaController';
 import CriarContaEntrypoint from './application/entryPoint/conta/criarContaEntrypoint';
 import { AssertsUtils } from './domain/implementations/utils/asserts.utils';
 import LoginController from './application/controllers/conta/loginController';
 import LoginEntrypoint from './application/entryPoint/conta/loginEntrypoint';
+import { CriarContaController } from './application/controllers/conta/criarContaController';
+import { CriarConta } from './domain/implementations/usecase/conta/criarConta/CriarConta';
+import ContaSequelizeRepository from './infra/sequelize/repository/ContaSequelizeRepository';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -29,10 +31,14 @@ const autenticadoGuard = new AutenticadoGuard(jwtServices);
 /* ===================== EntryPoints ========================== */
 
 // Conta
+const contaSequelizeRepository = new ContaSequelizeRepository();
+const criarConta = new CriarConta(contaSequelizeRepository);
+const criarContaController = new CriarContaController(criarConta)
+const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController);
 
-const criarContaEntryPoint = new CriarContaEntrypoint();
-
-const entryPoints: EntryPoint[] = [];
+const entryPoints: EntryPoint[] = [
+  criarContaEntryPoint,
+];
 
 const expressServer: ExpressServer = new ExpressServer();
 expressServer.setEntryPoints(entryPoints);
