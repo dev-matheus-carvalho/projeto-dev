@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div class="login">
+    <div>
+      <div class="centralizar ds-mb-3">
+        <img src="../../../../assets/header.svg" />
+      </div>
+      <div class="ds-row centralizar ds-mb-3 ds-mx-0">
+        <div class="ds-row centralizar ds-mb-3 ds-mx-0">
+          <div class="ds-col-4">
+            <ds-input-text
+              [labelInput]="'E-mail'"
+              [placeholderInputText]="'Insira seu e-mail'"
+              [control]="loginForm.controls.email"
+            ></ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row centralizar ds-mb-3 ds-mx-0">
+          <div class="ds-col-4">
+            <ds-input-text
+              [labelInput]="'Senha'"
+              [placeholderInputText]="'Insira sua senha'"
+              [control]="loginForm.controls.senha"
+            ></ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row centralizar ds-mb-3 ds-mx-0">
+          <div class="ds-col-4">
+            <ds-checkbox [labelCheckbox]="'Lembrar-me'"></ds-checkbox>
+          </div>
+        </div>
+        <div class="ds-row centralizar ds-mb-3 ds-mx-0">
+          <div class="ds-col-4">
+            <ds-button
+              class="ds-d-inline-block width-100"
+              [tipoBotao]="'PRIMARY'"
+              [labelButton]="'Entrar'"
+            ></ds-button>
+          </div>
+        </div>
+        <div class="centralizar">* Campos obrigatórios</div>
+        <div class="centralizar">
+          Não possui cadastro?
+          <a class="ds-ml-2" [routerLink]="'/criar-conta'"
+            >Faça seu cadastro aqui!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  
+        
