@@ -1,7 +1,7 @@
 import UnitOfWork from '../../../entity/UnitOfWork';
 import IContaRepository from '../../../../protocols/repository/contaRepository';
 import { Conta } from '../../../entity/objectValues/Conta';
-// import senhaUtil from '../../../utils/senhaUtil';
+import senhaUtil from '../../../utils/senhaUtil';
 import { CriarContaInput } from './CriarContaInput';
 import { CriarContaOutput } from './CriarContaOutput';
 
@@ -13,10 +13,9 @@ export class CriarConta {
     const conta = new Conta({
       email: pInputConta.email,
       nome: pInputConta.nome,
-      // senha: senhaUtil.criptografarSenha(pInputConta.senha),
+      senha: senhaUtil.criptografarSenha(pInputConta.senha),
     })
-    // const isContaExist = await this.contaRepository.listarContaPorEmail(conta.email);
-    const isContaExist = false; // Exemplo certo é o de cima
+    const isContaExist = await this.contaRepository.buscaContaPorEmail(pUnitOfWork ,conta.email);
     if (!isContaExist) {
       const contaDb = await this.contaRepository.criar(pUnitOfWork, conta)
       return new CriarContaOutput(contaDb);
