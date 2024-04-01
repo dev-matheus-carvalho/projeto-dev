@@ -16,7 +16,9 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
           allowNull: false,
         },
         email: {
-          type: DataTypes.TEXT
+          type: DataTypes.TEXT,
+          primaryKey: true,
+          allowNull: false,
         },
         senha: {
           type: DataTypes.TEXT,

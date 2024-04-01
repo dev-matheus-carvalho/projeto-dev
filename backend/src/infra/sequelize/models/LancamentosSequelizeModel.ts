@@ -65,8 +65,8 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
     this.belongsTo(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'idTitulo',
-        name: 'idTitulo',
+        field: 'numeroTitulo',
+        name: 'numeroTitulo',
       },
     });
     // this.belongsTo(pModels.lote, {

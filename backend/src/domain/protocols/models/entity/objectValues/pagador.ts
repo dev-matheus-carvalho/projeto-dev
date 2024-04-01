@@ -1,5 +1,4 @@
 export interface IPagador {
-  idPagador: string;
   nome: string;
   identificacao: string;
   createdAt?: Date;

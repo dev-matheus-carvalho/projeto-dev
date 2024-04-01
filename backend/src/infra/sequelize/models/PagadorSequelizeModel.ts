@@ -4,24 +4,19 @@ import type Models from '../models';
 import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../domain/protocols/models/entity/objectValues/pagador';
 
 export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModelCreate> implements IPagadorModel {
-  public idPagador!: string;
   public nome!: string;
   public identificacao!: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
-        idPagador: {
-          type: DataTypes.UUID,
-          primaryKey: true,
-          allowNull: false,
-        },
         nome: {
           type: DataTypes.TEXT,
           allowNull: false,
         },
         identificacao: {
           type: DataTypes.TEXT,
+          primaryKey: true,
           allowNull: false
         }
       },
@@ -47,8 +42,8 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
     this.hasMany(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'idPagador',
-        name: 'idPagador',
+        field: 'identificacao',
+        name: 'identificacao',
       },
     });
 

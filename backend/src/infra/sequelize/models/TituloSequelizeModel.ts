@@ -4,29 +4,27 @@ import type Models from '../models';
 import { ITitulo, ITituloModel, ITituloModelCreate } from '../../../domain/protocols/models/entity/objectValues/titulo';
 
 export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCreate> implements ITituloModel {
-  public idTitulo!: string;
   public numeroTitulo!: string;
   public tipoTitulo!: string;
   public vencimento!: Date;
   public situaçao!: string;
   public duplicataChaveNota?: string;
+  public duplicataProtocoloNota?: string; // 1
   public duplicataNumeroNota?: string;
   public duplicataSerieNota?: string;
   public duplicataDataEmissao?: Date;
   public duplicataNumeroFatura?: string;
+  public numeroDoTitulo?: string; // 2
   public duplicataValorLiquidoFatura?: number;
+  public valorDoTitulo!: number; // 3
   public chequeCmc7?: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
-        idTitulo: {
-          type: DataTypes.UUID,
-          primaryKey: true,
-          allowNull: false,
-        },
         numeroTitulo: {
           type: DataTypes.TEXT,
+          primaryKey: true,
           allowNull: false,
         },
         tipoTitulo: {
@@ -42,6 +40,10 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           allowNull: false,
         },
         duplicataChaveNota: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        },
+        duplicataProtocoloNota: {
           type: DataTypes.TEXT,
           allowNull: true,
         },
@@ -61,9 +63,17 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.TEXT,
           allowNull: true,
         },
+        numeroDoTitulo: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        },
         duplicataValorLiquidoFatura: {
           type: DataTypes.FLOAT,
           allowNull: true,
+        },
+        valorDoTitulo: {
+          type: DataTypes.FLOAT,
+          allowNull: false,
         },
         chequeCmc7: {
           type: DataTypes.TEXT,
@@ -92,8 +102,8 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
     this.belongsTo(pModels.pagador, {
       as: 'pagador',
       foreignKey: {
-        field: 'idPagador',
-        name: 'idPagador',
+        field: 'identificacao',
+        name: 'identificacao',
       },
     });
 
@@ -108,32 +118,17 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
     this.hasOne(pModels.movimentacao, {
       as: 'movimentacao',
       foreignKey: {
-        field: 'idTitulo',
-        name: 'idTitulo',
+        field: 'numeroTitulo',
+        name: 'numeroTitulo',
       },
     });
 
     this.hasMany(pModels.lancamentos, {
       as: 'lancamentos',
       foreignKey: {
-        field: 'idTitulo',
-        name: 'idTitulo',
+        field: 'numeroTitulo',
+        name: 'numeroTitulo',
       },
     });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
   }
 }

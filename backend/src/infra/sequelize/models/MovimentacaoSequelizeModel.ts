@@ -65,8 +65,8 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
     this.belongsTo(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'idTitulo',
-        name: 'idTitulo',
+        field: 'numeroTitulo',
+        name: 'numeroTitulo',
       },
     });
 
