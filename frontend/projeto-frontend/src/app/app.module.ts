@@ -5,20 +5,22 @@ import { AppComponent } from './app.component';
 import { ButtonModule, InputModule } from '@decisaosistemas/angular-ds';
 import { LoginLayoutModule } from './layouts/login-layout/login-layout.module';
 import { LogadoLayoutComponent } from './layouts/logado-layout/logado-layout.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LogadoLayoutModule } from './layouts/logado-layout/logado-layout.module';
+import { ToasterControllerModule } from './shared/components/toaster-controller/toaster-controller.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogadoLayoutComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    ButtonModule,
-    InputModule,
     LoginLayoutModule,
-    LoginLayoutModule,
+    LogadoLayoutModule,
+    ToasterControllerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

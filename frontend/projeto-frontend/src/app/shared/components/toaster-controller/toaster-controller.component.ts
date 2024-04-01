@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Toaster} from '@decisaosistemas/angular-ds';
 import { Subscription } from 'rxjs';
-import { ToasterService } from './toaster-controller.service';
+import { ToasterService } from './toaster.service';
 
 
 @Component({
@@ -22,9 +22,8 @@ export class ToasterControllerComponent {
       this.toasters.push(toaster);
     });
   }
-
-  public closed(toaster: Toaster): void {
-    this.toasters = this.toasters.filter((t) => t.id !== toaster.id);
+    public closed(toaster: Toaster): void {
+      this.toasters = this.toasters.filter((t) => t.id !== toaster.id);
+    }
   }
 
-}

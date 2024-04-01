@@ -33,6 +33,8 @@
               class="ds-d-inline-block width-100"
               [tipoBotao]="'PRIMARY'"
               [labelButton]="'Entrar'"
+              [isDesabilitado]="loginForm.invalid"
+              (click)="login()"
             ></ds-button>
           </div>
         </div>

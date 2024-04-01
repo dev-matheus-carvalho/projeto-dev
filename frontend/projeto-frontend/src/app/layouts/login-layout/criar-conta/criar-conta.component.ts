@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SenhasUtil } from '../../../shared/services/utils/senhaUtil';
-import { ToasterService } from '@decisaosistemas/angular-ds';
-import { ICriarContaRequest } from '../../../shared/services/models/conta/ICriarContaReq';
-import { ErrorsUtil } from '../../../shared/services/utils/errosUtil';
+import { ICriarContaReq } from '../../../shared/services/models/conta/ICriarContaReq';
+import { ErrorsUtil } from '../../../shared/utils/errosUtil';
+import { SenhasUtil } from '../../../shared/utils/senhaUtil';
+import { ContaService } from '../../../shared/services/https/conta.service';
+import { Router } from '@angular/router';
+import { ToasterService } from '../../../shared/components/toaster-controller/toaster.service';
 
 @Component({
   selector: 'app-criar-conta',
@@ -23,7 +25,9 @@ export class CriarContaComponent {
   public errosCustomizados = ErrorsUtil.getErrors;
 
   constructor(
+    private contaService: ContaService,
     private toasterService: ToasterService,
+    private router: Router
   ) { }
 
   public verificarSenha(pSenha: string, pFormControl: FormControl): void {
@@ -50,12 +54,28 @@ export class CriarContaComponent {
     return false;
   }
 
-  // public buildCriarContaObject(): ICriarContaRequest {
-  //   return {
-  //     email: this.criarContaForm.controls.email.value!,
-  //    senha: this.criarContaForm.controls.senha.value!,
-  //     nome: this.criarContaForm.controls.nome.value!,
-  //  }
-  // }
+  public buildCriarContaObject(): ICriarContaReq {
+    return {
+      email: this.criarContaForm.controls.email.value!,
+     senha: this.criarContaForm.controls.senha.value!,
+      nome: this.criarContaForm.controls.nome.value!,
+   }
+  }
+
+  public async criarConta(): Promise<void> {
+    try {
+      if (!this.verificarSeFormularioEInvalido()) {
+        const dados = await this.contaService.criarConta(this.buildCriarContaObject());
+        if (dados.sucesso) {
+          localStorage.setItem('nomeUsuario', this.criarContaForm.controls.nome.value!);
+          this.toasterService.showSuccess('Conta criada com sucesso!');
+          this.router.navigate(['login'])
+        }
+      }
+    } catch (error) {
+      this.toasterService.showAlert('Erro ao criar conta');
+      throw error;
+    }
+  }
 
 }

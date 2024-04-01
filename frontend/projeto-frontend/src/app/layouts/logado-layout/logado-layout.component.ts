@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SideNavItemRouterLink, SideNavItemTarget } from '@decisaosistemas/angular-ds';
 
 @Component({
   selector: 'app-logado-layout',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrl: './logado-layout.component.scss'
 })
 export class LogadoLayoutComponent {
+
+  public menus: (SideNavItemTarget | SideNavItemRouterLink)[] = [];
+
+  ngOnInit(): void {
+    this.menus = [
+      new SideNavItemRouterLink('Início', 'ds-icon-home', `/inicio`),
+      new SideNavItemRouterLink('Lote', 'ds-icon-upload', `/lote`),
+      new SideNavItemRouterLink('Contas a Receber', 'ds-icon-coin-add', `/contas-receber`),
+    ];
+  }
 
 }

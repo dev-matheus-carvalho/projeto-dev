@@ -1,0 +1,18 @@
+.logado-layout {
+    margin-top: 55px;
+    padding-bottom: 30px;
+    width: 100%;
+    .position-fixed {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+    }
+    .main-container {
+      height: var(--main-content-height);
+      // max-height: var(--main-content-height);
+      margin-left: 52px;
+      margin-right: 43px;
+      // padding: 1rem 20px;
+    }
+  }
+  
