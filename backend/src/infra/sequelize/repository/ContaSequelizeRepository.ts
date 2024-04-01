@@ -5,7 +5,6 @@ import IUnitOfWork from '../../../domain/protocols/models/UnitOfWork';
 import IContaRepository from '../../../domain/protocols/repository/contaRepository';
 
 export default class ContaSequelizeRepository implements IContaRepository {
-
   public async criar(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta> {
     const contaDb = await db.models.conta.create(pConta.gerarObjCriar(), {
       transaction: pUnitOfWork.getTransition(),

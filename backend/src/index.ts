@@ -28,9 +28,12 @@ const jwtServices = new JwtServices();
 
 const autenticadoGuard = new AutenticadoGuard(jwtServices);
 
-/* ===================== EntryPoints ========================== */
+//================================================================
+/* ======================== Conta ============================= */
+//================================================================
 
-// Conta
+// ********************** Criar Conta ****************************
+
 const contaSequelizeRepository = new ContaSequelizeRepository();
 const criarConta = new CriarConta(contaSequelizeRepository);
 const criarContaController = new CriarContaController(criarConta)
