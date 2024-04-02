@@ -25,6 +25,9 @@ import CriarPagadorEntrypoint from './application/entryPoint/pagador/criarPagado
 import { EditarPagador } from './domain/implementations/usecase/pagador/editarPagador/EditarPagador';
 import { EditarPagadorController } from './application/controllers/pagador/EditarPagadorController';
 import EditarPagadorEntrypoint from './application/entryPoint/pagador/editarPagadorEntrypoint';
+import { BuscarPagador } from './domain/implementations/usecase/pagador/buscarPagador/BuscarPagador';
+import { BuscarPagadorController } from './application/controllers/pagador/BuscarPagadorController';
+import BuscarPagadorEntrypoint from './application/entryPoint/pagador/buscarPagadorEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -57,6 +60,10 @@ const loginEntrypoint = new LoginEntrypoint(loginController);
 
 const pagadorRepository = new PagadorSequelizeRepository();
 
+const buscarPagador = new BuscarPagador(pagadorRepository);
+const buscarPagadorController = new BuscarPagadorController(buscarPagador);
+const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController);
+
 const criarPagador = new CriarPagador(pagadorRepository);
 const criarPagadorController = new CriarPagadorController(criarPagador);
 const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController);
@@ -68,6 +75,7 @@ const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorControl
 const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
   loginEntrypoint,
+  buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint
 ];
