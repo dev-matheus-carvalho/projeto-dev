@@ -6,6 +6,7 @@ import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../domain/pr
 export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModelCreate> implements IPagadorModel {
   public nome!: string;
   public identificacao!: string;
+  public email!: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -17,6 +18,10 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
         identificacao: {
           type: DataTypes.TEXT,
           primaryKey: true,
+          allowNull: false
+        },
+        email: {
+          type: DataTypes.TEXT,
           allowNull: false
         }
       },

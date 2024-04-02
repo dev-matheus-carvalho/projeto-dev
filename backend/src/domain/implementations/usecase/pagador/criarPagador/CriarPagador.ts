@@ -12,7 +12,8 @@ export class CriarPagador {
     
     const pagador = new Pagador({
       nome: pInputPagador.nome,
-      identificacao: pInputPagador.identificacao
+      identificacao: pInputPagador.identificacao,
+      email: pInputPagador.email
     })
 
     const isPagadorExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);

@@ -1,6 +1,7 @@
 export interface IPagador {
   nome: string;
   identificacao: string;
+  email: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

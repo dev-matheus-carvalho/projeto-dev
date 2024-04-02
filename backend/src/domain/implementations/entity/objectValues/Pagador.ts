@@ -3,6 +3,7 @@ export class Pagador implements IPagador {
 
   public nome: string = '';
   public identificacao: string = '';
+  public email: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
 
@@ -11,6 +12,7 @@ export class Pagador implements IPagador {
 
     this.nome = pValores.nome ?? this.nome;
     this.identificacao = pValores.identificacao ?? this.identificacao;
+    this.email = pValores.email ?? this.email;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
 
@@ -21,6 +23,7 @@ export class Pagador implements IPagador {
     return {
       nome: this.nome,
       identificacao: this.identificacao,
+      email: this.email,
     };
   }
 }
