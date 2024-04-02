@@ -8,18 +8,18 @@ export class CriarPagador {
   constructor(private pagadorRepository: IPagadorRepository) {
   }
 
-  public async execute(pUnitOfWork: UnitOfWork, pInputPagador: CriarPagadorInput): Promise<CriarPagadorOutput | boolean> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputPagador: CriarPagadorInput): Promise<CriarPagadorOutput | null> {
     
     const pagador = new Pagador({
       nome: pInputPagador.nome,
       identificacao: pInputPagador.identificacao
     })
 
-    const isContaExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);
-    if (!isContaExist) {
-      const contaDb = await this.pagadorRepository.criar(pUnitOfWork, pagador)
-      return new CriarPagadorOutput(contaDb);
+    const isPagadorExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);
+    if (!isPagadorExist) {
+      await this.pagadorRepository.criar(pUnitOfWork, pagador)
+      return new CriarPagadorOutput(pagador);
     }
-    return false;
+    return null;
   }
 }

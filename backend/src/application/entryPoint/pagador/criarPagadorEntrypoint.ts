@@ -4,7 +4,7 @@ import { IEntrypointGuard } from '../../../domain/protocols/services/EntrypointG
 import { HttpMetodos } from '../../../infra/express/models/httpMetodoEnum';
 
 export default class CriarPagadorEntrypoint {
-  public path: string = '/criar-pagador';
+  public path: string = '/pagador';
 
   public httpMetodo: HttpMetodos = HttpMetodos.post;
 

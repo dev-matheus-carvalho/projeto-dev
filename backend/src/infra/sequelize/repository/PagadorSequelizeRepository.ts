@@ -8,7 +8,7 @@ import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 export default class PagadorSequelizeRepository implements IPagadorRepository {
   
   public async criar(pUnitOfWork: IUnitOfWork, pPagador: Pagador): Promise<Pagador> {
-    const pagadorDb = await db.models.conta.create(pPagador.gerarObjCriar(), {
+    const pagadorDb = await db.models.pagador.create(pPagador.gerarObjCriar(), {
       transaction: pUnitOfWork.getTransition(),
     });
 

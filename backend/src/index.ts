@@ -18,6 +18,10 @@ import { CriarConta } from './domain/implementations/usecase/conta/criarConta/Cr
 import ContaSequelizeRepository from './infra/sequelize/repository/ContaSequelizeRepository';
 import { Login } from './domain/implementations/usecase/conta/login/Login';
 import { LoginController } from './application/controllers/conta/loginController';
+import PagadorSequelizeRepository from './infra/sequelize/repository/PagadorSequelizeRepository';
+import { CriarPagador } from './domain/implementations/usecase/pagador/criarPagador/CriarPagador';
+import { CriarPagadorController } from './application/controllers/pagador/CriarPagadorController';
+import CriarPagadorEntrypoint from './application/entryPoint/pagador/criarPagadorEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -44,11 +48,17 @@ const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController);
 
 const login = new Login(contaRepository);
 const loginController = new LoginController(login);
-const loginEntrypoint = new LoginEntrypoint(loginController)
+const loginEntrypoint = new LoginEntrypoint(loginController);
+
+const pagadorRepository = new PagadorSequelizeRepository();
+const criarPagador = new CriarPagador(pagadorRepository);
+const criarPagadorController = new CriarPagadorController(criarPagador);
+const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController);
 
 const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
   loginEntrypoint,
+  criarPagadorEntrypoint
 ];
 
 const expressServer: ExpressServer = new ExpressServer();
