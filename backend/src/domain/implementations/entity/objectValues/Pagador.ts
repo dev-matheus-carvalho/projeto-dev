@@ -15,8 +15,6 @@ export class Pagador implements IPagador {
     this.email = pValores.email ?? this.email;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
-
-
   }
 
   public gerarObjCriar(): IPagadorModelCreate {
