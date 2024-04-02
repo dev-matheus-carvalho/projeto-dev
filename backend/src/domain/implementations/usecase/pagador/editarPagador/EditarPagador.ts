@@ -3,7 +3,7 @@ import { Pagador } from '../../../entity/objectValues/Pagador';
 import IPagadorRepository from '../../../../protocols/repository/pagadorRepository';
 import { EditarPagadorInput } from './EditarPagadorInput';
 
-export class CriarPagador {
+export class EditarPagador {
   constructor(private pagadorRepository: IPagadorRepository) {
   }
 
@@ -11,12 +11,31 @@ export class CriarPagador {
     
     const pagador = new Pagador({
       nome: pInputPagador.nome,
-      identificacao: pInputPagador.identificacao
+      identificacao: pInputPagador.identificacao,
+      email: pInputPagador.email
     })
 
+    console.log();
+    console.log();
+    console.log('Aqui fica o Pagador')
+    console.log();
+    console.log(pagador)
+    console.log();
+    console.log();
+
     const isPagadorExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);
+
+    console.log()
+    console.log()
+    console.log('Aqui fica o resultado se existe pagador')
+    console.log()
+    console.log(isPagadorExist)
+    console.log()
+    console.log()
+
     if (isPagadorExist) {
       await this.pagadorRepository.editar(pUnitOfWork, pagador);
+      console.log('Caiu aqui')
       return Promise.resolve(true);
     }
     return Promise.resolve(false);

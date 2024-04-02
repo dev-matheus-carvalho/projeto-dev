@@ -2,18 +2,17 @@ import { ValidadorDados } from '@decisaosistemas/typescript-validador-dados';
 import EntrypointData from '../../../entity/entryPoint/EntryPointData';
 import InformacaoNaoInfomada from '../../../entity/errors/InformacaoNaoInformada';
 
-
 export class EditarPagadorInput {
 
   public nome: string;
   public identificacao: string;
-  public email: string;
+  public email?: string;
 
   constructor(pData: EntrypointData) {
 
     const nomeValidador = ValidadorDados.iniciar(pData.body?.nome, 'body.nome').obrigatorio().string();
     const identificacaoValidador = ValidadorDados.iniciar(pData.body?.identificacao, 'body.identificacao').obrigatorio().string();
-    const emailValidador = ValidadorDados.iniciar(pData.body?.email, 'body.identificacao').obrigatorio().string();
+    const emailValidador = ValidadorDados.iniciar(pData.body?.email, 'body.identificacao').string();
 
     if (nomeValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "nome": ${nomeValidador.getErro()}`);

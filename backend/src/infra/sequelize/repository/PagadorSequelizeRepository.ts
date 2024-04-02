@@ -27,13 +27,25 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
     return null;
   }
 
+  public async listarPagadorPorEmail(pPagador: string): Promise<Pagador | null> {
+    const pagadorDb = await db.models.pagador.findOne<PagadorSequelizeModel>({
+      where: {
+        email: pPagador,
+      }
+    });
+    if (pagadorDb) {
+      return Promise.resolve(new Pagador(pagadorDb));
+    }
+    return null;
+  }
+
   async editar(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<boolean> {
     const result = await db.models.pagador.update<PagadorSequelizeModel>({
       nome: pPagador.nome,
-      identificacao: pPagador.identificacao,
+      identificacao: pPagador.identificacao
     }, {
       where: {
-        identificacao: pPagador.identificacao
+        email: pPagador.email
       },
       transaction: pUnitOfWork.getTransition(),
     });

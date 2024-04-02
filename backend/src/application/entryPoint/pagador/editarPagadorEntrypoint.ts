@@ -3,10 +3,10 @@ import IController from '../../../domain/protocols/services/Controller';
 import { IEntrypointGuard } from '../../../domain/protocols/services/EntrypointGuard';
 import { HttpMetodos } from '../../../infra/express/models/httpMetodoEnum';
 
-export default class CriarPagadorEntrypoint {
-  public path: string = '/criar-pagador';
+export default class EditarPagadorEntrypoint {
+  public path: string = '/editar-pagador';
 
-  public httpMetodo: HttpMetodos = HttpMetodos.post;
+  public httpMetodo: HttpMetodos = HttpMetodos.put;
 
   public controller: IController;
 
