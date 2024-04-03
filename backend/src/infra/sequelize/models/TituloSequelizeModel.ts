@@ -7,17 +7,22 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   public numeroTitulo!: string;
   public tipoTitulo!: string;
   public vencimento!: Date;
-  public situaçao!: string;
+  public situaçaoTitulo!: string;
   public duplicataChaveNota?: string;
-  public duplicataProtocoloNota?: string; // 1
+  public duplicataProtocoloNota?: string;
   public duplicataNumeroNota?: string;
   public duplicataSerieNota?: string;
   public duplicataDataEmissao?: Date;
   public duplicataNumeroFatura?: string;
-  public numeroDoTitulo?: string; // 2
+  public numeroDoTitulo?: string;
   public duplicataValorLiquidoFatura?: number;
-  public valorDoTitulo!: number; // 3
+  public valorDoTitulo!: number;
   public chequeCmc7?: string;
+  public identificacao!: string;
+  public idLote?: string;
+  public idMovimentacao?: string;
+  public idLancamento?: string;
+  public isProcessado!: boolean;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -35,7 +40,7 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.DATE,
           allowNull: false,
         },
-        situaçao: {
+        situaçaoTitulo: {
           type: DataTypes.TEXT,
           allowNull: false,
         },
@@ -77,6 +82,26 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
         },
         chequeCmc7: {
           type: DataTypes.TEXT,
+          allowNull: true,
+        },
+        identificacao: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        },
+        idLote: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        idMovimentacao: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        idLancamento: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        isProcessado: {
+          type: DataTypes.BOOLEAN,
           allowNull: true,
         },
       },

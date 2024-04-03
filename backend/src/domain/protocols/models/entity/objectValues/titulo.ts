@@ -2,7 +2,7 @@ export interface ITitulo {
   numeroTitulo: string;
   tipoTitulo: string;
   vencimento: Date;
-  situaçao: string;
+  situaçaoTitulo?: string;
   duplicataChaveNota?: string;
   duplicataProtocoloNota?: string; // 1
   duplicataNumeroNota?: string;
@@ -13,6 +13,12 @@ export interface ITitulo {
   duplicataValorLiquidoFatura?: number;
   valorDoTitulo: number; // 3
   chequeCmc7?: string;
+
+  identificacao: string; // Referente ao pagador
+  idLote?: string; // Referente ao id do lote
+  idMovimentacao?: string;
+  idLancamento?: string;
+  isProcessado: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
