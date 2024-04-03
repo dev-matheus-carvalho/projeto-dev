@@ -62,11 +62,11 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
   }
 
   static association(pModels: Models): void {
-    this.belongsTo(pModels.titulo, {
+    this.hasMany(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'numeroTitulo',
-        name: 'numeroTitulo',
+        field: 'idLancamento',
+        name: 'idLancamento',
       },
     });
     // this.belongsTo(pModels.lote, {

@@ -18,6 +18,7 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo!: number;
   public chequeCmc7?: string;
+  public email!: string;
   public identificacao!: string;
   public idLote?: string;
   public idMovimentacao?: string;
@@ -84,25 +85,29 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.TEXT,
           allowNull: true,
         },
+        email: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
         identificacao: {
           type: DataTypes.TEXT,
-          allowNull: true,
+          allowNull: false,
         },
         idLote: {
-          type: DataTypes.TEXT,
-          allowNull: false,
+          type: DataTypes.UUID,
+          allowNull: true,
         },
         idMovimentacao: {
-          type: DataTypes.TEXT,
-          allowNull: false,
+          type: DataTypes.UUID,
+          allowNull: true,
         },
         idLancamento: {
-          type: DataTypes.TEXT,
-          allowNull: false,
+          type: DataTypes.UUID,
+          allowNull: true,
         },
         isProcessado: {
           type: DataTypes.BOOLEAN,
-          allowNull: true,
+          allowNull: false,
         },
       },
       {
@@ -140,19 +145,19 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
       },
     });
 
-    this.hasOne(pModels.movimentacao, {
+    this.belongsTo(pModels.movimentacao, {
       as: 'movimentacao',
       foreignKey: {
-        field: 'numeroTitulo',
-        name: 'numeroTitulo',
+        field: 'idMovimentacao',
+        name: 'idMovimentacao',
       },
     });
 
-    this.hasMany(pModels.lancamentos, {
+    this.belongsTo(pModels.lancamentos, {
       as: 'lancamentos',
       foreignKey: {
-        field: 'numeroTitulo',
-        name: 'numeroTitulo',
+        field: 'idLancamento',
+        name: 'idLancamento',
       },
     });
   }

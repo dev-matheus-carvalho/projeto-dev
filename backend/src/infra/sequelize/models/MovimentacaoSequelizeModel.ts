@@ -62,32 +62,12 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   }
 
   static association(pModels: Models): void {
-    this.belongsTo(pModels.titulo, {
+    this.hasOne(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'numeroTitulo',
-        name: 'numeroTitulo',
+        field: 'idMovimentacao',
+        name: 'idMovimentacao',
       },
     });
-
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
   }
 }

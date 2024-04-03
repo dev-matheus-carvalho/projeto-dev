@@ -13,7 +13,7 @@ export interface ITitulo {
   duplicataValorLiquidoFatura?: number;
   valorDoTitulo: number; // 3
   chequeCmc7?: string;
-
+  email: string;
   identificacao: string; // Referente ao pagador
   idLote?: string; // Referente ao id do lote
   idMovimentacao?: string;
