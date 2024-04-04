@@ -7,7 +7,7 @@ export class Titulo implements ITitulo {
   public numeroTitulo: string = '';
   public tipoTitulo: string = TipoTituloEnum.DUPLICATA;
   public vencimento!: Date;
-  public situaçaoTitulo: string = SituacaoTituloEnum.AVENCER;
+  public situacaoTitulo: string = SituacaoTituloEnum.AVENCER;
   public duplicataChaveNota: string = '';
   public duplicataProtocoloNota: string = '';
   public duplicataNumeroNota: string = '';
@@ -32,7 +32,7 @@ export class Titulo implements ITitulo {
     this.numeroTitulo = pValores.numeroTitulo ?? this.numeroTitulo;
     this.tipoTitulo = pValores.tipoTitulo ?? this.tipoTitulo;
     this.vencimento = pValores.vencimento ?? this.vencimento;
-    this.situaçaoTitulo = pValores.situaçaoTitulo ?? this.situaçaoTitulo;
+    this.situacaoTitulo = pValores.situacaoTitulo ?? this.situacaoTitulo;
     this.duplicataChaveNota = pValores.duplicataChaveNota ?? this.duplicataChaveNota;
     this.duplicataProtocoloNota = pValores.duplicataProtocoloNota ?? this.duplicataProtocoloNota;
     this.duplicataNumeroNota = pValores.duplicataNumeroNota ?? this.duplicataNumeroNota;
@@ -57,7 +57,7 @@ export class Titulo implements ITitulo {
       numeroTitulo: this.numeroTitulo,
       tipoTitulo: this.tipoTitulo,
       vencimento: this.vencimento,
-      situaçaoTitulo: this.situaçaoTitulo,
+      situacaoTitulo: this.situacaoTitulo,
       duplicataChaveNota: this.duplicataChaveNota,
       duplicataProtocoloNota: this.duplicataProtocoloNota,
       duplicataNumeroNota: this.duplicataNumeroNota,
@@ -72,7 +72,7 @@ export class Titulo implements ITitulo {
       idLote: this.idLote,
       idMovimentacao: this.idMovimentacao,
       idLancamento: this.idLancamento,
-      isProcessado: this.isProcessado,
+      isProcessado: this.isProcessado
     };
   }
 }

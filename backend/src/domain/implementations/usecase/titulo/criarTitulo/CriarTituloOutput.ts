@@ -4,7 +4,7 @@ export class CriarTituloOutput {
   public numeroTitulo: string;
   public tipoTitulo: string;
   public vencimento: Date;
-  public situaçaoTitulo: string;
+  public situacaoTitulo: string;
   public duplicataChaveNota: string;
   public duplicataProtocoloNota: string;
   public duplicataNumeroNota: string;
@@ -25,7 +25,7 @@ export class CriarTituloOutput {
     this.numeroTitulo = pTitulo.numeroTitulo,
     this.tipoTitulo = pTitulo.tipoTitulo,
     this.vencimento = pTitulo.vencimento,
-    this.situaçaoTitulo = pTitulo.situaçaoTitulo,
+    this.situacaoTitulo = pTitulo.situacaoTitulo,
     this.duplicataChaveNota = pTitulo.duplicataChaveNota,
     this.duplicataProtocoloNota = pTitulo.duplicataProtocoloNota,
     this.duplicataNumeroNota = pTitulo.duplicataNumeroNota,
