@@ -1,0 +1,17 @@
+.black-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ced4da; 
+    z-index: -1;
+}
+
+.container {
+    margin: 52px 20px 52px calc(52px + 20px); /* Margem: acima de 52px, direita e esquerda de 20px, 52px antes do fim da página */
+    padding: 20px;
+    background-color: #fff; /* Cor de fundo do container (exemplo) */
+    border-radius: 15px; /* Bordas arredondadas do container (exemplo) */
+    min-height: calc(75vh - 52px); /* Altura mínima do container para ocupar toda a tela, menos a altura da navbar */
+}

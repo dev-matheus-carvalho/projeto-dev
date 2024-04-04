@@ -1,0 +1,29 @@
+.listar-lote {
+    height: calc(100vh - 86px - 32px);
+    padding-top: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lote-header {
+    margin-left: 50px;
+    display: flex;
+    justify-content: flex-start; /* Alinha o botão no canto superior esquerdo */
+  }
+  
+  .lote-container-vazio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1; /* Ocupa o restante do espaço disponível */
+  }
+  
+  .texto-imagem {
+    margin-top: 1rem; /* Espaçamento entre as imagens */
+    font-weight: 700;
+  }
+   body {
+    background-color: red;
+   }

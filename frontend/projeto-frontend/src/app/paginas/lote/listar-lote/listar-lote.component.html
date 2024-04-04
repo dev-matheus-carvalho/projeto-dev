@@ -1,0 +1,14 @@
+<div class="listar-lote">
+    <div class="lote-header">
+      <ds-button
+      [iconeEsquerda]="'ds-icon-add'"
+      [tipoBotao]="'PRIMARY'"
+      [labelButton]="'Novo Lote'"
+      (click)="adicionarLote()"
+    ></ds-button>
+    </div>
+    <div class="lote-container-vazio" *ngIf="listarLote.length === 0">
+      <img src="../../../assets/Nada por aqui 2.svg" />
+      <img src="../../../assets/Texte.svg" />
+    </div>
+  </div>

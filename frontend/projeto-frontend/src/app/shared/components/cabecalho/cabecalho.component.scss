@@ -1,13 +1,31 @@
 .header {
-    .header-layout {
+  .header-layout {
+    display: flex;
+    justify-content: flex-end;
+    height: 55px;
+    border-bottom: 1px solid #2f3337;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: var(--primary-color-300);
+
+    .centralizar-icone {
+      cursor: pointer;
       display: flex;
-      justify-content: flex-end;
-      height: 52px;
-      border-bottom: 1px solid #2f3337;
-      width: 100%;
-      position: fixed;
-      top: 0;
-      border-radius: 0;
-      background-color: var(--primary-color-300);
+      align-items: center;
+      margin-right: 50px; 
+      justify-content: flex-end; 
+    }
+  
+      .icone-frase {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .frase {
+        margin: 0 10px; 
+      }
     }
   }

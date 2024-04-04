@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToasterService } from '@decisaosistemas/angular-ds';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cabecalho',
@@ -7,4 +10,13 @@ import { Component } from '@angular/core';
 })
 export class CabecalhoComponent {
 
+  nomeUsuario: string = '';
+
+  constructor(private ngbModal: NgbModal, private router: Router, private toasterService: ToasterService) {
+    this.obterDadosUsuarioLogado();
+  }
+
+  public obterDadosUsuarioLogado(): void {
+    this.nomeUsuario = localStorage.getItem('nomeUsuario') ?? '';
+  }
 }

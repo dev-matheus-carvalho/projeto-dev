@@ -12,11 +12,11 @@ const routes: Routes = [
         canActivate: [AuthService],
         loadChildren: () => import('../../paginas/inicio/inicio.module').then((m) => m.InicioModule),
       },
-    //   {
-    //     path: 'cliente',
-    //     canActivate: [AuthService],
-    //     loadChildren: () => import('../../pages/cliente/cliente.module').then((m) => m.ClienteModule),
-    //   },
+      {
+        path: 'lote',
+        canActivate: [AuthService],
+        loadChildren: () => import('../../paginas/lote/lote.module').then((m) => m.LoteModule),
+      },
     //   {
     //     path: 'contatos',
     //     canActivate: [AuthService],
