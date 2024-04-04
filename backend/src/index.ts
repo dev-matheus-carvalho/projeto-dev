@@ -28,6 +28,10 @@ import EditarPagadorEntrypoint from './application/entryPoint/pagador/editarPaga
 import { BuscarPagador } from './domain/implementations/usecase/pagador/buscarPagador/BuscarPagador';
 import { BuscarPagadorController } from './application/controllers/pagador/BuscarPagadorController';
 import BuscarPagadorEntrypoint from './application/entryPoint/pagador/buscarPagadorEntrypoint';
+import TituloSequelizeRepository from './infra/sequelize/repository/TituloSequelizeRepository';
+import { CriarTitulo } from './domain/implementations/usecase/titulo/criarTitulo/CriarTitulo';
+import { CriarTituloController } from './application/controllers/titulo/CriarTituloController';
+import CriarTituloEntrypoint from './application/entryPoint/titulo/criarTituloEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -39,22 +43,25 @@ const jwtServices = new JwtServices();
 
 const autenticadoGuard = new AutenticadoGuard(jwtServices);
 
-//================================================================
-/* ======================== Conta ============================= */
-//================================================================
-
-// ********************** Criar Conta ****************************
+// Criar Conta
 const contaRepository = new ContaSequelizeRepository();
 
 const criarConta = new CriarConta(contaRepository);
 const criarContaController = new CriarContaController(criarConta)
 const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController);
 
-// ************************ Login ********************************
+// Login
 
 const login = new Login(contaRepository);
 const loginController = new LoginController(login);
 const loginEntrypoint = new LoginEntrypoint(loginController);
+
+// Título
+const tituloRepository = new TituloSequelizeRepository();
+
+const criarTitulo = new CriarTitulo(tituloRepository);
+const criarTituloController = new CriarTituloController(criarTitulo);
+const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 
 // Pagador
 
@@ -75,6 +82,7 @@ const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorControl
 const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
   loginEntrypoint,
+  criarTituloEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint
