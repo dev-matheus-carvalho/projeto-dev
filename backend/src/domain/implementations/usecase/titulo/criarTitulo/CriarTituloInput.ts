@@ -13,7 +13,7 @@ export class CriarTituloInput {
   public duplicataNumeroNota?: string;
   public duplicataSerieNota?: string;
   public duplicataNumeroFatura?: string;
-  public numeroDoTitulo?: string;
+  // public numeroDoTitulo?: string;
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo: number;
   public chequeCmc7?: string;
@@ -22,7 +22,6 @@ export class CriarTituloInput {
   public idLote?: string;
   public idMovimentacao?: string;
   public idLancamento?: string;
-
   public isProcessado: boolean;
 
   constructor(pData: EntrypointData) {
@@ -36,7 +35,7 @@ export class CriarTituloInput {
     const duplicataNumeroNotaValidador = ValidadorDados.iniciar(pData.body?.duplicataNumeroNota, 'body.duplicataNumeroNota').string();
     const duplicataSerieNotaValidador = ValidadorDados.iniciar(pData.body?.duplicataSerieNota, 'body.duplicataSerieNota').string();
     const duplicataNumeroFaturaValidador = ValidadorDados.iniciar(pData.body?.duplicataNumeroFatura, 'body.duplicataNumeroFatura').string();
-    const numeroDoTituloValidador = ValidadorDados.iniciar(pData.body?.numeroDoTitulo, 'body.numeroDoTitulo').string();
+    // const numeroDoTituloValidador = ValidadorDados.iniciar(pData.body?.numeroDoTitulo, 'body.numeroDoTitulo').string();
     const duplicataValorLiquidoFaturaValidador = ValidadorDados.iniciar(pData.body?.duplicataValorLiquidoFatura, 'body.duplicataValorLiquidoFatura').number();
     const valorDoTituloValidador = ValidadorDados.iniciar(pData.body?.valorDoTitulo, 'body.valorDoTitulo').number();
     const chequeCmc7Validador = ValidadorDados.iniciar(pData.body?.chequeCmc7, 'body.chequeCmc7').string();
@@ -74,9 +73,9 @@ export class CriarTituloInput {
     if (duplicataNumeroFaturaValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "duplicataNumeroFatura": ${duplicataNumeroFaturaValidador.getErro()}`);
     }
-    if (numeroDoTituloValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "numeroDoTitulo": ${numeroDoTituloValidador.getErro()}`);
-    }
+    // if (numeroDoTituloValidador.estaValido() === false) {
+    //   throw new InformacaoNaoInfomada(`O atributo "numeroDoTitulo": ${numeroDoTituloValidador.getErro()}`);
+    // }
     if (duplicataValorLiquidoFaturaValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "duplicataValorLiquidoFatura": ${duplicataValorLiquidoFaturaValidador.getErro()}`);
     }
@@ -114,7 +113,7 @@ export class CriarTituloInput {
     this.duplicataNumeroNota = pData.body.duplicataNumeroNota;
     this.duplicataSerieNota = pData.body.duplicataSerieNota;
     this.duplicataNumeroFatura = pData.body.duplicataNumeroFatura;
-    this.numeroDoTitulo = pData.body.numeroDoTitulo;
+    // this.numeroDoTitulo = pData.body.numeroDoTitulo;
     this.duplicataValorLiquidoFatura = pData.body.duplicataValorLiquidoFatura;
     this.valorDoTitulo = pData.body.valorDoTitulo;
     this.chequeCmc7 = pData.body.chequeCmc7;

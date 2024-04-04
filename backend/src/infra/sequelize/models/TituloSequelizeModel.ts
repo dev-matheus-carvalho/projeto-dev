@@ -14,7 +14,7 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   public duplicataSerieNota?: string;
   public duplicataDataEmissao?: Date;
   public duplicataNumeroFatura?: string;
-  public numeroDoTitulo?: string;
+  // public numeroDoTitulo?: string;
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo!: number;
   public chequeCmc7?: string;
@@ -69,10 +69,10 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.TEXT,
           allowNull: true,
         },
-        numeroDoTitulo: {
-          type: DataTypes.TEXT,
-          allowNull: true,
-        },
+        // numeroDoTitulo: {
+        //   type: DataTypes.TEXT,
+        //   allowNull: true,
+        // },
         duplicataValorLiquidoFatura: {
           type: DataTypes.FLOAT,
           allowNull: true,

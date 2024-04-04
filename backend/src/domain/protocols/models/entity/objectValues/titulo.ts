@@ -9,7 +9,7 @@ export interface ITitulo {
   duplicataSerieNota?: string;
   duplicataDataEmissao?: Date;
   duplicataNumeroFatura?: string;
-  numeroDoTitulo?: string; // 2
+  // numeroDoTitulo?: string;
   duplicataValorLiquidoFatura?: number;
   valorDoTitulo: number; // 3
   chequeCmc7?: string;

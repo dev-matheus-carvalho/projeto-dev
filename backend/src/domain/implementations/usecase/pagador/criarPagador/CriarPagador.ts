@@ -17,6 +17,7 @@ export class CriarPagador {
     })
 
     const isPagadorExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);
+    
     if (!isPagadorExist) {
       await this.pagadorRepository.criar(pUnitOfWork, pagador)
       return new CriarPagadorOutput(pagador);

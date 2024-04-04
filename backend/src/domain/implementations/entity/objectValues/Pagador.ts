@@ -2,7 +2,7 @@ import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../protocols
 export class Pagador implements IPagador {
 
   public nome: string = '';
-  public identificacao: string = '';
+  public identificacao!: string;
   public email: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
