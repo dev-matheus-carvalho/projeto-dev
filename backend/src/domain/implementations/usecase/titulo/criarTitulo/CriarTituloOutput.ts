@@ -1,6 +1,6 @@
 import { Titulo } from '../../../entity/objectValues/Titulo';
 
-export class CriarPagadorOutput {
+export class CriarTituloOutput {
   public numeroTitulo: string;
   public tipoTitulo: string;
   public vencimento: Date;

@@ -7,7 +7,7 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   public numeroTitulo!: string;
   public tipoTitulo!: string;
   public vencimento!: Date;
-  public situaçaoTitulo!: string;
+  public situacaoTitulo!: string;
   public duplicataChaveNota?: string;
   public duplicataProtocoloNota?: string;
   public duplicataNumeroNota?: string;
@@ -41,7 +41,7 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.DATE,
           allowNull: false,
         },
-        situaçaoTitulo: {
+        situacaoTitulo: {
           type: DataTypes.TEXT,
           allowNull: false,
         },

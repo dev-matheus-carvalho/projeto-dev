@@ -13,7 +13,6 @@ export class CriarTituloInput {
   public duplicataNumeroNota?: string;
   public duplicataSerieNota?: string;
   public duplicataNumeroFatura?: string;
-  // public numeroDoTitulo?: string;
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo: number;
   public chequeCmc7?: string;
