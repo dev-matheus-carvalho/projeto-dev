@@ -14,15 +14,14 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   public duplicataSerieNota?: string;
   public duplicataDataEmissao?: Date;
   public duplicataNumeroFatura?: string;
-  // public numeroDoTitulo?: string;
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo!: number;
   public chequeCmc7?: string;
   public email!: string;
   public identificacao!: string;
   public idLote?: string;
-  public idMovimentacao?: string;
-  public idLancamento?: string;
+  // public idMovimentacao?: string;
+  // public idLancamento?: string;
   public isProcessado!: boolean;
 
   static initialization(sequelize: Sequelize): void {
@@ -69,10 +68,6 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.TEXT,
           allowNull: true,
         },
-        // numeroDoTitulo: {
-        //   type: DataTypes.TEXT,
-        //   allowNull: true,
-        // },
         duplicataValorLiquidoFatura: {
           type: DataTypes.FLOAT,
           allowNull: true,
@@ -97,14 +92,14 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
           type: DataTypes.UUID,
           allowNull: true,
         },
-        idMovimentacao: {
-          type: DataTypes.UUID,
-          allowNull: true,
-        },
-        idLancamento: {
-          type: DataTypes.UUID,
-          allowNull: true,
-        },
+        // idMovimentacao: {
+        //   type: DataTypes.TEXT,
+        //   allowNull: true,
+        // },
+        // idLancamento: {
+        //   type: DataTypes.TEXT,
+        //   allowNull: true,
+        // },
         isProcessado: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
@@ -145,20 +140,20 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
       },
     });
 
-    this.belongsTo(pModels.movimentacao, {
-      as: 'movimentacao',
-      foreignKey: {
-        field: 'idMovimentacao',
-        name: 'idMovimentacao',
-      },
-    });
+    // this.belongsTo(pModels.movimentacao, {
+    //   as: 'movimentacao',
+    //   foreignKey: {
+    //     field: 'idMovimentacao',
+    //     name: 'idMovimentacao',
+    //   },
+    // });
 
-    this.belongsTo(pModels.lancamentos, {
-      as: 'lancamentos',
-      foreignKey: {
-        field: 'idLancamento',
-        name: 'idLancamento',
-      },
-    });
+    // this.belongsTo(pModels.lancamentos, {
+    //   as: 'lancamentos',
+    //   foreignKey: {
+    //     field: 'idLancamento',
+    //     name: 'idLancamento',
+    //   },
+    // });
   }
 }

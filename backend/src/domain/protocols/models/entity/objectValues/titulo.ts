@@ -15,8 +15,8 @@ export interface ITitulo {
   email: string;
   identificacao: string;
   idLote?: string;
-  idMovimentacao?: string;
-  idLancamento?: string;
+  // idMovimentacao?: string;
+  // idLancamento?: string;
   isProcessado: boolean;
   createdAt?: Date;
   updatedAt?: Date;

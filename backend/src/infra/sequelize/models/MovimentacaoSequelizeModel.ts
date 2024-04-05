@@ -18,7 +18,7 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
     this.init(
       {
         idMovimentacao: {
-          type: DataTypes.UUID,
+          type: DataTypes.TEXT,
           primaryKey: true,
           allowNull: false,
         },
@@ -62,12 +62,12 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   }
 
   static association(pModels: Models): void {
-    this.hasOne(pModels.titulo, {
-      as: 'titulo',
-      foreignKey: {
-        field: 'idMovimentacao',
-        name: 'idMovimentacao',
-      },
-    });
+    // this.hasOne(pModels.titulo, {
+    //   as: 'titulo',
+    //   foreignKey: {
+    //     field: 'idMovimentacao',
+    //     name: 'idMovimentacao',
+    //   },
+    // });
   }
 }

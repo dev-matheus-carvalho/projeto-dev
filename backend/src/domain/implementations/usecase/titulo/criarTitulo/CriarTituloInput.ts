@@ -19,8 +19,8 @@ export class CriarTituloInput {
   public email: string;
   public identificacao: string;
   public idLote?: string;
-  public idMovimentacao?: string;
-  public idLancamento?: string;
+  // public idMovimentacao?: string;
+  // public idLancamento?: string;
   public isProcessado: boolean;
 
   constructor(pData: EntrypointData) {
@@ -34,15 +34,14 @@ export class CriarTituloInput {
     const duplicataNumeroNotaValidador = ValidadorDados.iniciar(pData.body?.duplicataNumeroNota, 'body.duplicataNumeroNota').string();
     const duplicataSerieNotaValidador = ValidadorDados.iniciar(pData.body?.duplicataSerieNota, 'body.duplicataSerieNota').string();
     const duplicataNumeroFaturaValidador = ValidadorDados.iniciar(pData.body?.duplicataNumeroFatura, 'body.duplicataNumeroFatura').string();
-    // const numeroDoTituloValidador = ValidadorDados.iniciar(pData.body?.numeroDoTitulo, 'body.numeroDoTitulo').string();
     const duplicataValorLiquidoFaturaValidador = ValidadorDados.iniciar(pData.body?.duplicataValorLiquidoFatura, 'body.duplicataValorLiquidoFatura').number();
     const valorDoTituloValidador = ValidadorDados.iniciar(pData.body?.valorDoTitulo, 'body.valorDoTitulo').number();
     const chequeCmc7Validador = ValidadorDados.iniciar(pData.body?.chequeCmc7, 'body.chequeCmc7').string();
     const emailValidador = ValidadorDados.iniciar(pData.body?.email, 'body.identificacao').obrigatorio().string();
     const identificacaoValidador = ValidadorDados.iniciar(pData.body?.identificacao, 'body.identificacao').obrigatorio().string();
     const idLoteValidador = ValidadorDados.iniciar(pData.body?.idLote, 'body.idLote').string();
-    const idMovimentacaoValidador = ValidadorDados.iniciar(pData.body?.idMovimentacao, 'body.idMovimentacao').string();
-    const idLancamentoValidador = ValidadorDados.iniciar(pData.body?.idLancamento, 'body.idLancamento').string();
+    // const idMovimentacaoValidador = ValidadorDados.iniciar(pData.body?.idMovimentacao, 'body.idMovimentacao').string();
+    // const idLancamentoValidador = ValidadorDados.iniciar(pData.body?.idLancamento, 'body.idLancamento').string();
     const isProcessadoValidador = ValidadorDados.iniciar(pData.body?.isProcessado, 'body.isProcessado').boolean();
 
     if (numeroTituloValidador.estaValido() === false) {
@@ -93,12 +92,12 @@ export class CriarTituloInput {
     if (idLoteValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "idLote": ${idLoteValidador.getErro()}`);
     }
-    if (idMovimentacaoValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "idMovimentacao": ${idMovimentacaoValidador.getErro()}`);
-    }
-    if (idLancamentoValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "idLancamento": ${idLancamentoValidador.getErro()}`);
-    }
+    // if (idMovimentacaoValidador.estaValido() === false) {
+    //   throw new InformacaoNaoInfomada(`O atributo "idMovimentacao": ${idMovimentacaoValidador.getErro()}`);
+    // }
+    // if (idLancamentoValidador.estaValido() === false) {
+    //   throw new InformacaoNaoInfomada(`O atributo "idLancamento": ${idLancamentoValidador.getErro()}`);
+    // }
     if (isProcessadoValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "isProcessado": ${isProcessadoValidador.getErro()}`);
     }
@@ -119,8 +118,8 @@ export class CriarTituloInput {
     this.email = pData.body.email;
     this.identificacao = pData.body.identificacao;
     this.idLote = pData.body.idLote;
-    this.idMovimentacao = pData.body.idMovimentacao;
-    this.idLancamento = pData.body.idLancamento;
+    // this.idMovimentacao = pData.body.idMovimentacao;
+    // this.idLancamento = pData.body.idLancamento;
     this.isProcessado = pData.body.isProcessado;
   }
 }

@@ -20,8 +20,8 @@ export class Titulo implements ITitulo {
   public email: string = '';
   public identificacao: string = '';
   public idLote: string = '';
-  public idMovimentacao: string = '';
-  public idLancamento: string = '';
+  // public idMovimentacao: string = '';
+  // public idLancamento: string = '';
   public isProcessado: boolean = false;
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -45,8 +45,8 @@ export class Titulo implements ITitulo {
     this.email = pValores.email ?? this.email;
     this.identificacao = pValores.identificacao ?? this.identificacao;
     this.idLote = pValores.idLote ?? this.idLote;
-    this.idMovimentacao = pValores.idMovimentacao ?? this.idMovimentacao;
-    this.idLancamento = pValores.idLancamento ?? this.idLancamento;
+    // this.idMovimentacao = pValores.idMovimentacao ?? this.idMovimentacao;
+    // this.idLancamento = pValores.idLancamento ?? this.idLancamento;
     this.isProcessado = pValores.isProcessado ?? this.isProcessado;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
@@ -70,8 +70,8 @@ export class Titulo implements ITitulo {
       email: this.email,
       identificacao: this.identificacao,
       idLote: this.idLote,
-      idMovimentacao: this.idMovimentacao,
-      idLancamento: this.idLancamento,
+      // idMovimentacao: this.idMovimentacao,
+      // idLancamento: this.idLancamento,
       isProcessado: this.isProcessado
     };
   }

@@ -17,8 +17,8 @@ export class CriarTituloOutput {
   public email: string;
   public identificacao: string;
   public idLote: string;
-  public idMovimentacao: string;
-  public idLancamento: string;
+  // public idMovimentacao: string;
+  // public idLancamento: string;
   public isProcessado: boolean;
   
   constructor(pTitulo: Titulo) {
@@ -38,8 +38,8 @@ export class CriarTituloOutput {
     this.email = pTitulo.email,
     this.identificacao = pTitulo.identificacao,
     this.idLote = pTitulo.idLote,
-    this.idMovimentacao = pTitulo.idMovimentacao,
-    this.idLancamento = pTitulo.idLancamento,
+    // this.idMovimentacao = pTitulo.idMovimentacao,
+    // this.idLancamento = pTitulo.idLancamento,
     this.isProcessado = pTitulo.isProcessado
   }
 }

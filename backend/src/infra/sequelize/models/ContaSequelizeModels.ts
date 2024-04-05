@@ -59,20 +59,5 @@ export default class ContaSequelizeModel extends Model<IConta, IContaModelCreate
         name: 'email',
       },
     });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
   }
 }

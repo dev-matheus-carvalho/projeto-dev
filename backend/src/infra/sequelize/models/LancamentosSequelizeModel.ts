@@ -18,7 +18,7 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
     this.init(
       {
         idLancamento: {
-          type: DataTypes.UUID,
+          type: DataTypes.TEXT,
           primaryKey: true,
           allowNull: false,
         },
@@ -62,13 +62,13 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
   }
 
   static association(pModels: Models): void {
-    this.hasMany(pModels.titulo, {
-      as: 'titulo',
-      foreignKey: {
-        field: 'idLancamento',
-        name: 'idLancamento',
-      },
-    });
+    // this.hasMany(pModels.titulo, {
+    //   as: 'titulo',
+    //   foreignKey: {
+    //     field: 'idLancamento',
+    //     name: 'idLancamento',
+    //   },
+    // });
     // this.belongsTo(pModels.lote, {
     //   as: 'lote',
     //   foreignKey: 'idSituacao',
