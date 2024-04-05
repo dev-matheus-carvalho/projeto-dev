@@ -1,4 +1,4 @@
-export interface Ilote {
+export interface ILote {
   idLote: string;
   situacao: string;
   dataLote: Date;
@@ -9,6 +9,6 @@ export interface Ilote {
   updatedAt?: Date;
 }
 
-export interface IloteModel extends Partial<Ilote> {}
+export interface ILoteModel extends Partial<ILote> {}
 
-export interface IloteModelCreate extends Partial<IloteModel> {}
+export interface ILoteModelCreate extends Partial<ILoteModel> {}

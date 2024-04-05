@@ -1,9 +1,9 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
-import { Ilote, IloteModel, IloteModelCreate } from '../../../domain/protocols/models/entity/objectValues/lote';
+import { ILote, ILoteModel, ILoteModelCreate } from '../../../domain/protocols/models/entity/objectValues/lote';
 
-export default class LoteSequelizeModel extends Model<Ilote, IloteModelCreate> implements IloteModel {
+export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> implements ILoteModel {
   public idLote!: string;
   public situacao!: string;
   public dataLote!: Date;

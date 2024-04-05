@@ -2,7 +2,6 @@ import { ValidadorDados } from '@decisaosistemas/typescript-validador-dados';
 import EntrypointData from '../../../entity/entryPoint/EntryPointData';
 import InformacaoNaoInfomada from '../../../entity/errors/InformacaoNaoInformada';
 
-
 export class CriarContaInput {
 
   public email: string;
