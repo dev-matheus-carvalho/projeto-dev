@@ -26,4 +26,14 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     }
     return null;
   }
+
+  public async listarTitulosPorLote(pIdLote: string, pEmail: string): Promise<Array<Titulo>> {
+    const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
+      where: {
+        idLote: pIdLote,
+        email: pEmail
+      }
+    });
+     return tituloDb.map((titulo) => new Titulo(titulo));
+  }
 }

@@ -84,7 +84,7 @@ export class CriarTituloInput {
       throw new InformacaoNaoInfomada(`O atributo "chequeCmc7": ${chequeCmc7Validador.getErro()}`);
     }
     if (emailValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "email": ${identificacaoValidador.getErro()}`);
+      throw new InformacaoNaoInfomada(`O atributo "email": ${emailValidador.getErro()}`);
     } 
     if (identificacaoValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "identificacao": ${identificacaoValidador.getErro()}`);
