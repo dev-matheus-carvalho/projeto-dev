@@ -4,9 +4,12 @@ import ITituloRepository from '../../../../protocols/repository/tituloRepository
 import { CriarTituloInput } from './CriarTituloInput';
 import { CriarTituloOutput } from './CriarTituloOutput';
 import { v4 } from 'uuid';
+import ILoteRepository from '../../../../protocols/repository/loteRepository';
+import { Lote } from '../../../entity/objectValues/Lote';
 
 export class CriarTitulo {
-  constructor(private tituloRepository: ITituloRepository) {
+  constructor(private tituloRepository: ITituloRepository, 
+    private loteRepository: ILoteRepository) {
   }
   
   public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: CriarTituloInput): Promise<CriarTituloOutput | null> {
@@ -16,8 +19,48 @@ export class CriarTitulo {
     const mes = parseInt(dividirData[1], 10) - 1;
     const ano = parseInt(dividirData[2], 10);
     const vencimento = new Date(ano, mes, dia);
+
+    const isTituloExist = await this.tituloRepository.buscarTituloPorNumeroDoTitulo(pInputTitulo.numeroTitulo);
     
-    const titulo = new Titulo({
+    if (!isTituloExist) {
+      if(pInputTitulo.idLote === '' || pInputTitulo.idLote === null) {
+        console.log('Sem uuid');
+
+        const lote = new Lote({
+          idLote: v4(),
+          situacao: 'NÃO ENVIADO',
+          dataLote: new Date(),
+        });
+
+        const titulo = new Titulo({
+          numeroTitulo: pInputTitulo.numeroTitulo,
+          tipoTitulo: pInputTitulo.tipoTitulo,
+          vencimento: vencimento,
+          situacaoTitulo: pInputTitulo.situacaoTitulo,
+          duplicataChaveNota: pInputTitulo.duplicataChaveNota,
+          duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
+          duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
+          duplicataSerieNota: pInputTitulo.duplicataSerieNota,
+          duplicataDataEmissao: new Date(),
+          duplicataNumeroFatura: pInputTitulo.duplicataNumeroFatura,
+          duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
+          valorDoTitulo: pInputTitulo.valorDoTitulo,
+          chequeCmc7: pInputTitulo.chequeCmc7,
+          email: pInputTitulo.email,
+          identificacao: pInputTitulo.identificacao,
+          idLote: lote.idLote,
+          // idMovimentacao: pInputTitulo.idMovimentacao,
+          // idLancamento: pInputTitulo.idLancamento,
+          isProcessado: pInputTitulo.isProcessado
+        });
+
+        await this.loteRepository.criar(pUnitOfWork, lote);
+        await this.tituloRepository.criar(pUnitOfWork, titulo);
+        return new CriarTituloOutput(titulo);
+      }
+      console.log('Com uuid');
+
+      const titulo = new Titulo({
       numeroTitulo: pInputTitulo.numeroTitulo,
       tipoTitulo: pInputTitulo.tipoTitulo,
       vencimento: vencimento,
@@ -38,39 +81,6 @@ export class CriarTitulo {
       // idLancamento: pInputTitulo.idLancamento,
       isProcessado: pInputTitulo.isProcessado
     });
-
-
-    const isTituloExist = await this.tituloRepository.buscarTituloPorNumeroDoTitulo(titulo.numeroTitulo);
-    
-    if (!isTituloExist) {
-      if(pInputTitulo.idLote === '' || pInputTitulo.idLote === '') {
-        console.log('Sem uuid');
-        const Novotitulo = new Titulo({
-          numeroTitulo: pInputTitulo.numeroTitulo,
-          tipoTitulo: pInputTitulo.tipoTitulo,
-          vencimento: vencimento,
-          situacaoTitulo: pInputTitulo.situacaoTitulo,
-          duplicataChaveNota: pInputTitulo.duplicataChaveNota,
-          duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
-          duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
-          duplicataSerieNota: pInputTitulo.duplicataSerieNota,
-          duplicataDataEmissao: new Date(),
-          duplicataNumeroFatura: pInputTitulo.duplicataNumeroFatura,
-          duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
-          valorDoTitulo: pInputTitulo.valorDoTitulo,
-          chequeCmc7: pInputTitulo.chequeCmc7,
-          email: pInputTitulo.email,
-          identificacao: pInputTitulo.identificacao,
-          idLote: v4(),
-          // idMovimentacao: pInputTitulo.idMovimentacao,
-          // idLancamento: pInputTitulo.idLancamento,
-          isProcessado: pInputTitulo.isProcessado
-        });
-
-        await this.tituloRepository.criar(pUnitOfWork, Novotitulo);
-        return new CriarTituloOutput(Novotitulo);
-      }
-      console.log('Com uuid');
       await this.tituloRepository.criar(pUnitOfWork, titulo);
       return new CriarTituloOutput(titulo);
     }

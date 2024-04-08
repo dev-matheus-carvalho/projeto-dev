@@ -15,8 +15,10 @@ export class CriarLote {
       dataLote: new Date(),
     });
 
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork , lote.idLote);
+    const isLoteExist = await this.loteRepository.buscaLotePorId(lote.idLote);
     if (!isLoteExist) {
+      const loteDb = await this.loteRepository.criar(pUnitOfWork, lote);
+      return new CriarLoteOutput(loteDb);
       // const contaDb = await this.contaRepository.criar(pUnitOfWork, conta)
       // return new CriarContaOutput(contaDb);
       // const contaDb = await this.loteRepository.criar(pUnitOfWork, lote)
