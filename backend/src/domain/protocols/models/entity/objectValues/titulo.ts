@@ -1,4 +1,5 @@
 export interface ITitulo {
+  idTitulo: string,
   numeroTitulo: string;
   tipoTitulo: string;
   vencimento: Date;

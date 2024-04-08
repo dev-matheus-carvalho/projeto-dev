@@ -7,9 +7,10 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
   public idLote!: string;
   public situacao!: string;
   public dataLote!: Date;
-  public dataEnvio!: Date;
+  public dataEnvio?: Date;
   public valorTotalTitulo!: number;
   public qtdTitulos!: number;
+  public email!: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -29,7 +30,7 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
         },
         dataEnvio: {
           type: DataTypes.DATE,
-          allowNull: false,
+          allowNull: true,
         },
         valorTotalTitulo: {
           type: DataTypes.DECIMAL,
@@ -37,6 +38,10 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
         },
         qtdTitulos: {
           type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        email: {
+          type: DataTypes.TEXT,
           allowNull: false,
         },
       },

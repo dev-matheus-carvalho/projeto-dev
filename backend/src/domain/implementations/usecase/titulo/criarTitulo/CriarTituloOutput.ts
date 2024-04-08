@@ -1,6 +1,7 @@
 import { Titulo } from '../../../entity/objectValues/Titulo';
 
 export class CriarTituloOutput {
+  public idTitulo: string;
   public numeroTitulo: string;
   public tipoTitulo: string;
   public vencimento: Date;
@@ -16,12 +17,13 @@ export class CriarTituloOutput {
   public chequeCmc7: string;
   public email: string;
   public identificacao: string;
-  public idLote: string;
+  public idLote?: string;
   // public idMovimentacao: string;
   // public idLancamento: string;
   public isProcessado: boolean;
   
   constructor(pTitulo: Titulo) {
+    this.idTitulo = pTitulo.idTitulo,
     this.numeroTitulo = pTitulo.numeroTitulo,
     this.tipoTitulo = pTitulo.tipoTitulo,
     this.vencimento = pTitulo.vencimento,

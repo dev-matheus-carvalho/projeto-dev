@@ -32,6 +32,7 @@ import TituloSequelizeRepository from './infra/sequelize/repository/TituloSequel
 import { CriarTitulo } from './domain/implementations/usecase/titulo/criarTitulo/CriarTitulo';
 import { CriarTituloController } from './application/controllers/titulo/CriarTituloController';
 import CriarTituloEntrypoint from './application/entryPoint/titulo/criarTituloEntrypoint';
+import LoteSequelizeRepository from './infra/sequelize/repository/LoteSequelizeRepository';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -58,8 +59,9 @@ const loginEntrypoint = new LoginEntrypoint(loginController);
 
 // Título
 const tituloRepository = new TituloSequelizeRepository();
+const loteRepository = new LoteSequelizeRepository();
 
-const criarTitulo = new CriarTitulo(tituloRepository);
+const criarTitulo = new CriarTitulo(tituloRepository, loteRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
 const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 

@@ -4,6 +4,7 @@ import type Models from '../models';
 import { ITitulo, ITituloModel, ITituloModelCreate } from '../../../domain/protocols/models/entity/objectValues/titulo';
 
 export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCreate> implements ITituloModel {
+  public idTitulo!: string;
   public numeroTitulo!: string;
   public tipoTitulo!: string;
   public vencimento!: Date;
@@ -27,9 +28,13 @@ export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCre
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
+        idTitulo: {
+          type: DataTypes.UUID,
+          primaryKey: true,
+          allowNull: false,
+        },
         numeroTitulo: {
           type: DataTypes.TEXT,
-          primaryKey: true,
           allowNull: false,
         },
         tipoTitulo: {

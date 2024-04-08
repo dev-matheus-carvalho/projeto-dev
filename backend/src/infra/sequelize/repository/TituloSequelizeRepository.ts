@@ -27,6 +27,33 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return null;
   }
 
+  public async buscarTituloPorNumeroEEmailDoTitulo(pNumero: string, pEmail: string): Promise<Titulo | null> {
+    const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
+      where: {
+        numeroTitulo: pNumero,
+        email: pEmail,
+      }
+    });
+    if (tituloDb) {
+      return Promise.resolve(new Titulo(tituloDb));
+    }
+    return null;
+  }
+
+  public async buscarTituloPorNumeroEmailEPagadorDoTitulo(pNumero: string, pEmail: string, pPagador: string): Promise<Titulo | null> {
+    const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
+      where: {
+        numeroTitulo: pNumero,
+        email: pEmail,
+        identificacao: pPagador,
+      }
+    });
+    if (tituloDb) {
+      return Promise.resolve(new Titulo(tituloDb));
+    }
+    return null;
+  }
+
   public async listarTitulosPorLote(pIdLote: string, pEmail: string): Promise<Array<Titulo>> {
     const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
       where: {

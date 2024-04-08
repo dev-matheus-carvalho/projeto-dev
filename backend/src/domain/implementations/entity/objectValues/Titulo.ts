@@ -4,6 +4,7 @@ import { TipoTituloEnum } from '../../constants/enum/tipoTituloEnum';
 
 export class Titulo implements ITitulo {
 
+  public idTitulo: string = '';
   public numeroTitulo: string = '';
   public tipoTitulo: string = TipoTituloEnum.DUPLICATA;
   public vencimento!: Date;
@@ -19,7 +20,7 @@ export class Titulo implements ITitulo {
   public chequeCmc7: string = '';
   public email: string = '';
   public identificacao: string = '';
-  public idLote: string = '';
+  public idLote?: string = '';
   // public idMovimentacao: string = '';
   // public idLancamento: string = '';
   public isProcessado: boolean = false;
@@ -29,6 +30,7 @@ export class Titulo implements ITitulo {
   constructor(pValores?: ITituloModel) {
     if (pValores === undefined) return;
 
+    this.idTitulo = pValores.idTitulo ?? this.idTitulo;
     this.numeroTitulo = pValores.numeroTitulo ?? this.numeroTitulo;
     this.tipoTitulo = pValores.tipoTitulo ?? this.tipoTitulo;
     this.vencimento = pValores.vencimento ?? this.vencimento;
@@ -54,6 +56,7 @@ export class Titulo implements ITitulo {
 
   public gerarObjCriar(): ITituloModelCreate {
     return {
+      idTitulo: this.idTitulo,
       numeroTitulo: this.numeroTitulo,
       tipoTitulo: this.tipoTitulo,
       vencimento: this.vencimento,

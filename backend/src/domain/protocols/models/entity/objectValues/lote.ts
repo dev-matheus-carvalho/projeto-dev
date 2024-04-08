@@ -5,6 +5,7 @@ export interface ILote {
   dataEnvio?: Date;
   valorTotalTitulo: number;
   qtdTitulos: number;
+  email: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
