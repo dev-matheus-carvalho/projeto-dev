@@ -56,6 +56,14 @@ export class CriarTitulo {
 
       await this.loteRepository.criar(pUnitOfWork, lote);
       await this.tituloRepository.criar(pUnitOfWork, titulo);
+      const a = await this.tituloRepository.listarTitulosPorLote(lote.idLote, pInputTitulo.email);
+      console.log()
+      console.log()
+      console.log('===== Lista de títulos com o mesmo lote =====')
+      console.log(a)
+      console.log('Qtd de títlos por Lote: ', a.length + 1)
+      console.log()
+      console.log()
       return new CriarTituloOutput(titulo);
     }
 
@@ -82,8 +90,17 @@ export class CriarTitulo {
       // idLancamento: pInputTitulo.idLancamento,
       isProcessado: pInputTitulo.isProcessado
     });
-      await this.tituloRepository.criar(pUnitOfWork, titulo);
-      return new CriarTituloOutput(titulo);
+    const a = await this.tituloRepository.listarTitulosPorLote(pInputTitulo.idLote, pInputTitulo.email);
+    await this.tituloRepository.criar(pUnitOfWork, titulo);
+    const soma = a.reduce((total, valor) => total + valor.valorDoTitulo, 0);
+    console.log(soma + pInputTitulo.valorDoTitulo);
+    // console.log()
+    // console.log('===== Lista de títulos com o mesmo lote =====')
+    // console.log(a)
+    // console.log('Qtd de títlos por Lote: ', a.length + 1)
+    // console.log()
+    // console.log()
+    return new CriarTituloOutput(titulo);
 
   }
 }
