@@ -54,16 +54,13 @@ export class CriarTitulo {
         isProcessado: pInputTitulo.isProcessado
       });
 
+      const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(lote.idLote, pInputTitulo.email);
       await this.loteRepository.criar(pUnitOfWork, lote);
       await this.tituloRepository.criar(pUnitOfWork, titulo);
-      const a = await this.tituloRepository.listarTitulosPorLote(lote.idLote, pInputTitulo.email);
-      console.log()
-      console.log()
-      console.log('===== Lista de títulos com o mesmo lote =====')
-      console.log(a)
-      console.log('Qtd de títlos por Lote: ', a.length + 1)
-      console.log()
-      console.log()
+
+      const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0);
+      const somaTotal = soma + pInputTitulo.valorDoTitulo;
+      await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, lote.idLote, somaTotal, titulosPorLote.length + 1);
       return new CriarTituloOutput(titulo);
     }
 
@@ -90,16 +87,11 @@ export class CriarTitulo {
       // idLancamento: pInputTitulo.idLancamento,
       isProcessado: pInputTitulo.isProcessado
     });
-    const a = await this.tituloRepository.listarTitulosPorLote(pInputTitulo.idLote, pInputTitulo.email);
+    const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pInputTitulo.idLote, pInputTitulo.email);
     await this.tituloRepository.criar(pUnitOfWork, titulo);
-    const soma = a.reduce((total, valor) => total + valor.valorDoTitulo, 0);
-    console.log(soma + pInputTitulo.valorDoTitulo);
-    // console.log()
-    // console.log('===== Lista de títulos com o mesmo lote =====')
-    // console.log(a)
-    // console.log('Qtd de títlos por Lote: ', a.length + 1)
-    // console.log()
-    // console.log()
+    const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0);
+    const somaTotal = soma + pInputTitulo.valorDoTitulo;
+    await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, somaTotal, titulosPorLote.length + 1);
     return new CriarTituloOutput(titulo);
 
   }

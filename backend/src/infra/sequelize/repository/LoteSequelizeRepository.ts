@@ -28,4 +28,17 @@ export default class LoteSequelizeRepository implements ILoteRepository {
 
     return new Lote(LoteDb);
   }
+
+  public async editarValorTotalDeTitulosPorLote(pUnitOfWork: UnitOfWork, idLote: string, valor: number, qtd: number): Promise<boolean> {
+    const result = await db.models.lote.update<LoteSequelizeModel>({
+      qtdTitulos: qtd,
+      valorTotalTitulo: valor
+    }, {
+      where: {
+        idLote: idLote
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
 }
