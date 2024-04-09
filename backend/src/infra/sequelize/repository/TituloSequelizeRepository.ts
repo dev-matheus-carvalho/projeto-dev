@@ -15,6 +15,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return new Titulo(tituloDb);
   }
 
+  public async buscarTituloPorIdDoTituloEEmail(pIdTitulo: string, pEmail: string): Promise<Titulo | null> {
+    const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
+      where: {
+        idTitulo: pIdTitulo,
+        email: pEmail,
+      }
+    });
+    if (tituloDb) {
+      return Promise.resolve(new Titulo(tituloDb));
+    }
+    return null;
+  }
+
   public async buscarTituloPorNumeroDoTitulo(pTitulo: string): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
@@ -60,5 +73,16 @@ export default class TituloSequelizeRepository implements ITituloRepository {
       }
     });
      return tituloDb.map((titulo) => new Titulo(titulo));
+  }
+
+  public async editar(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
+    const result = await db.models.titulo.update<TituloSequelizeModel>(pTitulo.gerarObjAtualizar(), {
+      where: {
+        idTitulo: pTitulo.idTitulo,
+        email: pTitulo.email,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
   }
 }

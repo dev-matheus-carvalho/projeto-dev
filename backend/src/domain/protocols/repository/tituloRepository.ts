@@ -4,8 +4,9 @@ import { Titulo } from '../../implementations/entity/objectValues/Titulo';
 export default interface ITituloRepository {
   criar(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<Titulo>;
   buscarTituloPorNumeroDoTitulo(pTitulo: string): Promise<Titulo | null>;
+  buscarTituloPorIdDoTituloEEmail(pIdTitulo: string, pEmail: string): Promise<Titulo | null>;
   buscarTituloPorEmailDoTitulo(pEmail: string): Promise<Titulo | null>;
   buscarTituloPorEmailEPagadorDoTitulo(pEmail: string, pPagador: string): Promise<Titulo | null>;
   listarTitulosPorLote(pIdLote: string, pEmail: string): Promise<Array<Titulo>>;
-  // editar(pUnitOfWork: UnitOfWork, pPagador: Titulo): Promise<boolean>;
+  editar(pUnitOfWork: UnitOfWork, pIdTitulo: Titulo): Promise<boolean>;
 }

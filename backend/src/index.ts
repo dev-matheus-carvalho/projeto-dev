@@ -33,6 +33,9 @@ import { CriarTitulo } from './domain/implementations/usecase/titulo/criarTitulo
 import { CriarTituloController } from './application/controllers/titulo/CriarTituloController';
 import CriarTituloEntrypoint from './application/entryPoint/titulo/criarTituloEntrypoint';
 import LoteSequelizeRepository from './infra/sequelize/repository/LoteSequelizeRepository';
+import { EditarTitulo } from './domain/implementations/usecase/titulo/editarTitulo/EditarTitulo';
+import { EditarTituloController } from './application/controllers/titulo/EditarTituloController';
+import EditarTituloEntrypoint from './application/entryPoint/titulo/editarTituloEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -65,6 +68,10 @@ const criarTitulo = new CriarTitulo(tituloRepository, loteRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
 const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 
+const editarTitulo = new EditarTitulo(tituloRepository);
+const editarTituloController = new EditarTituloController(editarTitulo);
+const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
+
 // Pagador
 
 const pagadorRepository = new PagadorSequelizeRepository();
@@ -85,6 +92,7 @@ const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
   loginEntrypoint,
   criarTituloEntrypoint,
+  editarTituloEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint

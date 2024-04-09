@@ -2,6 +2,28 @@ import { ITitulo, ITituloModel, ITituloModelCreate } from '../../../protocols/mo
 import { SituacaoTituloEnum } from '../../constants/enum/situacaoTituloEnum';
 import { TipoTituloEnum } from '../../constants/enum/tipoTituloEnum';
 
+interface ITituloModelUpdate {
+  idTitulo: string,
+  numeroTitulo: string;
+  tipoTitulo: string;
+  vencimento: Date;
+  situacaoTitulo?: string;
+  duplicataChaveNota?: string;
+  duplicataProtocoloNota?: string;
+  duplicataNumeroNota?: string;
+  duplicataSerieNota?: string;
+  duplicataNumeroFatura?: string;
+  duplicataValorLiquidoFatura?: number;
+  valorDoTitulo: number;
+  chequeCmc7?: string;
+  email: string;
+  identificacao: string;
+  idLote?: string;
+  // idMovimentacao?: string;
+  // idLancamento?: string;
+  isProcessado: boolean;
+}
+
 export class Titulo implements ITitulo {
 
   public idTitulo: string = '';
@@ -66,6 +88,30 @@ export class Titulo implements ITitulo {
       duplicataNumeroNota: this.duplicataNumeroNota,
       duplicataSerieNota: this.duplicataSerieNota,
       duplicataDataEmissao: this.duplicataDataEmissao,
+      duplicataNumeroFatura: this.duplicataNumeroFatura,
+      duplicataValorLiquidoFatura: this.duplicataValorLiquidoFatura,
+      valorDoTitulo: this.valorDoTitulo,
+      chequeCmc7: this.chequeCmc7,
+      email: this.email,
+      identificacao: this.identificacao,
+      idLote: this.idLote,
+      // idMovimentacao: this.idMovimentacao,
+      // idLancamento: this.idLancamento,
+      isProcessado: this.isProcessado
+    };
+  }
+
+  public gerarObjAtualizar(): ITituloModelUpdate {
+    return {
+      idTitulo: this.idTitulo,
+      numeroTitulo: this.numeroTitulo,
+      tipoTitulo: this.tipoTitulo,
+      vencimento: this.vencimento,
+      situacaoTitulo: this.situacaoTitulo,
+      duplicataChaveNota: this.duplicataChaveNota,
+      duplicataProtocoloNota: this.duplicataProtocoloNota,
+      duplicataNumeroNota: this.duplicataNumeroNota,
+      duplicataSerieNota: this.duplicataSerieNota,
       duplicataNumeroFatura: this.duplicataNumeroFatura,
       duplicataValorLiquidoFatura: this.duplicataValorLiquidoFatura,
       valorDoTitulo: this.valorDoTitulo,
