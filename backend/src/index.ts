@@ -39,6 +39,9 @@ import EditarTituloEntrypoint from './application/entryPoint/titulo/editarTitulo
 import { ListarTitulosPorLote } from './domain/implementations/usecase/titulo/listarTitulosPorLote/ListarTitulosPorLote';
 import { ListarTitulosPorLoteController } from './application/controllers/titulo/ListarTitulosPorLoteController';
 import ListarTitulosPorLoteEntrypoint from './application/entryPoint/titulo/ListarTitulosPorLoteEntrypoint';
+import { ExcluirTitulo } from './domain/implementations/usecase/titulo/excluirTitulo/ExcluirTitulo';
+import { ExcluirTituloController } from './application/controllers/titulo/ExcluirTituloController';
+import ExcluirTituloEntrypoint from './application/entryPoint/titulo/excluirTituloEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -79,6 +82,10 @@ const editarTitulo = new EditarTitulo(tituloRepository);
 const editarTituloController = new EditarTituloController(editarTitulo);
 const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
 
+const excluirTitulo = new ExcluirTitulo(tituloRepository);
+const excluirTituloController = new ExcluirTituloController(excluirTitulo);
+const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController);
+
 // Pagador
 
 const pagadorRepository = new PagadorSequelizeRepository();
@@ -101,6 +108,7 @@ const entryPoints: EntryPoint[] = [
   criarTituloEntrypoint,
   listarTitulosPorLoteEntrypoint,
   editarTituloEntrypoint,
+  excluirTituloEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint

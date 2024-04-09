@@ -85,4 +85,29 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     });
     return Promise.resolve(result.length > 0);
   }
+
+  public async excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pEmail: string): Promise<boolean> {
+    const result = await db.models.titulo.destroy<TituloSequelizeModel>({
+      where: {
+        idTitulo: pIdTitulo,
+        email: pEmail
+      },
+      transaction: pUnitOfWork.getTransition(),
+
+    });
+    return Promise.resolve(result > 0);
+  }
+
+  public async excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdTitulo: string, pEmail: string, pIdLote: string): Promise<boolean> {
+    const result = await db.models.titulo.destroy<TituloSequelizeModel>({
+      where: {
+        idTitulo: pIdTitulo,
+        email: pEmail,
+        idLote: pIdLote,
+      },
+      transaction: pUnitOfWork.getTransition(),
+
+    });
+    return Promise.resolve(result > 0);
+  }
 }
