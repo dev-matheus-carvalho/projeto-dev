@@ -36,6 +36,9 @@ import LoteSequelizeRepository from './infra/sequelize/repository/LoteSequelizeR
 import { EditarTitulo } from './domain/implementations/usecase/titulo/editarTitulo/EditarTitulo';
 import { EditarTituloController } from './application/controllers/titulo/EditarTituloController';
 import EditarTituloEntrypoint from './application/entryPoint/titulo/editarTituloEntrypoint';
+import { ListarTitulosPorLote } from './domain/implementations/usecase/titulo/listarTitulosPorLote/ListarTitulosPorLote';
+import { ListarTitulosPorLoteController } from './application/controllers/titulo/ListarTitulosPorLoteController';
+import ListarTitulosPorLoteEntrypoint from './application/entryPoint/titulo/ListarTitulosPorLoteEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -68,6 +71,10 @@ const criarTitulo = new CriarTitulo(tituloRepository, loteRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
 const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 
+const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository);
+const listarTitulosPorLoteController = new ListarTitulosPorLoteController(listarTitulosPorLote);
+const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController);
+
 const editarTitulo = new EditarTitulo(tituloRepository);
 const editarTituloController = new EditarTituloController(editarTitulo);
 const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
@@ -92,6 +99,7 @@ const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
   loginEntrypoint,
   criarTituloEntrypoint,
+  listarTitulosPorLoteEntrypoint,
   editarTituloEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,

@@ -16,7 +16,7 @@ export class ListarTitulosOutput {
   public chequeCmc7: string;
   public email: string;
   public identificacao: string;
-  public idLote: string;
+  public idLote?: string;
   // public idMovimentacao: string;
   // public idLancamento: string;
   public isProcessado: boolean;
