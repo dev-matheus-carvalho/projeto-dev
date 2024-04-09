@@ -7,6 +7,15 @@ import { v4 } from 'uuid';
 import ILoteRepository from '../../../../protocols/repository/loteRepository';
 import { Lote } from '../../../entity/objectValues/Lote';
 
+function verificarVencimento(dataVencimento: Date): string {
+  const hoje: Date = new Date();
+  if(hoje.getTime() < dataVencimento.getTime()) {
+    return 'AVENCER';
+  } else {
+    return 'VENCIDO';
+  }
+}
+
 export class CriarTitulo {
   constructor(private tituloRepository: ITituloRepository, 
     private loteRepository: ILoteRepository) {
@@ -19,6 +28,8 @@ export class CriarTitulo {
     const mes = parseInt(dividirData[1], 10) - 1;
     const ano = parseInt(dividirData[2], 10);
     const vencimento = new Date(ano, mes, dia);
+    const situacaoTitulo = verificarVencimento(vencimento);
+    
 
     // Verifica se o idLote veio preenchido, vazio, nulo ou undefined
 
@@ -36,7 +47,7 @@ export class CriarTitulo {
         numeroTitulo: pInputTitulo.numeroTitulo,
         tipoTitulo: pInputTitulo.tipoTitulo,
         vencimento: vencimento,
-        situacaoTitulo: pInputTitulo.situacaoTitulo,
+        situacaoTitulo: situacaoTitulo,
         duplicataChaveNota: pInputTitulo.duplicataChaveNota,
         duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
         duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
@@ -70,7 +81,7 @@ export class CriarTitulo {
       numeroTitulo: pInputTitulo.numeroTitulo,
       tipoTitulo: pInputTitulo.tipoTitulo,
       vencimento: vencimento,
-      situacaoTitulo: pInputTitulo.situacaoTitulo,
+      situacaoTitulo: situacaoTitulo,
       duplicataChaveNota: pInputTitulo.duplicataChaveNota,
       duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
       duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,

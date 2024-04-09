@@ -44,14 +44,10 @@ export class EditarTitulo {
     const isTituloExist = await this.tituloRepository.buscarTituloPorIdDoTituloEEmail(pInputTitulo.idTitulo, pInputTitulo.email);
 
     if(isTituloExist) {
-      console.log('Foi alterado')
       await this.tituloRepository.editar(pUnitOfWork, titulo);
       return new EditarTituloOutput(titulo);
     }
-
-    console.log('Não foi alterado')
-
-    return null
+    return null;
 
   }
 }
