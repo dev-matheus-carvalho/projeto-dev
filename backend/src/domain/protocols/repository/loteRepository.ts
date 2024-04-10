@@ -6,4 +6,5 @@ export default interface ILoteRepository {
   buscaLotePorId(pIdLote: string): Promise<Lote | null>;
   editarValorTotalDeTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pValor: number, pQtd: number): Promise<boolean>;
   editarLoteParaProcessado(pUnitOfWork: UnitOfWork, pIdLote: string, pEmail: string): Promise<boolean>;
+  listarLotes(pEmail: string): Promise<Array<Lote>>;
 }

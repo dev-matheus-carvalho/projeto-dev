@@ -29,6 +29,15 @@ export default class LoteSequelizeRepository implements ILoteRepository {
     return new Lote(LoteDb);
   }
 
+  public async listarLotes(pEmail: string): Promise<Array<Lote>> {
+    const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
+      where: {
+        email: pEmail
+      }
+    });
+     return loteDb.map((lotes) => new Lote(lotes));
+  }
+
   public async editarValorTotalDeTitulosPorLote(pUnitOfWork: UnitOfWork, idLote: string, valor: number, qtd: number): Promise<boolean> {
     const result = await db.models.lote.update<LoteSequelizeModel>({
       qtdTitulos: qtd,
