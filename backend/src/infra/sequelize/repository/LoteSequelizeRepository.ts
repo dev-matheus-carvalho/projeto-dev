@@ -41,4 +41,18 @@ export default class LoteSequelizeRepository implements ILoteRepository {
     });
     return Promise.resolve(result.length > 0);
   }
+
+  public async editarLoteParaProcessado(pUnitOfWork: UnitOfWork, pIdLote: string, pEmail: string): Promise<boolean> {
+    const result = await db.models.lote.update<LoteSequelizeModel>({
+      situacao: 'PROCESSADO',
+      dataEnvio: new Date()
+    }, {
+      where: {
+        idLote: pIdLote,
+        email: pEmail
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
 }

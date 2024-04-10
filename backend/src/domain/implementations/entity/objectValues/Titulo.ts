@@ -124,4 +124,5 @@ export class Titulo implements ITitulo {
       isProcessado: this.isProcessado
     };
   }
+
 }
