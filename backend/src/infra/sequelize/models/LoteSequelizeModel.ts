@@ -2,6 +2,7 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
 import { ILote, ILoteModel, ILoteModelCreate } from '../../../domain/protocols/models/entity/objectValues/lote';
+import { ITitulo } from '../../../domain/protocols/models/entity/objectValues/titulo';
 
 export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> implements ILoteModel {
   public idLote!: string;
@@ -10,7 +11,8 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
   public dataEnvio?: Date;
   public valorTotalTitulo!: number;
   public qtdTitulos!: number;
-  public email!: string;
+  public idConta!: string;
+  public titulo!: ITitulo[];
 
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -40,8 +42,8 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
           type: DataTypes.INTEGER,
           allowNull: false,
         },
-        email: {
-          type: DataTypes.TEXT,
+        idConta: {
+          type: DataTypes.UUID,
           allowNull: false,
         },
       },
@@ -59,8 +61,8 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
     this.belongsTo(pModels.conta, {
       as: 'conta',
       foreignKey: {
-        field: 'email',
-        name: 'email',
+        field: 'idConta',
+        name: 'idConta',
       },
     });
 
@@ -71,25 +73,5 @@ export default class LoteSequelizeModel extends Model<ILote, ILoteModelCreate> i
         name: 'idLote',
       },
     });
-
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
   }
 }

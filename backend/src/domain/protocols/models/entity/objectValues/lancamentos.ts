@@ -7,6 +7,7 @@ export interface Ilancamentos {
   valorJuros: number;
   tipoPagamento: string;
   ativo: boolean;
+  idTitulo: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

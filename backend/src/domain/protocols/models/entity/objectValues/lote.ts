@@ -1,3 +1,5 @@
+import { ITitulo } from './titulo';
+
 export interface ILote {
   idLote: string;
   situacao: string;
@@ -5,7 +7,8 @@ export interface ILote {
   dataEnvio?: Date;
   valorTotalTitulo: number;
   qtdTitulos: number;
-  email: string;
+  idConta: string;
+  titulo?: ITitulo[];
   createdAt?: Date;
   updatedAt?: Date;
 }

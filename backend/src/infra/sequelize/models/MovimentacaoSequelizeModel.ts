@@ -1,7 +1,6 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import type Models from '../models';
-import { ITitulo, ITituloModel, ITituloModelCreate } from '../../../domain/protocols/models/entity/objectValues/titulo';
 import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate } from '../../../domain/protocols/models/entity/objectValues/movimentacao';
 
 export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMovimentacaoModelCreate> implements IMovimentacaoModel {
@@ -11,8 +10,9 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   public valorTotalMulta!: number;
   public valorTotalJuros!: number;
   public valorTotalDesconto!: number;
-  public dataUltimoRecebimento?: Date;
+  public dataUltimoRecebimento!: Date;
   public statusRecebimento!: boolean;
+  public idTitulo!: string;
   
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -50,6 +50,10 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
           type: DataTypes.BOOLEAN,
           allowNull: false,
         },
+        idTitulo: {
+          type: DataTypes.UUID,
+          allowNull: false,
+        },
       },
       {
         sequelize,
@@ -62,12 +66,12 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   }
 
   static association(pModels: Models): void {
-    // this.hasOne(pModels.titulo, {
-    //   as: 'titulo',
-    //   foreignKey: {
-    //     field: 'idMovimentacao',
-    //     name: 'idMovimentacao',
-    //   },
-    // });
+    this.belongsTo(pModels.titulo, {
+      as: 'titulo',
+      foreignKey: {
+        field: 'idTitulo',
+        name: 'idTitulo',
+      },
+    });
   }
 }

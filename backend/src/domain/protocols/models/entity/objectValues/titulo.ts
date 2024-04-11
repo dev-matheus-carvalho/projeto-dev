@@ -1,3 +1,5 @@
+import { Ilancamentos } from './lancamentos';
+
 export interface ITitulo {
   idTitulo: string,
   numeroTitulo: string;
@@ -13,11 +15,11 @@ export interface ITitulo {
   duplicataValorLiquidoFatura?: number;
   valorDoTitulo: number;
   chequeCmc7?: string;
-  email: string;
-  identificacao: string;
-  idLote?: string;
-  // idMovimentacao?: string;
-  // idLancamento?: string;
+  idConta: string;
+  idPagador: string;
+  idLote: string;
+  idMovimentacao?: string;
+  idLancamento?: Ilancamentos[];
   isProcessado: boolean;
   createdAt?: Date;
   updatedAt?: Date;

@@ -4,24 +4,29 @@ import type Models from '../models';
 import { IPagador, IPagadorModel, IPagadorModelCreate } from '../../../domain/protocols/models/entity/objectValues/pagador';
 
 export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModelCreate> implements IPagadorModel {
+  public idPagador!: string;
   public nome!: string;
   public identificacao!: string;
-  public email!: string;
+  public idConta!: string;
 
   static initialization(sequelize: Sequelize): void {
     this.init(
       {
+        idPagador: {
+          type: DataTypes.UUID,
+          primaryKey: true,
+          allowNull: false,
+        },
         nome: {
           type: DataTypes.TEXT,
           allowNull: false,
         },
         identificacao: {
           type: DataTypes.TEXT,
-          primaryKey: true,
           allowNull: false
         },
-        email: {
-          type: DataTypes.TEXT,
+        idConta: {
+          type: DataTypes.UUID,
           allowNull: false
         }
       },
@@ -30,7 +35,7 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
         freezeTableName: true,
         tableName: 'pagador',
         underscored: false,
-        // indexes: [{ fields: ['idPagador'] }],
+        indexes: [{ fields: ['idPagador'] }],
       },
     );
   }
@@ -39,37 +44,17 @@ export default class PagadorSequelizeModel extends Model<IPagador, IPagadorModel
     this.belongsTo(pModels.conta, {
       as: 'conta',
       foreignKey: {
-        field: 'email',
-        name: 'email',
+        field: 'idConta',
+        name: 'idConta',
       },
     });
 
     this.hasMany(pModels.titulo, {
       as: 'titulo',
       foreignKey: {
-        field: 'identificacao',
-        name: 'identificacao',
+        field: 'idPagador',
+        name: 'idPagador',
       },
     });
-
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
   }
 }

@@ -10,9 +10,9 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
   public valorPrincipal!: number;
   public valorMulta!: number;
   public valorJuros!: number;
-
   public tipoPagamento!: string;
   public ativo!: boolean;
+  public idTitulo!: string;
   
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -44,11 +44,15 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
         },
         tipoPagamento: {
           type: DataTypes.TEXT,
-          allowNull: true,
+          allowNull: false,
         },
         ativo: {
           type: DataTypes.BOOLEAN,
-          allowNull: true,
+          allowNull: false,
+        },
+        idTitulo: {
+          type: DataTypes.UUID,
+          allowNull: false,
         },
       },
       {
@@ -62,36 +66,12 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
   }
 
   static association(pModels: Models): void {
-    // this.hasMany(pModels.titulo, {
-    //   as: 'titulo',
-    //   foreignKey: {
-    //     field: 'idLancamento',
-    //     name: 'idLancamento',
-    //   },
-    // });
-    // this.belongsTo(pModels.lote, {
-    //   as: 'lote',
-    //   foreignKey: 'idSituacao',
-    // });
-
-  //   this.hasOne(pModels.cliente, {
-  //     as: 'cliente',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.email, {
-  //     as: 'emails',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.endereco, {
-  //     as: 'enderecos',
-  //     foreignKey: 'idPessoa',
-  //   });
-
-  //   this.hasMany(pModels.telefone, {
-  //     as: 'telefones',
-  //     foreignKey: 'idPessoa',
-  //   });
+    this.belongsTo(pModels.titulo, {
+      as: 'titulo',
+      foreignKey: {
+        field: 'idTitulo',
+        name: 'idTitulo',
+      },
+    });
   }
 }

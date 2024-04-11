@@ -1,7 +1,8 @@
 export interface IPagador {
+  idPagador: string;
   nome: string;
   identificacao: string;
-  email: string;
+  idConta: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
