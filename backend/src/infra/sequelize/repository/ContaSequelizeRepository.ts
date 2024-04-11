@@ -24,28 +24,14 @@ export default class ContaSequelizeRepository implements IContaRepository {
     return contaDb ? new Conta(contaDb) : null;
   }
 
-  public async listarContaPorEmail(pEmail: string): Promise<Conta | null> {
+  public async verificaSenhaLogin(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta | null> {
     const contaDb = await db.models.conta.findOne<ContaSequelizeModel>({
       where: {
-        email: pEmail,
-      }
+        email: pConta.email,
+        senha: pConta.senha,
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
-    if (contaDb) {
-      return Promise.resolve(new Conta(contaDb));
-    }
-    return null;
-  }
-
-  public async verificaSenhaLogin(pEmail: string, pSenha: string): Promise<Conta | null> {
-    const contaDb = await db.models.conta.findOne<ContaSequelizeModel>({
-      where: {
-        email: pEmail,
-        senha: pSenha,
-      }
-    });
-    if (contaDb) {
-      return Promise.resolve(new Conta(contaDb));
-    }
-    return null;
+    return contaDb ? new Conta(contaDb) : null;
   }
 }
