@@ -14,9 +14,11 @@ export default class ContaSequelizeRepository implements IContaRepository {
     return new Conta(contaDb);
   }
 
-  public async buscaContaPorEmail(pUnitOfWork: IUnitOfWork, pEmail: string): Promise<Conta | null> {
+  public async verificarContaExistente(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta | null> {
     const contaDb = await db.models.conta.findOne({
-      where: { email: pEmail },
+      where: {
+        email: pConta.email
+       },
       transaction: pUnitOfWork.getTransition(),
     });
     return contaDb ? new Conta(contaDb) : null;

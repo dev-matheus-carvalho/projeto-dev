@@ -5,6 +5,7 @@ import senhaUtil from '../../../utils/senhaUtil';
 import { CriarContaInput } from './CriarContaInput';
 import { CriarContaOutput } from './CriarContaOutput';
 import InformacaoDuplicada from '../../../entity/errors/InformacaoDuplicada';
+import { v4 } from 'uuid';
 
 export class CriarConta {
   constructor(private contaRepository: IContaRepository) {
@@ -12,15 +13,18 @@ export class CriarConta {
 
   public async execute(pUnitOfWork: UnitOfWork, pInputConta: CriarContaInput): Promise<CriarContaOutput> {
     const conta = new Conta({
+      idConta: v4(),
       email: pInputConta.email,
       nome: pInputConta.nome,
       senha: senhaUtil.criptografarSenha(pInputConta.senha),
-    })
-    const isContaExist = await this.contaRepository.buscaContaPorEmail(pUnitOfWork ,conta.email);
+    });
+
+    const isContaExist = await this.contaRepository.verificarContaExistente(pUnitOfWork, conta);
+    
     if (isContaExist) {
       throw new InformacaoDuplicada('Conta duplicada');
     }
-    const contaDb = await this.contaRepository.criar(pUnitOfWork, conta)
+    const contaDb = await this.contaRepository.criar(pUnitOfWork, conta);
     return new CriarContaOutput(contaDb);
 
   }
