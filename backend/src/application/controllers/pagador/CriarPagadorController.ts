@@ -21,10 +21,7 @@ export class CriarPagadorController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputPagador);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Pagador criado com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Pagador já cadastrado!', result, null);
+      return new EntryPointSuccess('Pagador criado com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

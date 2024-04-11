@@ -111,7 +111,7 @@ const buscarPagador = new BuscarPagador(pagadorRepository);
 const buscarPagadorController = new BuscarPagadorController(buscarPagador);
 const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController);
 
-const criarPagador = new CriarPagador(pagadorRepository);
+const criarPagador = new CriarPagador(pagadorRepository, contaRepository);
 const criarPagadorController = new CriarPagadorController(criarPagador);
 const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController);
 

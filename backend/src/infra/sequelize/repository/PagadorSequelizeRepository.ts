@@ -6,7 +6,7 @@ import PagadorSequelizeModel from '../models/PagadorSequelizeModel';
 import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 
 export default class PagadorSequelizeRepository implements IPagadorRepository {
-  
+
   public async criar(pUnitOfWork: IUnitOfWork, pPagador: Pagador): Promise<Pagador> {
     const pagadorDb = await db.models.pagador.create(pPagador.gerarObjCriar(), {
       transaction: pUnitOfWork.getTransition(),
@@ -27,16 +27,15 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
     return null;
   }
 
-  public async listarPagadorPorEmail(pPagador: string): Promise<Pagador | null> {
+  public async verificarSePagadorExiste(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<Pagador | null> {
     const pagadorDb = await db.models.pagador.findOne<PagadorSequelizeModel>({
-      where: {
-        email: pPagador,
-      }
-    });
-    if (pagadorDb) {
-      return Promise.resolve(new Pagador(pagadorDb));
-    }
-    return null;
+          where: {
+            identificacao: pPagador.identificacao,
+            idConta: pPagador.idConta
+          },
+          transaction: pUnitOfWork.getTransition(),
+        });
+        return pagadorDb ? new Pagador(pagadorDb) : null;
   }
 
   async editar(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<boolean> {
@@ -45,7 +44,7 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
       identificacao: pPagador.identificacao
     }, {
       where: {
-        email: pPagador.email
+        idPagador: pPagador.idPagador
       },
       transaction: pUnitOfWork.getTransition(),
     });

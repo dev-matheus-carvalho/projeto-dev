@@ -24,6 +24,16 @@ export default class ContaSequelizeRepository implements IContaRepository {
     return contaDb ? new Conta(contaDb) : null;
   }
 
+  public async buscarUsuario(pUnitOfWork: IUnitOfWork, pIdConta: string): Promise<Conta | null> {
+    const contaDb = await db.models.conta.findOne({
+      where: {
+        idConta: pIdConta,
+       },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return contaDb ? new Conta(contaDb) : null;
+  }
+
   public async verificaSenhaLogin(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta | null> {
     const contaDb = await db.models.conta.findOne<ContaSequelizeModel>({
       where: {
