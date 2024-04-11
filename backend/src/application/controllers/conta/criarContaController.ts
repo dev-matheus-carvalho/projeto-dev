@@ -21,10 +21,8 @@ export class CriarContaController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputConta);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Conta criada com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Email já cadastrado!', result, null);
+
+      return new EntryPointSuccess('Conta criada com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

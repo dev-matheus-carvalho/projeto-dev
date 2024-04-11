@@ -106,4 +106,61 @@ export class CriarTitulo {
     return new CriarTituloOutput(titulo);
 
   }
+  
+  public async execute2(pUnitOfWork: UnitOfWork, pInputTitulo: CriarTituloInput): Promise<CriarTituloOutput | null> {
+    const dataString = pInputTitulo.vencimento;
+    const dividirData = dataString.split('/');
+    const dia = parseInt(dividirData[0], 10);
+    const mes = parseInt(dividirData[1], 10) - 1;
+    const ano = parseInt(dividirData[2], 10);
+    const vencimento = new Date(ano, mes, dia);
+    const situacaoTitulo = verificarVencimento(vencimento);
+    
+
+    // Verifica se o idLote veio preenchido, vazio, nulo ou undefined
+
+    let idLote = pInputTitulo.idLote;
+    if(idLote === '' || idLote === null || idLote === undefined) {
+      // idLote vazio, então cria-se um lote  
+      const lote = new Lote({
+        idLote: v4(),
+        situacao: 'NÃO ENVIADO',
+        dataLote: new Date(),
+        email: pInputTitulo.email,
+      });
+      const loteDb = await this.loteRepository.criar(pUnitOfWork, lote);
+      idLote = loteDb.idLote;
+    }
+
+    // idLote preenchido
+    const titulo = new Titulo({
+      idTitulo: v4(),
+      numeroTitulo: pInputTitulo.numeroTitulo,
+      tipoTitulo: pInputTitulo.tipoTitulo,
+      vencimento: vencimento,
+      situacaoTitulo: situacaoTitulo,
+      duplicataChaveNota: pInputTitulo.duplicataChaveNota,
+      duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
+      duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
+      duplicataSerieNota: pInputTitulo.duplicataSerieNota,
+      duplicataDataEmissao: new Date(),
+      duplicataNumeroFatura: pInputTitulo.duplicataNumeroFatura,
+      duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
+      valorDoTitulo: pInputTitulo.valorDoTitulo,
+      chequeCmc7: pInputTitulo.chequeCmc7,
+      email: pInputTitulo.email,
+      identificacao: pInputTitulo.identificacao,
+      idLote: pInputTitulo.idLote,
+      // idMovimentacao: pInputTitulo.idMovimentacao,
+      // idLancamento: pInputTitulo.idLancamento,
+      isProcessado: pInputTitulo.isProcessado,
+    });
+    const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(idLote, pInputTitulo.email);
+    await this.tituloRepository.criar(pUnitOfWork, titulo);
+    const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0);
+    const somaTotal = soma + pInputTitulo.valorDoTitulo;
+    await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, idLote, somaTotal, titulosPorLote.length + 1);
+    return new CriarTituloOutput(titulo);
+
+  }
 }

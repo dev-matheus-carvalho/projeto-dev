@@ -1,3 +1,4 @@
+import RootController from '../../../application/controllers/root/RootController';
 import UnitOfWork from '../../implementations/entity/UnitOfWork';
 import { Lote } from '../../implementations/entity/objectValues/Lote';
 

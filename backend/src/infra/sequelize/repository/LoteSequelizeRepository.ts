@@ -16,7 +16,7 @@ export default class LoteSequelizeRepository implements ILoteRepository {
       }
     });
     if (loteDb) {
-      return Promise.resolve(new Lote(loteDb));
+      return new Lote(loteDb);
     }
     return null;
   }
@@ -29,7 +29,7 @@ export default class LoteSequelizeRepository implements ILoteRepository {
     return new Lote(LoteDb);
   }
 
-  public async listarLotes(pEmail: string): Promise<Array<Lote>> {
+  public async listarLotes(pEmail: string): Promise<Lote[]> {
     const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
       where: {
         email: pEmail
