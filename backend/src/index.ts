@@ -59,12 +59,19 @@ const jwtServices = new JwtServices();
 
 const autenticadoGuard = new AutenticadoGuard(jwtServices);
 
-// Criar Conta
+// Repositórios
 const contaRepository = new ContaSequelizeRepository();
+const pagadorRepository = new PagadorSequelizeRepository();
+const tituloRepository = new TituloSequelizeRepository();
+const loteRepository = new LoteSequelizeRepository();
+
+
+// Criar Conta
 
 const criarConta = new CriarConta(contaRepository);
 const criarContaController = new CriarContaController(criarConta)
 const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController);
+
 
 // Login
 
@@ -72,9 +79,8 @@ const login = new Login(contaRepository);
 const loginController = new LoginController(login);
 const loginEntrypoint = new LoginEntrypoint(loginController);
 
+
 // Título
-const tituloRepository = new TituloSequelizeRepository();
-const loteRepository = new LoteSequelizeRepository();
 
 const criarTitulo = new CriarTitulo(tituloRepository, loteRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
@@ -92,6 +98,7 @@ const excluirTitulo = new ExcluirTitulo(tituloRepository);
 const excluirTituloController = new ExcluirTituloController(excluirTitulo);
 const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController);
 
+
 // Lote
 
 const listarLotes = new ListarLotes(loteRepository);
@@ -105,8 +112,6 @@ const editarLoteEntrypoint = new EditarLoteEntrypoint(editarLoteController);
 
 // Pagador
 
-const pagadorRepository = new PagadorSequelizeRepository();
-
 const buscarPagador = new BuscarPagador(pagadorRepository);
 const buscarPagadorController = new BuscarPagadorController(buscarPagador);
 const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController);
@@ -115,9 +120,10 @@ const criarPagador = new CriarPagador(pagadorRepository, contaRepository);
 const criarPagadorController = new CriarPagadorController(criarPagador);
 const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController);
 
-const editarPagador = new EditarPagador(pagadorRepository);
+const editarPagador = new EditarPagador(pagadorRepository, contaRepository);
 const editarPagadorController = new EditarPagadorController(editarPagador);
 const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorController);
+
 
 const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,

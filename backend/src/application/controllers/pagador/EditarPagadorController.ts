@@ -25,10 +25,7 @@ export class EditarPagadorController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputPagador);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Pagador editado com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 404, 'Pagador não encontrado', result, null);
+      return new EntryPointSuccess('Pagador editado com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

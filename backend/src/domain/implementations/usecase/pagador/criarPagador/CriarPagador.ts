@@ -12,7 +12,7 @@ export class CriarPagador {
   constructor(private pagadorRepository: IPagadorRepository, private contaRepository: IContaRepository) {
   }
 
-  public async execute(pUnitOfWork: UnitOfWork, pInputPagador: CriarPagadorInput): Promise<CriarPagadorOutput | null | any> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputPagador: CriarPagadorInput): Promise<CriarPagadorOutput | null> {
     
     const pagador = new Pagador({
       idPagador: v4(),
