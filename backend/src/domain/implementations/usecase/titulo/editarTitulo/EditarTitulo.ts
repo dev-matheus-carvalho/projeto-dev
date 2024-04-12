@@ -6,25 +6,30 @@ import { EditarTituloOutput } from './EditarTituloOutput';
 import { v4 } from 'uuid';
 import ILoteRepository from '../../../../protocols/repository/loteRepository';
 import { Lote } from '../../../entity/objectValues/Lote';
+import { FormatarData } from '../../../services/formatarData';
+import { verificarVencimento } from '../../../services/verificarVencimento';
+import InformacaoDuplicada from '../../../entity/errors/InformacaoDuplicada';
+import IContaRepository from '../../../../protocols/repository/contaRepository';
+import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
 
 export class EditarTitulo {
-  constructor(private tituloRepository: ITituloRepository) {
+  constructor(
+    private tituloRepository: ITituloRepository,
+    private loteRepository: ILoteRepository,
+    private contaRepository: IContaRepository
+  ) {
   }
   
-  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: EditarTituloInput): Promise<EditarTituloOutput | null> {
-    const dataString = pInputTitulo.vencimento;
-    const dividirData = dataString.split('/');
-    const dia = parseInt(dividirData[0], 10);
-    const mes = parseInt(dividirData[1], 10) - 1;
-    const ano = parseInt(dividirData[2], 10);
-    const vencimento = new Date(ano, mes, dia);
+  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: EditarTituloInput): Promise<EditarTituloOutput> {
+    const vencimento = FormatarData(pInputTitulo.vencimento);
+    const situacaoTitulo = verificarVencimento(vencimento);
 
     const titulo = new Titulo({
       idTitulo: pInputTitulo.idTitulo,
       numeroTitulo: pInputTitulo.numeroTitulo,
       tipoTitulo: pInputTitulo.tipoTitulo,
       vencimento: vencimento,
-      situacaoTitulo: pInputTitulo.situacaoTitulo,
+      situacaoTitulo: situacaoTitulo,
       duplicataChaveNota: pInputTitulo.duplicataChaveNota,
       duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
       duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
@@ -33,21 +38,29 @@ export class EditarTitulo {
       duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
       valorDoTitulo: pInputTitulo.valorDoTitulo,
       chequeCmc7: pInputTitulo.chequeCmc7,
-      email: pInputTitulo.email,
-      identificacao: pInputTitulo.identificacao,
+      idConta: pInputTitulo.idConta,
+      idPagador: pInputTitulo.idPagador,
       idLote: pInputTitulo.idLote,
-      // idMovimentacao: pInputTitulo.idMovimentacao,
-      // idLancamento: pInputTitulo.idLancamento,
-      isProcessado: pInputTitulo.isProcessado
     });
 
-    const isTituloExist = await this.tituloRepository.buscarTituloPorIdDoTituloEEmail(pInputTitulo.idTitulo, pInputTitulo.email);
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, titulo.idLote);
+    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
 
-    if(isTituloExist) {
-      await this.tituloRepository.editar(pUnitOfWork, titulo);
-      return new EditarTituloOutput(titulo);
+
+    if(!isUsuarioExist) {
+      throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
-    return null;
 
+    if(!isLoteExist) {
+      throw new InformacaoNaoEncontrada('Lote não encontrado');
+    }
+
+    if(!isTituloExist) {
+      throw new InformacaoDuplicada('Título não encontrado');
+    }
+
+    await this.tituloRepository.editar(pUnitOfWork, titulo);
+    return new EditarTituloOutput(titulo);
   }
 }

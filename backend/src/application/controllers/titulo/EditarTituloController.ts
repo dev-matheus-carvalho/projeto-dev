@@ -25,10 +25,7 @@ export class EditarTituloController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputTitulo);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Titulo editado com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Não foi possível editar título!', result, null);
+      return new EntryPointSuccess('Titulo editado com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

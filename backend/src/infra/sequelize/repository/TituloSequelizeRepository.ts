@@ -15,17 +15,15 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return new Titulo(tituloDb);
   }
 
-  public async buscarTituloPorIdDoTituloEEmail(pIdTitulo: string, pEmail: string): Promise<Titulo | null> {
+  public async verificarSeExisteTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
-        idTitulo: pIdTitulo,
-        idConta: pEmail,
-      }
+        idTitulo: pTitulo.idTitulo,
+        idConta: pTitulo.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
-    if (tituloDb) {
-      return Promise.resolve(new Titulo(tituloDb));
-    }
-    return null;
+    return tituloDb ? new Titulo(tituloDb) : null;
   }
 
   public async buscarTituloPorNumeroDoTitulo(pTitulo: string): Promise<Titulo | null> {

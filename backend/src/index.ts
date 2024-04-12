@@ -90,7 +90,7 @@ const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository);
 const listarTitulosPorLoteController = new ListarTitulosPorLoteController(listarTitulosPorLote);
 const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController);
 
-const editarTitulo = new EditarTitulo(tituloRepository);
+const editarTitulo = new EditarTitulo(tituloRepository, loteRepository, contaRepository);
 const editarTituloController = new EditarTituloController(editarTitulo);
 const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
 
