@@ -82,7 +82,7 @@ const loginEntrypoint = new LoginEntrypoint(loginController);
 
 // Título
 
-const criarTitulo = new CriarTitulo(tituloRepository, loteRepository);
+const criarTitulo = new CriarTitulo(tituloRepository, loteRepository, contaRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
 const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 

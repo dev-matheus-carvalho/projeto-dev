@@ -9,16 +9,14 @@ import TituloSequelizeModel from '../models/TituloSequelizeModel';
 import LoteSequelizeModel from '../models/LoteSequelizeModel';
 
 export default class LoteSequelizeRepository implements ILoteRepository {
-  public async buscaLotePorId(pIdLote: string): Promise<Lote | null> {
+  public async buscaLotePorId(pUnitOfWork: UnitOfWork, pIdLote: string): Promise<Lote | null> {
     const loteDb = await db.models.lote.findOne<LoteSequelizeModel>({
       where: {
         idLote: pIdLote,
-      }
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
-    if (loteDb) {
-      return new Lote(loteDb);
-    }
-    return null;
+    return loteDb ? new Lote(loteDb) : null;
   }
   
   public async criar(pUnitOfWork: UnitOfWork, pLote: Lote): Promise<Lote> {
@@ -32,7 +30,7 @@ export default class LoteSequelizeRepository implements ILoteRepository {
   public async listarLotes(pEmail: string): Promise<Lote[]> {
     const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
       where: {
-        email: pEmail
+        idConta: pEmail
       }
     });
      return loteDb.map((lotes) => new Lote(lotes));

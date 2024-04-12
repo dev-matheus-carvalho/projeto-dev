@@ -16,11 +16,9 @@ export class CriarTituloInput {
   public duplicataValorLiquidoFatura?: number;
   public valorDoTitulo: number;
   public chequeCmc7?: string;
-  public email: string;
-  public identificacao: string;
+  public idConta: string;
+  public idPagador: string;
   public idLote?: string;
-  // public idMovimentacao?: string;
-  // public idLancamento?: string;
   public isProcessado: boolean;
 
   constructor(pData: EntrypointData) {
@@ -37,11 +35,9 @@ export class CriarTituloInput {
     const duplicataValorLiquidoFaturaValidador = ValidadorDados.iniciar(pData.body?.duplicataValorLiquidoFatura, 'body.duplicataValorLiquidoFatura').number();
     const valorDoTituloValidador = ValidadorDados.iniciar(pData.body?.valorDoTitulo, 'body.valorDoTitulo').number();
     const chequeCmc7Validador = ValidadorDados.iniciar(pData.body?.chequeCmc7, 'body.chequeCmc7').string();
-    const emailValidador = ValidadorDados.iniciar(pData.body?.email, 'body.identificacao').obrigatorio().string();
-    const identificacaoValidador = ValidadorDados.iniciar(pData.body?.identificacao, 'body.identificacao').obrigatorio().string();
+    const idContaValidador = ValidadorDados.iniciar(pData.body?.idConta, 'body.idConta').obrigatorio().string();
+    const idPagadorValidador = ValidadorDados.iniciar(pData.body?.idPagador, 'body.idPagador').obrigatorio().string();
     const idLoteValidador = ValidadorDados.iniciar(pData.body?.idLote, 'body.idLote').string();
-    // const idMovimentacaoValidador = ValidadorDados.iniciar(pData.body?.idMovimentacao, 'body.idMovimentacao').string();
-    // const idLancamentoValidador = ValidadorDados.iniciar(pData.body?.idLancamento, 'body.idLancamento').string();
     const isProcessadoValidador = ValidadorDados.iniciar(pData.body?.isProcessado, 'body.isProcessado').boolean();
 
     if (numeroTituloValidador.estaValido() === false) {
@@ -71,9 +67,6 @@ export class CriarTituloInput {
     if (duplicataNumeroFaturaValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "duplicataNumeroFatura": ${duplicataNumeroFaturaValidador.getErro()}`);
     }
-    // if (numeroDoTituloValidador.estaValido() === false) {
-    //   throw new InformacaoNaoInfomada(`O atributo "numeroDoTitulo": ${numeroDoTituloValidador.getErro()}`);
-    // }
     if (duplicataValorLiquidoFaturaValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "duplicataValorLiquidoFatura": ${duplicataValorLiquidoFaturaValidador.getErro()}`);
     }
@@ -83,21 +76,15 @@ export class CriarTituloInput {
     if (chequeCmc7Validador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "chequeCmc7": ${chequeCmc7Validador.getErro()}`);
     }
-    if (emailValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "email": ${emailValidador.getErro()}`);
+    if (idContaValidador.estaValido() === false) {
+      throw new InformacaoNaoInfomada(`O atributo "idConta": ${idContaValidador.getErro()}`);
     } 
-    if (identificacaoValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "identificacao": ${identificacaoValidador.getErro()}`);
+    if (idPagadorValidador.estaValido() === false) {
+      throw new InformacaoNaoInfomada(`O atributo "idPagador": ${idPagadorValidador.getErro()}`);
     }
     if (idLoteValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "idLote": ${idLoteValidador.getErro()}`);
     }
-    // if (idMovimentacaoValidador.estaValido() === false) {
-    //   throw new InformacaoNaoInfomada(`O atributo "idMovimentacao": ${idMovimentacaoValidador.getErro()}`);
-    // }
-    // if (idLancamentoValidador.estaValido() === false) {
-    //   throw new InformacaoNaoInfomada(`O atributo "idLancamento": ${idLancamentoValidador.getErro()}`);
-    // }
     if (isProcessadoValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "isProcessado": ${isProcessadoValidador.getErro()}`);
     }
@@ -111,15 +98,12 @@ export class CriarTituloInput {
     this.duplicataNumeroNota = pData.body.duplicataNumeroNota;
     this.duplicataSerieNota = pData.body.duplicataSerieNota;
     this.duplicataNumeroFatura = pData.body.duplicataNumeroFatura;
-    // this.numeroDoTitulo = pData.body.numeroDoTitulo;
     this.duplicataValorLiquidoFatura = pData.body.duplicataValorLiquidoFatura;
     this.valorDoTitulo = pData.body.valorDoTitulo;
     this.chequeCmc7 = pData.body.chequeCmc7;
-    this.email = pData.body.email;
-    this.identificacao = pData.body.identificacao;
+    this.idConta = pData.body.idConta;
+    this.idPagador = pData.body.idPagador;
     this.idLote = pData.body.idLote;
-    // this.idMovimentacao = pData.body.idMovimentacao;
-    // this.idLancamento = pData.body.idLancamento;
     this.isProcessado = pData.body.isProcessado;
   }
 }

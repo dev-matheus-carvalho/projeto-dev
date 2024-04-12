@@ -16,11 +16,9 @@ interface ITituloModelUpdate {
   duplicataValorLiquidoFatura?: number;
   valorDoTitulo: number;
   chequeCmc7?: string;
-  email: string;
-  identificacao: string;
+  idConta: string;
+  idPagador: string;
   idLote?: string;
-  // idMovimentacao?: string;
-  // idLancamento?: string;
   isProcessado: boolean;
 }
 
@@ -40,11 +38,9 @@ export class Titulo implements ITitulo {
   public duplicataValorLiquidoFatura: number = 0;
   public valorDoTitulo: number = 0;
   public chequeCmc7: string = '';
-  public email: string = '';
-  public identificacao: string = '';
-  public idLote?: string = '';
-  // public idMovimentacao: string = '';
-  // public idLancamento: string = '';
+  public idConta: string = '';
+  public idPagador: string = '';
+  public idLote: string = '';
   public isProcessado: boolean = false;
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -66,11 +62,9 @@ export class Titulo implements ITitulo {
     this.duplicataValorLiquidoFatura = pValores.duplicataValorLiquidoFatura ?? this.duplicataValorLiquidoFatura;
     this.valorDoTitulo = pValores.valorDoTitulo ?? this.valorDoTitulo;
     this.chequeCmc7 = pValores.chequeCmc7 ?? this.chequeCmc7;
-    this.email = pValores.email ?? this.email;
-    this.identificacao = pValores.identificacao ?? this.identificacao;
+    this.idConta = pValores.idConta ?? this.idConta;
+    this.idPagador = pValores.idPagador ?? this.idPagador;
     this.idLote = pValores.idLote ?? this.idLote;
-    // this.idMovimentacao = pValores.idMovimentacao ?? this.idMovimentacao;
-    // this.idLancamento = pValores.idLancamento ?? this.idLancamento;
     this.isProcessado = pValores.isProcessado ?? this.isProcessado;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
@@ -92,11 +86,9 @@ export class Titulo implements ITitulo {
       duplicataValorLiquidoFatura: this.duplicataValorLiquidoFatura,
       valorDoTitulo: this.valorDoTitulo,
       chequeCmc7: this.chequeCmc7,
-      email: this.email,
-      identificacao: this.identificacao,
+      idConta: this.idConta,
+      idPagador: this.idPagador,
       idLote: this.idLote,
-      // idMovimentacao: this.idMovimentacao,
-      // idLancamento: this.idLancamento,
       isProcessado: this.isProcessado
     };
   }
@@ -116,11 +108,9 @@ export class Titulo implements ITitulo {
       duplicataValorLiquidoFatura: this.duplicataValorLiquidoFatura,
       valorDoTitulo: this.valorDoTitulo,
       chequeCmc7: this.chequeCmc7,
-      email: this.email,
-      identificacao: this.identificacao,
+      idConta: this.idConta,
+      idPagador: this.idPagador,
       idLote: this.idLote,
-      // idMovimentacao: this.idMovimentacao,
-      // idLancamento: this.idLancamento,
       isProcessado: this.isProcessado
     };
   }

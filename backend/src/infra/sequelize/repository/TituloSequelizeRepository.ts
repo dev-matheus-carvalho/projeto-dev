@@ -19,7 +19,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
         idTitulo: pIdTitulo,
-        email: pEmail,
+        idConta: pEmail,
       }
     });
     if (tituloDb) {
@@ -43,7 +43,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
   public async buscarTituloPorEmailDoTitulo(pEmail: string): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
-        email: pEmail,
+        idConta: pEmail,
       }
     });
     if (tituloDb) {
@@ -55,8 +55,8 @@ export default class TituloSequelizeRepository implements ITituloRepository {
   public async buscarTituloPorEmailEPagadorDoTitulo(pEmail: string, pPagador: string): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
-        email: pEmail,
-        identificacao: pPagador,
+        idConta: pEmail,
+        idPagador: pPagador,
       }
     });
     if (tituloDb) {
@@ -65,12 +65,13 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return null;
   }
 
-  public async listarTitulosPorLote(pIdLote: string, pEmail: string): Promise<Array<Titulo>> {
+  public async listarTitulosPorLote(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<Titulo[]> {
     const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
       where: {
-        idLote: pIdLote,
-        email: pEmail
-      }
+        idLote: pTitulo.idLote,
+        idConta: pTitulo.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
      return tituloDb.map((titulo) => new Titulo(titulo));
   }
@@ -79,7 +80,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     const result = await db.models.titulo.update<TituloSequelizeModel>(pTitulo.gerarObjAtualizar(), {
       where: {
         idTitulo: pTitulo.idTitulo,
-        email: pTitulo.email,
+        idConta: pTitulo.idConta,
       },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -92,7 +93,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     }, {
       where: {
         idLote: pIdLote,
-        email: pEmail
+        idConta: pEmail
       },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -103,7 +104,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     const result = await db.models.titulo.destroy<TituloSequelizeModel>({
       where: {
         idTitulo: pIdTitulo,
-        email: pEmail
+        idConta: pEmail
       },
       transaction: pUnitOfWork.getTransition(),
 
@@ -115,7 +116,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     const result = await db.models.titulo.destroy<TituloSequelizeModel>({
       where: {
         idTitulo: pIdTitulo,
-        email: pEmail,
+        idConta: pEmail,
         idLote: pIdLote,
       },
       transaction: pUnitOfWork.getTransition(),

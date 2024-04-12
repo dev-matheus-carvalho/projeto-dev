@@ -15,11 +15,9 @@ export class CriarTituloOutput {
   public duplicataValorLiquidoFatura: number;
   public valorDoTitulo: number;
   public chequeCmc7: string;
-  public email: string;
-  public identificacao: string;
+  public idConta: string;
+  public idPagador: string;
   public idLote?: string;
-  // public idMovimentacao: string;
-  // public idLancamento: string;
   public isProcessado: boolean;
   
   constructor(pTitulo: Titulo) {
@@ -37,11 +35,9 @@ export class CriarTituloOutput {
     this.duplicataValorLiquidoFatura = pTitulo.duplicataValorLiquidoFatura,
     this.valorDoTitulo = pTitulo.valorDoTitulo,
     this.chequeCmc7 = pTitulo.chequeCmc7,
-    this.email = pTitulo.email,
-    this.identificacao = pTitulo.identificacao,
+    this.idConta = pTitulo.idConta,
+    this.idPagador = pTitulo.idPagador,
     this.idLote = pTitulo.idLote,
-    // this.idMovimentacao = pTitulo.idMovimentacao,
-    // this.idLancamento = pTitulo.idLancamento,
     this.isProcessado = pTitulo.isProcessado
   }
 }

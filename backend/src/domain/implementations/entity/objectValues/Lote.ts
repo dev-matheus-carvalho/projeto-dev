@@ -9,7 +9,7 @@ export class Lote implements ILote {
   public dataEnvio?: Date;
   public valorTotalTitulo: number = 0;
   public qtdTitulos: number = 0;
-  public email: string = '';
+  public idConta: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
 
@@ -22,7 +22,7 @@ export class Lote implements ILote {
     this.dataEnvio = pValores.dataEnvio ?? this.dataEnvio;
     this.valorTotalTitulo = pValores.valorTotalTitulo ?? this.valorTotalTitulo;
     this.qtdTitulos = pValores.qtdTitulos ?? this.qtdTitulos;
-    this.email = pValores.email ?? this.email;
+    this.idConta = pValores.idConta ?? this.idConta;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
 
@@ -37,7 +37,7 @@ export class Lote implements ILote {
       dataEnvio: this.dataEnvio,
       valorTotalTitulo: this.valorTotalTitulo,
       qtdTitulos: this.qtdTitulos,
-      email: this.email,
+      idConta: this.idConta,
     };
   }
 }
