@@ -1,23 +1,40 @@
+import UnitOfWork from '../../../entity/UnitOfWork';
 import { Pagador } from '../../../entity/objectValues/Pagador';
 import IPagadorRepository from '../../../../protocols/repository/pagadorRepository';
 import { BuscarPagadorInput } from './BuscarPagadorInput';
 import { BuscarPagadorOutput } from './BuscarPagadorOutput';
+import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
+import IContaRepository from '../../../../protocols/repository/contaRepository';
 
 export class BuscarPagador {
-  constructor(private pagadorRepository: IPagadorRepository) {
+  constructor(private pagadorRepository: IPagadorRepository, private contaRepository: IContaRepository) {
   }
 
-  public async execute(pInputPagador: BuscarPagadorInput): Promise<BuscarPagadorOutput | null> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputPagador: BuscarPagadorInput): Promise<BuscarPagadorOutput | null> {
     
     const pagador = new Pagador({
-      identificacao: pInputPagador.identificacao,
+      idPagador: pInputPagador.idPagador,
+      idConta: pInputPagador.idConta,
     });
 
-    const isPagadorExist = await this.pagadorRepository.listarPagadorPorIdentificacao(pagador.identificacao);
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pagador.idConta);
+    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pagador);
 
-    if (isPagadorExist) {
-      return new BuscarPagadorOutput(isPagadorExist);
+    console.log()
+    console.log()
+    console.log('Pagador')
+    console.log(isPagadorExist)
+    console.log()
+    console.log()
+    
+    if(!isUsuarioExist) {
+      throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
-    return null;
+
+    if(!isPagadorExist) {
+      throw new InformacaoNaoEncontrada('Pagador não encontrado');
+    }
+
+    return new BuscarPagadorOutput(isPagadorExist);
   }
 }

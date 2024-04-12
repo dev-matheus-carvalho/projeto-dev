@@ -19,12 +19,9 @@ export class BuscarPagadorController implements IController {
         tokenAuthorization: pData.tokenAuthorization,
       });
       await unitOfWork.init();
-      const result = await this.useCase.execute(inputPagador);
+      const result = await this.useCase.execute(unitOfWork, inputPagador);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Pagador encontrado com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Pagador não foi cadastrado!', result, null);
+      return new EntryPointSuccess('Pagador encontrado com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

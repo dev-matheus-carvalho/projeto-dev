@@ -15,22 +15,21 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
     return new Pagador(pagadorDb);
   }
 
-  public async listarPagadorPorIdentificacao(pPagador: string): Promise<Pagador | null> {
+  public async buscarPagador(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<Pagador | null> {
     const pagadorDb = await db.models.pagador.findOne<PagadorSequelizeModel>({
       where: {
-        identificacao: pPagador,
-      }
+        idPagador: pPagador.idPagador,
+        idConta: pPagador.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
-    if (pagadorDb) {
-      return Promise.resolve(new Pagador(pagadorDb));
-    }
-    return null;
+    return pagadorDb ? new Pagador(pagadorDb) : null;
   }
 
   public async verificarSePagadorExiste(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<Pagador | null> {
     const pagadorDb = await db.models.pagador.findOne<PagadorSequelizeModel>({
           where: {
-            identificacao: pPagador.identificacao,
+            idPagador: pPagador.idPagador,
             idConta: pPagador.idConta
           },
           transaction: pUnitOfWork.getTransition(),

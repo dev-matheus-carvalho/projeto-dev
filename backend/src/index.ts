@@ -112,7 +112,7 @@ const editarLoteEntrypoint = new EditarLoteEntrypoint(editarLoteController);
 
 // Pagador
 
-const buscarPagador = new BuscarPagador(pagadorRepository);
+const buscarPagador = new BuscarPagador(pagadorRepository, contaRepository);
 const buscarPagadorController = new BuscarPagadorController(buscarPagador);
 const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController);
 

@@ -4,15 +4,22 @@ import InformacaoNaoInfomada from '../../../entity/errors/InformacaoNaoInformada
 
 export class BuscarPagadorInput {
 
-  public identificacao: string;
+  public idPagador: string;
+  public idConta: string;
 
   constructor(pData: EntrypointData) {
-    const identificacaoValidador = ValidadorDados.iniciar(pData.body?.identificacao, 'body.identificacao').obrigatorio().string();
-    
-    if (identificacaoValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "identificacao": ${identificacaoValidador.getErro()}`);
+
+    const idPagadorValidador = ValidadorDados.iniciar(pData.body?.idPagador, 'body.idPagador').obrigatorio().string();
+    const idContaValidador = ValidadorDados.iniciar(pData.body?.idConta, 'body.idConta').obrigatorio().string();
+
+    if (idPagadorValidador.estaValido() === false) {
+      throw new InformacaoNaoInfomada(`O atributo "idPagador": ${idPagadorValidador.getErro()}`);
+    }
+    if (idContaValidador.estaValido() === false) {
+      throw new InformacaoNaoInfomada(`O atributo "idConta": ${idContaValidador.getErro()}`);
     }
 
-    this.identificacao = pData.body.identificacao;
+    this.idPagador = String(pData.body.idPagador);
+    this.idConta = String(pData.body.idConta);
   }
 }
