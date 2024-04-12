@@ -2,7 +2,7 @@ import EntrypointData from '../../../domain/implementations/entity/entryPoint/En
 import EntryPointSuccess from '../../../domain/implementations/entity/entryPoint/EntryPointSuccess';
 import IController from '../../../domain/protocols/services/Controller';
 import { ListarTitulosPorLote } from '../../../domain/implementations/usecase/titulo/listarTitulosPorLote/ListarTitulosPorLote';
-import UnitOfWork from '../../../domain/protocols/models/entity/objectValues/UnitOfWork';
+import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 import { ListarTitulosPorLoteInput } from '../../../domain/implementations/usecase/titulo/listarTitulosPorLote/ListarTitulosPorLoteInput';
 
 export class ListarTitulosPorLoteController implements IController {

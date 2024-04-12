@@ -86,7 +86,7 @@ const criarTitulo = new CriarTitulo(tituloRepository, loteRepository, contaRepos
 const criarTituloController = new CriarTituloController(criarTitulo);
 const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 
-const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository);
+const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository, loteRepository, contaRepository);
 const listarTitulosPorLoteController = new ListarTitulosPorLoteController(listarTitulosPorLote);
 const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController);
 
