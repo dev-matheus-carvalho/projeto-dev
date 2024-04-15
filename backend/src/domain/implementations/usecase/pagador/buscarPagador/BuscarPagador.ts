@@ -20,13 +20,6 @@ export class BuscarPagador {
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pagador.idConta);
     const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pagador);
 
-    console.log()
-    console.log()
-    console.log('Pagador')
-    console.log(isPagadorExist)
-    console.log()
-    console.log()
-    
     if(!isUsuarioExist) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
