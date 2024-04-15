@@ -48,6 +48,9 @@ import EditarLoteEntrypoint from './application/entryPoint/lote/editarLoteEntryp
 import { ListarLotes } from './domain/implementations/usecase/lote/listarLotes/ListarLotes';
 import { ListarLotesController } from './application/controllers/lote/ListarLotesController';
 import ListarLotesEntrypoint from './application/entryPoint/lote/listarLotesEntrypoint';
+import { FiltrarLotes } from './domain/implementations/usecase/lote/filtrarLotes/FiltrarLotes';
+import { FiltrarLotesController } from './application/controllers/lote/FiltrarLotesController';
+import FiltrarLotesEntrypoint from './application/entryPoint/lote/filtrarLotesEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -109,6 +112,10 @@ const editarLote = new EditarLote(tituloRepository, loteRepository);
 const editarLoteController = new EditarLoteController(editarLote);
 const editarLoteEntrypoint = new EditarLoteEntrypoint(editarLoteController);
 
+const filtrarLotes = new FiltrarLotes(loteRepository, contaRepository);
+const filtrarLotesController = new FiltrarLotesController(filtrarLotes);
+const filtrarLotesEntrypoint = new FiltrarLotesEntrypoint(filtrarLotesController);
+
 
 // Pagador
 
@@ -134,6 +141,7 @@ const entryPoints: EntryPoint[] = [
   excluirTituloEntrypoint,
   listarLotesEntrypoint,
   editarLoteEntrypoint,
+  filtrarLotesEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint

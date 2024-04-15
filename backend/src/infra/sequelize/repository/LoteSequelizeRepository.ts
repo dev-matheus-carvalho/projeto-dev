@@ -1,4 +1,5 @@
 import db from '../db';
+import { Op } from 'sequelize';
 import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 
 import { Titulo } from '../../../domain/implementations/entity/objectValues/Titulo';
@@ -62,5 +63,34 @@ export default class LoteSequelizeRepository implements ILoteRepository {
       transaction: pUnitOfWork.getTransition(),
     });
     return Promise.resolve(result.length > 0);
+  }
+
+  public async filtrarLotes(pUnitOfWork: UnitOfWork, pDataInicial: Date, pDataFinal: Date, pSituacao: string, pIdConta: string): Promise<Lote[]> {
+    const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
+      where: {
+        dataLote: {
+          [Op.gte]: pDataInicial,
+          [Op.lte]: pDataFinal,
+        },
+        situacao: pSituacao,
+        idConta: pIdConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return loteDb.map((lotes) => new Lote(lotes));
+  }
+
+  public async filtrarTodosLotes(pUnitOfWork: UnitOfWork, pDataInicial: Date, pDataFinal: Date, pIdConta: string): Promise<Lote[]> {
+    const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
+      where: {
+        dataLote: {
+          [Op.gte]: pDataInicial,
+          [Op.lte]: pDataFinal,
+        },
+        idConta: pIdConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return loteDb.map((lotes) => new Lote(lotes));
   }
 }
