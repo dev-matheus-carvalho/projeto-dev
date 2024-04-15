@@ -94,7 +94,7 @@ const editarTitulo = new EditarTitulo(tituloRepository, loteRepository, contaRep
 const editarTituloController = new EditarTituloController(editarTitulo);
 const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
 
-const excluirTitulo = new ExcluirTitulo(tituloRepository);
+const excluirTitulo = new ExcluirTitulo(tituloRepository, contaRepository);
 const excluirTituloController = new ExcluirTituloController(excluirTitulo);
 const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController);
 

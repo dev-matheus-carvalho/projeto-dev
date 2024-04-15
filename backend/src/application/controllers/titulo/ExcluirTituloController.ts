@@ -25,10 +25,7 @@ export class ExcluirTituloController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputTitulo);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Titulo excluído com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Título não encontrado!', result, null);
+      return new EntryPointSuccess('Titulo excluído com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);
