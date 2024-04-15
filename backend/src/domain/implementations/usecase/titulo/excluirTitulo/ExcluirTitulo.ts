@@ -30,7 +30,7 @@ export class ExcluirTitulo {
       throw new InformacaoNaoEncontrada('Titulo não encontrado');
     }
 
-    this.titulosRepository.excluir(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
+    await this.titulosRepository.excluir(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
 
     return true;
   }
