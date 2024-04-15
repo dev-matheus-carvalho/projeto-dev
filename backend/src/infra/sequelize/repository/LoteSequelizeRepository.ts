@@ -93,4 +93,15 @@ export default class LoteSequelizeRepository implements ILoteRepository {
     });
     return loteDb.map((lotes) => new Lote(lotes));
   }
+
+  public async ExcluirLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean> {
+    const result = await db.models.lote.destroy<LoteSequelizeModel>({
+      where: {
+        idLote: pIdLote,
+        idConta: pIdConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result > 0);
+  }
 }

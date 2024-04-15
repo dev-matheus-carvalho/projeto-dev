@@ -9,8 +9,8 @@ export default interface ITituloRepository {
   excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean>;
   buscarTituloPorIdTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string): Promise<Titulo | null>;
+  excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string,): Promise<boolean>;
 
-  excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdTitulo: string, pEmail: string, pIdLote: string): Promise<boolean>;
   buscarTituloPorEmailDoTitulo(pEmail: string): Promise<Titulo | null>;
   buscarTituloPorEmailEPagadorDoTitulo(pEmail: string, pPagador: string): Promise<Titulo | null>;
 }

@@ -10,4 +10,5 @@ export default interface ILoteRepository {
   listarLotes(pUnitOfWork: UnitOfWork, pIdConta: string): Promise<Lote[]>;
   filtrarLotes(pUnitOfWork: UnitOfWork, pDataInicial: Date, pDataFinal: Date, pSituacao: string, pIdConta: string): Promise<Lote[]>
   filtrarTodosLotes(pUnitOfWork: UnitOfWork, pDataInicial: Date, pDataFinal: Date, pIdConta: string): Promise<Lote[]>
+  ExcluirLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean>
 }

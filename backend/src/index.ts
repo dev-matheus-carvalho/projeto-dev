@@ -51,6 +51,9 @@ import ListarLotesEntrypoint from './application/entryPoint/lote/listarLotesEntr
 import { FiltrarLotes } from './domain/implementations/usecase/lote/filtrarLotes/FiltrarLotes';
 import { FiltrarLotesController } from './application/controllers/lote/FiltrarLotesController';
 import FiltrarLotesEntrypoint from './application/entryPoint/lote/filtrarLotesEntrypoint';
+import { ExcluirLote } from './domain/implementations/usecase/lote/excluirLote/ExcluirLote';
+import { ExcluirLoteController } from './application/controllers/lote/ExcluirLoteController';
+import ExcluirLoteEntrypoint from './application/entryPoint/lote/excluirLoteEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -131,6 +134,10 @@ const editarPagador = new EditarPagador(pagadorRepository, contaRepository);
 const editarPagadorController = new EditarPagadorController(editarPagador);
 const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorController);
 
+const excluirLote = new ExcluirLote(loteRepository, contaRepository, tituloRepository);
+const excluirLoteController = new ExcluirLoteController(excluirLote);
+const excluirLoteEntrypoint = new ExcluirLoteEntrypoint(excluirLoteController);
+
 
 const entryPoints: EntryPoint[] = [
   criarContaEntryPoint,
@@ -142,6 +149,7 @@ const entryPoints: EntryPoint[] = [
   listarLotesEntrypoint,
   editarLoteEntrypoint,
   filtrarLotesEntrypoint,
+  excluirLoteEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint

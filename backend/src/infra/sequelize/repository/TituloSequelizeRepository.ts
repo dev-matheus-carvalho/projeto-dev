@@ -102,17 +102,16 @@ export default class TituloSequelizeRepository implements ITituloRepository {
         idTitulo: pIdTitulo,
         idConta: pIdConta,
       },
-      transaction: pUnitOfWork.getTransition(), // -> Não tá admitindo o getTransition
+      transaction: pUnitOfWork.getTransition(),
     });
     return Promise.resolve(result > 0);
   }
 
-  public async excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdTitulo: string, pEmail: string, pIdLote: string): Promise<boolean> {
+  public async excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean> {
     const result = await db.models.titulo.destroy<TituloSequelizeModel>({
       where: {
-        idTitulo: pIdTitulo,
-        idConta: pEmail,
         idLote: pIdLote,
+        idConta: pIdConta,
       },
       transaction: pUnitOfWork.getTransition(),
 
