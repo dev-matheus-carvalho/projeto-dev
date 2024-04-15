@@ -7,7 +7,7 @@ export class ListarLotesOutput {
   public dataEnvio?: Date;
   public valorTotalTitulo: number;
   public qtdTitulos: number;
-  public email: string;
+  public idConta: string;
   
   constructor(pTitulo: Lote) {
     this.idLote = pTitulo.idLote,
@@ -16,6 +16,6 @@ export class ListarLotesOutput {
     this.dataEnvio = pTitulo.dataEnvio,
     this.valorTotalTitulo = pTitulo.valorTotalTitulo,
     this.qtdTitulos = pTitulo.qtdTitulos,
-    this.email = pTitulo.email
+    this.idConta = pTitulo.idConta
   }
 }

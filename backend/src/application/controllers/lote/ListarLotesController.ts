@@ -18,7 +18,7 @@ export class ListarLotesController implements IController {
         tokenAuthorization: pData.tokenAuthorization,
       });
       await unitOfWork.init();
-      const result = await this.useCase.execute(inputListarLotes);
+      const result = await this.useCase.execute(unitOfWork, inputListarLotes);
       await unitOfWork.commit();
       if (result) {
         return new EntryPointSuccess('Lista de lotes', result);

@@ -5,8 +5,6 @@ import { EditarLoteInput } from './EditarLoteInput';
 import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
 import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
 import { GerarData } from '../../../services/gerarData';
-// import { EditarLoteOutput } from './EditarLoteOutput';
-
 
 export class EditarLote {
   constructor(
@@ -25,8 +23,6 @@ export class EditarLote {
     if(!isLoteExist.dataEnvio === null || !isLoteExist.dataEnvio === null) {
       throw new AcaoInvalida('Lote já foi processado');
     }
-
-
 
     const data = GerarData(new Date());
     await this.loteRepository.editarLoteParaProcessado(pUnitOfWork, pInputLote.idLote, pInputLote.idConta, data);

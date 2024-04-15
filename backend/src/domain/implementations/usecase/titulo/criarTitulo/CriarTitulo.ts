@@ -10,6 +10,7 @@ import { FormatarData } from '../../../services/formatarData';
 import { verificarVencimento } from '../../../services/verificarVencimento';
 import IContaRepository from '../../../../protocols/repository/contaRepository';
 import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
+import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
 
 export class CriarTitulo {
   constructor(
@@ -17,7 +18,7 @@ export class CriarTitulo {
     private loteRepository: ILoteRepository,
     private contaRepository: IContaRepository) {
   }
-  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: CriarTituloInput): Promise<CriarTituloOutput | null | any> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: CriarTituloInput): Promise<CriarTituloOutput | null> {
 
     const vencimento = FormatarData(pInputTitulo.vencimento);
     const situacaoTitulo = verificarVencimento(vencimento);
@@ -47,6 +48,10 @@ export class CriarTitulo {
     
     if(!isLoteExist) {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
+    }
+
+    if(isLoteExist.situacao === 'PROCESSADO') {
+      throw new AcaoInvalida('Operação negada. Lote já processado');
     }
 
     const titulo = new Titulo({

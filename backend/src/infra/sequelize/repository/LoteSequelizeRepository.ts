@@ -27,11 +27,12 @@ export default class LoteSequelizeRepository implements ILoteRepository {
     return new Lote(LoteDb);
   }
 
-  public async listarLotes(pEmail: string): Promise<Lote[]> {
+  public async listarLotes(pUnitOfWork: UnitOfWork, pIdConta: string): Promise<Lote[]> {
     const loteDb = await db.models.lote.findAll<LoteSequelizeModel>({
       where: {
-        idConta: pEmail
-      }
+        idConta: pIdConta
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
      return loteDb.map((lotes) => new Lote(lotes));
   }

@@ -101,7 +101,7 @@ const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloControl
 
 // Lote
 
-const listarLotes = new ListarLotes(loteRepository);
+const listarLotes = new ListarLotes(loteRepository, contaRepository);
 const listarLotesContoller = new ListarLotesController(listarLotes);
 const listarLotesEntrypoint = new ListarLotesEntrypoint(listarLotesContoller);
 
