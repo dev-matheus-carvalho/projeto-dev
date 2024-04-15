@@ -11,6 +11,7 @@ import { verificarVencimento } from '../../../services/verificarVencimento';
 import InformacaoDuplicada from '../../../entity/errors/InformacaoDuplicada';
 import IContaRepository from '../../../../protocols/repository/contaRepository';
 import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
+import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
 
 export class EditarTitulo {
   constructor(
@@ -43,10 +44,10 @@ export class EditarTitulo {
       idLote: pInputTitulo.idLote,
     });
 
+    // 1º: Descobrir se usuário, lote e título existem
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, titulo.idLote);
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
     const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
-
 
     if(!isUsuarioExist) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
@@ -60,7 +61,17 @@ export class EditarTitulo {
       throw new InformacaoDuplicada('Título não encontrado');
     }
 
+    // 2º: Verificar se o Lote já foi processado
+    if(isLoteExist.situacao === 'PROCESSADO') {
+      throw new AcaoInvalida('Operação negada. Lote já processado');
+    }
+    
+    const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
+    const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0) - isTituloExist.valorDoTitulo;
     await this.tituloRepository.editar(pUnitOfWork, titulo);
+    const somaTotal = soma + pInputTitulo.valorDoTitulo;
+    await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, somaTotal, titulosPorLote.length + 1);
+    
     return new EditarTituloOutput(titulo);
   }
 }

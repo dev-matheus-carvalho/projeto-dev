@@ -26,16 +26,14 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return tituloDb ? new Titulo(tituloDb) : null;
   }
 
-  public async buscarTituloPorNumeroDoTitulo(pTitulo: string): Promise<Titulo | null> {
+  public async buscarTituloPorIdTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
-        numeroTitulo: pTitulo,
-      }
+        numeroTitulo: pIdTitulo,
+      },
+      transaction: pUnitOfWork.getTransition(),
     });
-    if (tituloDb) {
-      return Promise.resolve(new Titulo(tituloDb));
-    }
-    return null;
+    return tituloDb ? new Titulo(tituloDb) : null;
   }
 
   public async buscarTituloPorEmailDoTitulo(pEmail: string): Promise<Titulo | null> {
@@ -63,11 +61,11 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return null;
   }
 
-  public async listarTitulosPorLote(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<Titulo[]> {
+  public async listarTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<Titulo[]> {
     const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
       where: {
-        idLote: pTitulo.idLote,
-        idConta: pTitulo.idConta,
+        idLote: pIdLote,
+        idConta: pIdConta
       },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -85,13 +83,13 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return Promise.resolve(result.length > 0);
   }
 
-  public async editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pEmail: string): Promise<boolean> {
+  public async editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean> {
     const result = await db.models.titulo.update<TituloSequelizeModel>({
-      isProcessado: true
+      isProcessado: true,
     }, {
       where: {
         idLote: pIdLote,
-        idConta: pEmail
+        idConta: pIdConta
       },
       transaction: pUnitOfWork.getTransition(),
     });

@@ -42,12 +42,13 @@ export class CriarTitulo {
       idLote = lote.idLote;
     }
 
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote!);
+    
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, idLote);
     
     if(!isLoteExist) {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
     }
-    
+
     const titulo = new Titulo({
         idTitulo: v4(),
         numeroTitulo: pInputTitulo.numeroTitulo,
@@ -69,7 +70,7 @@ export class CriarTitulo {
         isProcessado: pInputTitulo.isProcessado,
       });
       
-      const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, titulo);
+      const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
       await this.tituloRepository.criar(pUnitOfWork, titulo);
       const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0);
       const somaTotal = soma + pInputTitulo.valorDoTitulo;
