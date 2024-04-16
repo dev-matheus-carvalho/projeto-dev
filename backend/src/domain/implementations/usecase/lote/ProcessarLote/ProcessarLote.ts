@@ -8,12 +8,15 @@ import { GerarData } from '../../../services/gerarData';
 import { Movimentacao } from '../../../entity/objectValues/Movimentacao';
 import { v4 } from 'uuid';
 import IMovimentacaoRepository from '../../../../protocols/repository/movimentacaoRepository';
+import ILancamentoRepository from '../../../../protocols/repository/lancamentoRepository';
+import { Lancamento } from '../../../entity/objectValues/Lancamento';
 
 export class ProcessarLote {
   constructor(
     private tituloRepository: ITituloRepository, 
     private loteRepository: ILoteRepository,
     private movimentacaoRepository: IMovimentacaoRepository,
+    private lancamentoRepository: ILancamentoRepository,
   ) {
   }
   
@@ -55,7 +58,20 @@ export class ProcessarLote {
         idTitulo: i.idTitulo
       });
 
+      let lancamento = new Lancamento({
+        idLancamento: v4(),
+        dataEvento: new Date(),
+        dataCredito: new Date(),
+        valorPrincipal: i.valorDoTitulo,
+        valorMulta: 0,
+        valorJuros: 0,
+        tipoPagamento: '',
+        ativo: false,
+        idTitulo: i.idTitulo
+      });
+
       await this.movimentacaoRepository.criar(pUnitOfWork, movimentacao);
+      await this.lancamentoRepository.criar(pUnitOfWork, lancamento);
     }
 
     const data = GerarData(new Date());

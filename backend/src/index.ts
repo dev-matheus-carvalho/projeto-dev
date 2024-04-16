@@ -55,6 +55,7 @@ import { ProcessarLote } from './domain/implementations/usecase/lote/ProcessarLo
 import { ProcessarLoteController } from './application/controllers/lote/ProcessarLoteController';
 import ProcessarLoteEntrypoint from './application/entryPoint/lote/processarLoteEntrypoint';
 import MovimentacaoSequelizeRepository from './infra/sequelize/repository/MovimentacaoSequelizeRepository';
+import LancamentoSequelizeRepository from './infra/sequelize/repository/LancamentoSequelizeRepository';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -72,6 +73,7 @@ const pagadorRepository = new PagadorSequelizeRepository();
 const tituloRepository = new TituloSequelizeRepository();
 const loteRepository = new LoteSequelizeRepository();
 const movimentacaoRepository = new MovimentacaoSequelizeRepository();
+const lancamentoRepository = new LancamentoSequelizeRepository();
 
 
 // Criar Conta
@@ -113,7 +115,7 @@ const listarLotes = new ListarLotes(loteRepository, contaRepository);
 const listarLotesContoller = new ListarLotesController(listarLotes);
 const listarLotesEntrypoint = new ListarLotesEntrypoint(listarLotesContoller);
 
-const processarLote = new ProcessarLote(tituloRepository, loteRepository, movimentacaoRepository);
+const processarLote = new ProcessarLote(tituloRepository, loteRepository, movimentacaoRepository, lancamentoRepository);
 const processarLoteController = new ProcessarLoteController(processarLote);
 const processarLoteEntrypoint = new ProcessarLoteEntrypoint(processarLoteController);
 
