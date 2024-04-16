@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ICriarContaReq } from '../../../shared/services/models/conta/ICriarContaReq';
-import { ErrorsUtil } from '../../../shared/utils/errosUtil';
-import { SenhasUtil } from '../../../shared/utils/senhaUtil';
-import { ContaService } from '../../../shared/services/https/conta.service';
+import { ICriarContaReq } from '../../shared/services/models/conta/ICriarContaReq';
 import { Router } from '@angular/router';
-import { ToasterService } from '../../../shared/components/toaster-controller/toaster.service';
+import { SenhasUtil } from '../../shared/utils/senhaUtil';
+import { ToasterService } from '../../shared/components/toaster-controller/toaster.service';
+import { ContaService } from '../../shared/services/https/conta.service';
+import { ErrorsUtil } from '../../shared/utils/errosUtil';
 
 @Component({
   selector: 'app-criar-conta',
@@ -39,6 +39,7 @@ export class CriarContaComponent {
       }
     }
   }
+  
   public verificarSeSenhasSaoIguais(): void {
     if (this.criarContaForm.controls.senha.value !== this.criarContaForm.controls.senha2.value) {
       this.formularioInvalido = true;

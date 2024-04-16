@@ -8,14 +8,12 @@ import { SideNavItemRouterLink, SideNavItemTarget } from '@decisaosistemas/angul
 })
 export class LogadoLayoutComponent {
 
-  public menus: (SideNavItemTarget | SideNavItemRouterLink)[] = [];
+  public menus: (SideNavItemTarget | SideNavItemRouterLink)[] = [
+    new SideNavItemRouterLink('Início', 'ds-icon-home', `/inicio`),
+    new SideNavItemRouterLink('Lote', 'ds-icon-upload', `/lote`),
+    new SideNavItemRouterLink('Contas a Receber', 'ds-icon-coin-add', `/contas-receber`),
+  ];
 
-  ngOnInit(): void {
-    this.menus = [
-      new SideNavItemRouterLink('Início', 'ds-icon-home', `/inicio`),
-      new SideNavItemRouterLink('Lote', 'ds-icon-upload', `/lote`),
-      new SideNavItemRouterLink('Contas a Receber', 'ds-icon-coin-add', `/contas-receber`),
-    ];
-  }
+  ngOnInit(): void {  }
 
 }

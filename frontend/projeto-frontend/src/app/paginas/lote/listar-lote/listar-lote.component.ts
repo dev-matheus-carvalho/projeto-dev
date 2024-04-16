@@ -12,7 +12,7 @@ export class ListarLoteComponent {
   }
 
   public adicionarLote(): void {
-    this.router.navigate([this.router.url, 'adicionar-lote']);
+    this.router.navigate([this.router.url, 'adicionar-titulos']);
   }
 
   public listarLote(): void {

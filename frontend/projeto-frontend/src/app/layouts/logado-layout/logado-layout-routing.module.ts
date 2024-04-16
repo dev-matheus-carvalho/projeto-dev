@@ -18,9 +18,9 @@ const routes: Routes = [
         loadChildren: () => import('../../paginas/lote/lote.module').then((m) => m.LoteModule),
       },
     //   {
-    //     path: 'contatos',
+    //     path: 'contas-receber',
     //     canActivate: [AuthService],
-    //     loadChildren: () => import('../../pages/contatos/contatos.module').then((m) => m.ContatosModule),
+    //     loadChildren: () => import('../../pages/contas-receber/contas-receber.module').then((m) => m.contas-receberModule),
     //   },
     ]
   }

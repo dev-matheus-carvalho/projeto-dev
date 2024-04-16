@@ -10,7 +10,6 @@ import { LogadoLayoutModule } from './layouts/logado-layout/logado-layout.module
 import { ToasterControllerModule } from './shared/components/toaster-controller/toaster-controller.module';
 import { LoteComponent } from './paginas/lote/lote.component';
 import { ListarLoteComponent } from './paginas/lote/listar-lote/listar-lote.component';
-import { AdicionarLoteComponent } from './paginas/lote/adicionar-lote/adicionar-lote.component';
 import { RouterModule } from '@angular/router';
 
 

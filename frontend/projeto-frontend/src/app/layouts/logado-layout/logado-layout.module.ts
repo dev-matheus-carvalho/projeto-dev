@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LogadoLayoutRoutingModule } from './logado-layout-routing.module';
 import { LogadoLayoutComponent } from './logado-layout.component';
 import { SideNavModule } from '@decisaosistemas/angular-ds';

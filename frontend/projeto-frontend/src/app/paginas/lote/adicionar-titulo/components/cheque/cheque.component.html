@@ -1,0 +1,33 @@
+<div class="cheque-titulo">
+    <div class="ds-row cheque">
+        <div class="ds-col-8">
+            <ds-input-text 
+                [labelInput]="'CMC7'"
+                [control]="criarLoteForm.controls.cmc7">
+            </ds-input-text>
+        </div>
+    </div>
+    <div class="ds-row informacoes-titulo ds-mt-2">
+        <div class="ds-col-4">
+            <ds-input-text
+                [control]="criarLoteForm.controls.numTitulo"
+                [labelInput]="'Número do título'">
+            </ds-input-text>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-number
+                [control]="criarLoteForm.controls.valorTitulo"
+                [labelInput]="'Valor do título'"
+                [icone]="'ds-icon-coin'"
+                [placeholderInputNumber]="'0,00'">
+            </ds-input-number>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-date
+                [control]="criarLoteForm.controls.vencimento" 
+                [labelInput]="'Vencimento'"
+                [placeholderInputDate]="'DD/MM/AAAA'">
+            </ds-input-date>
+        </div>
+    </div>
+</div>

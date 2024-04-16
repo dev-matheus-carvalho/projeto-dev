@@ -1,13 +1,17 @@
-<div class="listar-lote">
-    <div class="lote-header">
-      <ds-button
-      [iconeEsquerda]="'ds-icon-add'"
-      [tipoBotao]="'PRIMARY'"
-      [labelButton]="'Novo Lote'"
-      (click)="adicionarLote()"
-    ></ds-button>
+<div class="listar-lote ds-mt-4">
+    <div class="lote-header ds-mt-8 ">
+      <div class="ds-row">
+        <div class="ds-col-12">
+          <ds-button
+          [iconeEsquerda]="'ds-icon-add'"
+          [tipoBotao]="'PRIMARY'"
+          [labelButton]="'Novo Lote'"
+          (click)="adicionarLote()"
+        ></ds-button>
+        </div>
+      </div>
     </div>
-    <div class="lote-container-vazio" *ngIf="listarLote.length === 0">
+    <div class="lote-container-vazio ds-mt-4" *ngIf="listarLote.length === 0">
       <img src="../../../assets/Nada por aqui 2.svg" />
       <img src="../../../assets/Texte.svg" />
     </div>

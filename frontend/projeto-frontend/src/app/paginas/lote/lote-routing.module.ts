@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Breadcrumb } from '@decisaosistemas/angular-ds';
 import { LoteComponent } from './lote.component';
-import { AdicionarLoteComponent } from './adicionar-lote/adicionar-lote.component';
+import { AdicionarTituloComponent } from './adicionar-titulo/adicionar-titulo.component';
+
 
 
 const routes: Routes = [
@@ -14,8 +15,8 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'adicionar-lote',
-        component: AdicionarLoteComponent,
+        path: 'adicionar-titulos',
+        component: AdicionarTituloComponent,
         data: {
           breadcrumb: new Breadcrumb('Adicionar Lote', 'Adicionar Lote'),
         },

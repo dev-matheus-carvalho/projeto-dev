@@ -1,0 +1,77 @@
+<div class="duplicata-titulo">
+    <div class="ds-row duplicata">
+        <div class="ds-col-8">
+            <ds-input-text 
+                [labelInput]="'Chave da nota'"
+                [control]="criarLoteForm.controls.chaveNota">
+            </ds-input-text>
+        </div>
+    </div>
+    <div class="ds-row duplicata">
+        <div class="ds-col-8">
+            <ds-input-text 
+                [labelInput]="'Protocolo da nota'"
+                [control]="criarLoteForm.controls.protocoloNota">
+            </ds-input-text>
+        </div>
+    </div>
+    <div class="ds-row duplicata ds-mt-2">
+        <div class="ds-col-4">
+            <ds-input-text 
+                [labelInput]="'Número da nota'"
+                [control]="criarLoteForm.controls.numeroNota">
+            </ds-input-text>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-text 
+                [labelInput]="'Série'"
+                [control]="criarLoteForm.controls.serie">
+            </ds-input-text>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-date 
+                [labelInput]="'Data de emissão'"
+                [control]="criarLoteForm.controls.dataEmissao"
+                [placeholderInputDate]="'DD/MM/AAAA'">
+            </ds-input-date>
+        </div>
+    </div>
+    <div class="ds-row duplicata ds-mt-2">
+        <div class="ds-col-4">
+            <ds-input-text 
+                [labelInput]="'Número da fatura'"
+                [control]="criarLoteForm.controls.numeroFatura">
+            </ds-input-text>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-text 
+                [labelInput]="'Valor líquido da fatura'"
+                [control]="criarLoteForm.controls.valorLiquidoFatura">
+            </ds-input-text>
+        </div>
+    </div>
+    <div class="ds-row informacoes-titulo ds-mt-2">
+        <div class="ds-col-4">
+            <ds-input-text
+                [control]="criarLoteForm.controls.numTitulo"
+                [labelInput]="'Número do título'">
+            </ds-input-text>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-number
+                [control]="criarLoteForm.controls.valorTitulo"
+                [labelInput]="'Valor do título'"
+                [icone]="'ds-icon-coin'"
+                [placeholderInputNumber]="'0,00'">
+            </ds-input-number>
+        </div>
+        <div class="ds-col-4">
+            <ds-input-date
+                [control]="criarLoteForm.controls.vencimento" 
+                [labelInput]="'Vencimento'"
+                [placeholderInputDate]="'DD/MM/AAAA'">
+            </ds-input-date>
+        </div>
+    </div>
+    
+</div>

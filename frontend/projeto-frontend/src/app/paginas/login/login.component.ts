@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToasterService } from '@decisaosistemas/angular-ds';
-import { ContaService } from '../../../shared/services/https/conta.service';
-import { CryptoService } from '../../../shared/services/crypto.service';
-import { ILoginReq } from '../../../shared/services/models/conta/ILoginReq';
+import { ContaService } from '../../shared/services/https/conta.service';
+import { CryptoService } from '../../shared/services/crypto.service';
+import { ILoginReq } from '../../shared/services/models/conta/ILoginReq';
 
 @Component({
   selector: 'app-login',
