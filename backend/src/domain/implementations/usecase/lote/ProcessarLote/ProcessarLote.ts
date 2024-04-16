@@ -55,21 +55,8 @@ export class ProcessarLote {
         idTitulo: i.idTitulo
       });
 
-      // await this.movimentacaoRepository.criar(pUnitOfWork, movimentacao);
+      await this.movimentacaoRepository.criar(pUnitOfWork, movimentacao);
     }
-
-    // const movimentacao = new Movimentacao({
-    //   idMovimentacao: v4(),
-    //   saldo: 0,
-    //   valorTotalPrincipal: 0,
-    //   valorTotalMulta: 0,
-    //   valorTotalJuros: 0,
-    //   valorTotalDesconto: 0,
-    //   dataUltimoRecebimento: new Date(),
-    //   statusRecebimento: false,
-    //   idTitulo: '2bad127a-0b9b-48fe-9c49-72217d107298'
-    // });
-
 
     const data = GerarData(new Date());
     await this.loteRepository.editarLoteParaProcessado(pUnitOfWork, pInputLote.idLote, pInputLote.idConta, data);
