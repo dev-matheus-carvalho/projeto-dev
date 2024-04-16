@@ -1,6 +1,4 @@
-import { ILote, ILoteModel, ILoteModelCreate } from '../../../protocols/models/entity/objectValues/lote';
 import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate } from '../../../protocols/models/entity/objectValues/movimentacao';
-import { SituacaoLoteEnum } from '../../constants/enum/situacaoLoteEnum';
 
 export class Movimentacao implements IMovimentacao {
 
