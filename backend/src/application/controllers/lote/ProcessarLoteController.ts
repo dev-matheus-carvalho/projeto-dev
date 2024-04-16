@@ -2,17 +2,17 @@ import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 import EntrypointData from '../../../domain/implementations/entity/entryPoint/EntryPointData';
 import EntryPointResponse from '../../../domain/implementations/entity/entryPoint/EntryPointResponse';
 import EntryPointSuccess from '../../../domain/implementations/entity/entryPoint/EntryPointSuccess';
-import { EditarLote } from '../../../domain/implementations/usecase/lote/editarLote/EditarLote';
-import { EditarLoteInput } from '../../../domain/implementations/usecase/lote/editarLote/EditarLoteInput';
+import { ProcessarLote } from '../../../domain/implementations/usecase/lote/ProcessarLote/ProcessarLote';
+import { ProcessarLoteInput } from '../../../domain/implementations/usecase/lote/ProcessarLote/ProcessarLoteInput';
 import IController from '../../../domain/protocols/services/Controller';
 
-export class EditarLoteController implements IController {
-  constructor(private useCase: EditarLote) { }
+export class ProcessarLoteController implements IController {
+  constructor(private useCase: ProcessarLote) { }
 
   public async execute(pData: EntrypointData): Promise<EntryPointSuccess> {
     const unitOfWork = new UnitOfWork(pData.tokenAuthorization);
     try {
-      const inputTitulo = new EditarLoteInput({
+      const inputTitulo = new ProcessarLoteInput({
         body: pData.body,
         parametros: pData.parametros,
         tokenAuthorization: pData.tokenAuthorization,
@@ -20,10 +20,7 @@ export class EditarLoteController implements IController {
       await unitOfWork.init();
       const result = await this.useCase.execute(unitOfWork, inputTitulo);
       await unitOfWork.commit();
-      if (result) {
-        return new EntryPointSuccess('Lote editado com sucesso.', result);
-      }
-      return new EntryPointResponse(false, 400, 'Não foi possível editar lote!', result, null);
+      return new EntryPointSuccess('Lote processado com sucesso.', result);
     } catch (error) {
       await unitOfWork.rollBack();
       return Promise.reject(error);

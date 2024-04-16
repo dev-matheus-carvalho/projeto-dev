@@ -2,7 +2,7 @@ import { ValidadorDados } from '@decisaosistemas/typescript-validador-dados';
 import EntrypointData from '../../../entity/entryPoint/EntryPointData';
 import InformacaoNaoInfomada from '../../../entity/errors/InformacaoNaoInformada';
 
-export class EditarLoteInput {
+export class ProcessarLoteInput {
 
   public idLote: string;
   public idConta: string;

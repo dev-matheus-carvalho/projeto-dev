@@ -42,9 +42,6 @@ import ListarTitulosPorLoteEntrypoint from './application/entryPoint/titulo/List
 import { ExcluirTitulo } from './domain/implementations/usecase/titulo/excluirTitulo/ExcluirTitulo';
 import { ExcluirTituloController } from './application/controllers/titulo/ExcluirTituloController';
 import ExcluirTituloEntrypoint from './application/entryPoint/titulo/excluirTituloEntrypoint';
-import { EditarLote } from './domain/implementations/usecase/lote/editarLote/EditarLote';
-import { EditarLoteController } from './application/controllers/lote/EditarLoteController';
-import EditarLoteEntrypoint from './application/entryPoint/lote/editarLoteEntrypoint';
 import { ListarLotes } from './domain/implementations/usecase/lote/listarLotes/ListarLotes';
 import { ListarLotesController } from './application/controllers/lote/ListarLotesController';
 import ListarLotesEntrypoint from './application/entryPoint/lote/listarLotesEntrypoint';
@@ -54,6 +51,9 @@ import FiltrarLotesEntrypoint from './application/entryPoint/lote/filtrarLotesEn
 import { ExcluirLote } from './domain/implementations/usecase/lote/excluirLote/ExcluirLote';
 import { ExcluirLoteController } from './application/controllers/lote/ExcluirLoteController';
 import ExcluirLoteEntrypoint from './application/entryPoint/lote/excluirLoteEntrypoint';
+import { ProcessarLote } from './domain/implementations/usecase/lote/ProcessarLote/ProcessarLote';
+import { ProcessarLoteController } from './application/controllers/lote/ProcessarLoteController';
+import ProcessarLoteEntrypoint from './application/entryPoint/lote/processarLoteEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -100,7 +100,7 @@ const editarTitulo = new EditarTitulo(tituloRepository, loteRepository, contaRep
 const editarTituloController = new EditarTituloController(editarTitulo);
 const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
 
-const excluirTitulo = new ExcluirTitulo(tituloRepository, contaRepository);
+const excluirTitulo = new ExcluirTitulo(tituloRepository, loteRepository, contaRepository);
 const excluirTituloController = new ExcluirTituloController(excluirTitulo);
 const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController);
 
@@ -111,9 +111,9 @@ const listarLotes = new ListarLotes(loteRepository, contaRepository);
 const listarLotesContoller = new ListarLotesController(listarLotes);
 const listarLotesEntrypoint = new ListarLotesEntrypoint(listarLotesContoller);
 
-const editarLote = new EditarLote(tituloRepository, loteRepository);
-const editarLoteController = new EditarLoteController(editarLote);
-const editarLoteEntrypoint = new EditarLoteEntrypoint(editarLoteController);
+const processarLote = new ProcessarLote(tituloRepository, loteRepository);
+const processarLoteController = new ProcessarLoteController(processarLote);
+const processarLoteEntrypoint = new ProcessarLoteEntrypoint(processarLoteController);
 
 const filtrarLotes = new FiltrarLotes(loteRepository, contaRepository);
 const filtrarLotesController = new FiltrarLotesController(filtrarLotes);
@@ -147,7 +147,7 @@ const entryPoints: EntryPoint[] = [
   editarTituloEntrypoint,
   excluirTituloEntrypoint,
   listarLotesEntrypoint,
-  editarLoteEntrypoint,
+  processarLoteEntrypoint,
   filtrarLotesEntrypoint,
   excluirLoteEntrypoint,
   buscarPagadorEntrypoint,
