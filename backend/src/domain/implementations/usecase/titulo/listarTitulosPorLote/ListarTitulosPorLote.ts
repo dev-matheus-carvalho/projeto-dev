@@ -14,7 +14,7 @@ export class ListarTitulosPorLote {
     private contaRepository: IContaRepository
   ) { }
 
-  public async execute(pUnitWork: UnitOfWork, pInputTitulo: ListarTitulosPorLoteInput): Promise<ListarTitulosOutput[]> {
+  public async execute(pUnitWork: UnitOfWork, pInputTitulo: ListarTitulosPorLoteInput): Promise<ListarTitulosOutput[] | any> {
     const titulo = new Titulo({
       idConta: pInputTitulo.idConta,
       idLote: pInputTitulo.idLote
@@ -30,7 +30,7 @@ export class ListarTitulosPorLote {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
     }
 
-    const titulosPorLote: Titulo[] = await this.titulosRepository.listarTitulosPorLote(pUnitWork, titulo);
+    const titulosPorLote: Titulo[] = await this.titulosRepository.listarTitulosPorLote(pUnitWork, titulo.idLote, titulo.idConta);
     return titulosPorLote;
   }
 }
