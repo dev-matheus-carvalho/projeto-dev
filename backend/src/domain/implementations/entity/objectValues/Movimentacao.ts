@@ -9,7 +9,6 @@ export class Movimentacao implements IMovimentacao {
   public valorTotalJuros: number = 0;
   public valorTotalDesconto: number = 0;
   public dataUltimoRecebimento?: Date;
-  public statusRecebimento: boolean = false;
   public idTitulo: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -23,7 +22,6 @@ export class Movimentacao implements IMovimentacao {
     this.valorTotalMulta = pValores.valorTotalMulta ?? this.valorTotalMulta;
     this.valorTotalJuros = pValores.valorTotalJuros ?? this.valorTotalJuros;
     this.dataUltimoRecebimento = pValores.dataUltimoRecebimento ?? this.dataUltimoRecebimento;
-    this.statusRecebimento = pValores.statusRecebimento ?? this.statusRecebimento;
     this.idTitulo = pValores.idTitulo ?? this.idTitulo;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
@@ -40,7 +38,6 @@ export class Movimentacao implements IMovimentacao {
       valorTotalJuros: this.valorTotalJuros,
       valorTotalDesconto: this.valorTotalDesconto,
       dataUltimoRecebimento: this.dataUltimoRecebimento,
-      statusRecebimento: this.statusRecebimento,
       idTitulo: this.idTitulo,
     };
   }

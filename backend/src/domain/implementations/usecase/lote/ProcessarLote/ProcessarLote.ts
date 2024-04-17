@@ -48,30 +48,15 @@ export class ProcessarLote {
     for(let i of listagemDeTitulos) {
       let movimentacao = new Movimentacao({
         idMovimentacao: v4(),
-        saldo: 0,
-        valorTotalPrincipal: 0,
+        saldo: i.valorDoTitulo,
+        valorTotalPrincipal: i.valorDoTitulo,
         valorTotalMulta: 0,
         valorTotalJuros: 0,
         valorTotalDesconto: 0,
-        dataUltimoRecebimento: new Date(),
-        statusRecebimento: false,
-        idTitulo: i.idTitulo
-      });
-
-      let lancamento = new Lancamento({
-        idLancamento: v4(),
-        dataEvento: new Date(),
-        dataCredito: new Date(),
-        valorPrincipal: i.valorDoTitulo,
-        valorMulta: 0,
-        valorJuros: 0,
-        tipoPagamento: '',
-        ativo: false,
         idTitulo: i.idTitulo
       });
 
       await this.movimentacaoRepository.criar(pUnitOfWork, movimentacao);
-      await this.lancamentoRepository.criar(pUnitOfWork, lancamento);
     }
 
     const data = GerarData(new Date());

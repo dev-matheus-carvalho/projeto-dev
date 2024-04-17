@@ -11,7 +11,6 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   public valorTotalJuros!: number;
   public valorTotalDesconto!: number;
   public dataUltimoRecebimento!: Date;
-  public statusRecebimento!: boolean;
   public idTitulo!: string;
   
   static initialization(sequelize: Sequelize): void {
@@ -45,10 +44,6 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
         dataUltimoRecebimento: {
           type: DataTypes.DATE,
           allowNull: true,
-        },
-        statusRecebimento: {
-          type: DataTypes.BOOLEAN,
-          allowNull: false,
         },
         idTitulo: {
           type: DataTypes.UUID,
