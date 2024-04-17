@@ -1,4 +1,5 @@
 import { Ilancamentos, IlancamentosModel, IlancamentosModelCreate } from '../../../protocols/models/entity/objectValues/lancamentos';
+import { TipoPagamentoEnum } from '../../constants/enum/tipoPagamentoEnum';
 
 export class Lancamento implements Ilancamentos {
 
@@ -9,7 +10,7 @@ export class Lancamento implements Ilancamentos {
   public valorMulta: number = 0;
   public valorJuros: number = 0;
   public desconto: number = 0;
-  public tipoPagamento: string = '';
+  public tipoPagamento: string = TipoPagamentoEnum.BOLETO;
   public ativo: boolean = false;
   public valorTotal: number = 0;
   public idTitulo: string = '';

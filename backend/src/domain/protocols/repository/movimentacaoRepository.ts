@@ -4,4 +4,5 @@ import { Movimentacao } from '../../implementations/entity/objectValues/Moviment
 
 export default interface IMovimentacaoRepository {
   criar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<Movimentacao>;
+  editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean>;
 }

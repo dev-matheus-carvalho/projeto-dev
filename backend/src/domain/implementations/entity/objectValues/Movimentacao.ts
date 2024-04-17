@@ -1,5 +1,20 @@
 import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate } from '../../../protocols/models/entity/objectValues/movimentacao';
 
+interface IMovimentacaoModelUpdate {
+  idMovimentacao: string;
+  saldo: number;
+  valorTotalPrincipal: number;
+  valorTotalMulta: number;
+  valorTotalJuros: number;
+  valorTotalDesconto: number;
+  dataUltimoRecebimento?: Date;
+  idTitulo: string;
+  idConta: string;
+}
+
+
+
+
 export class Movimentacao implements IMovimentacao {
 
   public idMovimentacao: string = '';
@@ -32,6 +47,20 @@ export class Movimentacao implements IMovimentacao {
   }
 
   public gerarObjCriar(): IMovimentacaoModelCreate {
+    return {
+      idMovimentacao: this.idMovimentacao,
+      saldo: this.saldo,
+      valorTotalPrincipal: this.valorTotalPrincipal,
+      valorTotalMulta: this.valorTotalMulta,
+      valorTotalJuros: this.valorTotalJuros,
+      valorTotalDesconto: this.valorTotalDesconto,
+      dataUltimoRecebimento: this.dataUltimoRecebimento,
+      idTitulo: this.idTitulo,
+      idConta: this.idConta,
+    };
+  }
+
+  public gerarObjAtualizar(): IMovimentacaoModelUpdate {
     return {
       idMovimentacao: this.idMovimentacao,
       saldo: this.saldo,
