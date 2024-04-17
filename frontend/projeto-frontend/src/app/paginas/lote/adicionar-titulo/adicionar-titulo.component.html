@@ -104,9 +104,10 @@
                     <div class="ds-col-auto">
                         <ds-button
                             [tipoBotao]="'PRIMARY'"
-                            [isDesabilitado]="true"
+                            [isDesabilitado]="verificarSeFormularioEInvalido()"
                             [labelButton]="'Salvar Título'"
-                            [iconeEsquerda]="'ds-icon-check'">
+                            [iconeEsquerda]="'ds-icon-check'"
+                            (click)="salvarTitulo()">
                         </ds-button>
                     </div>
                     <div class="ds-col-auto">
@@ -122,43 +123,93 @@
             </div>
         </div>
 
-        <div class="container-listagem" *ngIf="listarTitulos().length > 0">
-            <div class="ds-col-12">
-                <h5>Títulos</h5>
-                <ds-input-search></ds-input-search>
-                <ds-checkbox [labelCheckbox]="'Marcar todos'"></ds-checkbox>
-                <div class="ds-mt-4">
-                    <span class="ds-typo-semi-bold">Duplicatas</span>
-                    <div class="card ds-mt-2" *ngFor="let item of listarTitulos()">
-                        <div class="ds-col-12">
-                            <div class="card-content">
-                                        <div class="ds-d-flex ds-align-items-center">
-                                            <ds-checkbox></ds-checkbox>
-                                        </div>
-                                        <div class="ds-col-5 ds-ml-2 ds-d-flex ds-align-items-center">
-                                            <ds-icon class="ds-align-items-center ds-mt-2" 
-                                            icone="ds-icon-receipt-multiple">
-                                            </ds-icon>
-                                            <span class="ds-align-items-center ds-ml-2 ds-mt-2">DP-12345</span>
-                                        </div>
-                                        <div class="ds-col-5 ds-d-flex ds-justify-content-end">
-                                            <ds-icon class="ds-align-items-center ds-ml-2 ds-mt-2" 
-                                            icone="ds-icon-edit"
-                                            [corIcone]="'PRIMARY'">
-                                            </ds-icon>
-                                        </div>
-                                        <div class="ds-col-auto ds-d-flex ds-justify-content-end">
-                                        <ds-icon class="ds-align-items-center ds-ml-2 ds-mt-2" 
-                                            icone="ds-icon-trash" 
-                                            [corIcone]="'DANGER'">
-                                            </ds-icon>
-                                        </div>
+        <div class="ds-row container-listagem" *ngIf="!titulosAdicionados || listarTitulos().length === 0;">
+            <div class="sem-info">
+                <img src="../../../assets/Nada por aqui 2.svg" /><br>
+                <span class="">Nenhum título adicionado ainda.</span><br><br>
+                <span class="">Após incluir o primeiro, você poderá visualizar a lista
+                    de títulos aqui</span>
+            </div>       
+        </div>
+
+
+<div class="container-listagem" *ngIf="titulosAdicionados && listarTitulos().length > 0;">
+    <div class="ds-col-12">
+        <h5>Títulos</h5>
+        <ds-input-search></ds-input-search>
+        <ds-checkbox [labelCheckbox]="'Marcar todos'"></ds-checkbox>
+        <div class="ds-mt-4">
+            <span class="ds-typo-semi-bold">Duplicatas</span>
+            <div class="card ds-mt-2" *ngFor="let item of listarTitulos()">
+                <div class="ds-col-12">
+                    <div class="card-content">
+                        <div class="ds-row">
+                            <div class="ds-col-6 ds-d-flex ds-align-items-center">
+                                <ds-checkbox></ds-checkbox>
+                                <ds-icon class="ds-align-items-center ds-ml-2 ds-mt-2" icone="ds-icon-receipt-multiple">
+                                </ds-icon>
+                                <div class="ds-d-flex ds-mt-2 ds-align-items-center">
+                                    <span>{{ novoTitulo.numTitulo }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="ds-col-6 ds-d-flex ds-justify-content-end">
+                                <ds-icon class="ds-align-items-center ds-mt-2" 
+                                icone="ds-icon-edit"
+                                [corIcone]="'PRIMARY'">                               
+                                </ds-icon>
+                                
+                                <div class="ds-d-flex ds-justify-content-end">
+                                <ds-icon class="ds-align-items-center ds-ml-2 ds-mr-4 ds-mt-2" 
+                                icone="ds-icon-trash" 
+                                [corIcone]="'DANGER'">
+                                </ds-icon>
+                                </div>
+                            </div>
+
+
+                            <div class="ds-row ds-mt-2">
+                                <div class="ds-col-6">
+                                    <small class="ds-d-flex ds-ml-2">Valor</small>
+                                </div>
+                                <div class="ds-col-6 ds-d-flex ds-justify-content-end">
+                                    <small>Vencimento</small>
+                                </div>
+                            </div>
+
+                            <div class="ds-row">
+                                <div class="ds-col-6">
+                                    <small class="ds-d-flex ds-ml-2">{{ novoTitulo.valorTitulo }}</small>
+                                </div>
+                                <div class="ds-col-6 ds-d-flex ds-justify-content-end">
+                                    <span>{{ novoTitulo.vencimento }}</span>
+                                </div>
+                            </div>
+
+                            <div class="ds-row">
+                                <div class="ds-col-6">
+                                    <small class="ds-d-flex ds-ml-2">Pagador</small>
+                                </div>
+                            </div>
+
+                            <div class="ds-row">
+                                <div class="ds-col-8">
+                                    <span class="ds-d-flex ds-ml-2">{{ novoTitulo.nome }}</span>
+                                </div>
+                                <div class="ds-col-4">
+                                    <span class="ds-d-flex ds-justify-content-end">{{ novoTitulo.cpf }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+    </div>
+
+</div>
+

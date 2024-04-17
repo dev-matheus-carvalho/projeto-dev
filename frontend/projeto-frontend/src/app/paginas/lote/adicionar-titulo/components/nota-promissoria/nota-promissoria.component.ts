@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { InputSelectItem } from '@decisaosistemas/angular-ds';
-import { ITipoTituloInterface } from '../../models/ItipoTitulo';
+import { IDuplicataInterface } from '../../models/Iduplicata';
+
 
 @Component({
   selector: 'app-nota-promissoria',
@@ -10,6 +10,8 @@ import { ITipoTituloInterface } from '../../models/ItipoTitulo';
 })
 export class NotaPromissoriaComponent {
 
+  public formularioInvalido = false;
+  
   public criarLoteForm = new FormGroup({
     numTitulo: new FormControl<string | null>(null, Validators.required),
     valorTitulo: new FormControl<string | null>(null, Validators.required),
@@ -17,5 +19,12 @@ export class NotaPromissoriaComponent {
     cpf: new FormControl<string | null>(null, Validators.required),
     nome: new FormControl<string | null>(null, Validators.required),
   });
+
+  public verificarSeFormularioEInvalido(): boolean {
+    if (this.criarLoteForm.invalid || this.formularioInvalido) {
+      return true;
+    }
+    return false;
+  }
 
 }

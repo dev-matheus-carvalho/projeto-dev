@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { InputSelectItem } from '@decisaosistemas/angular-ds';
-import { ITipoTituloInterface } from '../../models/ItipoTitulo';
+import { IDuplicataInterface } from '../../models/Iduplicata';
 
 @Component({
   selector: 'app-cheque',
