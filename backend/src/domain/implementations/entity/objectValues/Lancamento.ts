@@ -8,9 +8,12 @@ export class Lancamento implements Ilancamentos {
   public valorPrincipal: number = 0;
   public valorMulta: number = 0;
   public valorJuros: number = 0;
+  public desconto: number = 0;
   public tipoPagamento: string = '';
   public ativo: boolean = false;
+  public valorTotal: number = 0;
   public idTitulo: string = '';
+  public idConta: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
 
@@ -23,8 +26,11 @@ export class Lancamento implements Ilancamentos {
     this.valorPrincipal = pValores.valorPrincipal ?? this.valorPrincipal;
     this.valorMulta = pValores.valorMulta ?? this.valorMulta;
     this.valorJuros = pValores.valorJuros ?? this.valorJuros;
+    this.desconto = pValores.desconto ?? this.desconto;
     this.ativo = pValores.ativo ?? this.ativo;
+    this.valorTotal = pValores.valorTotal ?? this.valorTotal;
     this.idTitulo = pValores.idTitulo ?? this.idTitulo;
+    this.idConta = pValores.idConta ?? this.idConta;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
 
@@ -39,9 +45,12 @@ export class Lancamento implements Ilancamentos {
       valorPrincipal: this.valorPrincipal,
       valorMulta: this.valorMulta,
       valorJuros: this.valorJuros,
+      desconto: this.desconto,
       tipoPagamento: this.tipoPagamento,
       ativo: this.ativo,
+      valorTotal: this.valorTotal,
       idTitulo: this.idTitulo,
+      idConta: this.idConta,
     };
   }
 }

@@ -10,9 +10,12 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
   public valorPrincipal!: number;
   public valorMulta!: number;
   public valorJuros!: number;
+  public desconto!: number;
   public tipoPagamento!: string;
   public ativo!: boolean;
+  public valorTotal!: number;
   public idTitulo!: string;
+  public idConta!: string;
   
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -42,6 +45,10 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
           type: DataTypes.FLOAT,
           allowNull: false,
         },
+        desconto: {
+          type: DataTypes.FLOAT,
+          allowNull: false,
+        },
         tipoPagamento: {
           type: DataTypes.TEXT,
           allowNull: false,
@@ -50,7 +57,15 @@ export default class LancamentosSequelizeModel extends Model<Ilancamentos, Ilanc
           type: DataTypes.BOOLEAN,
           allowNull: false,
         },
+        valorTotal: {
+          type: DataTypes.FLOAT,
+          allowNull: false,
+        },
         idTitulo: {
+          type: DataTypes.UUID,
+          allowNull: false,
+        },
+        idConta: {
           type: DataTypes.UUID,
           allowNull: false,
         },

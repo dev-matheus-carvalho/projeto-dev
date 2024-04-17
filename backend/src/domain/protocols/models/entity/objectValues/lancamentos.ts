@@ -5,9 +5,12 @@ export interface Ilancamentos {
   valorPrincipal: number;
   valorMulta: number;
   valorJuros: number;
+  desconto: number;
   tipoPagamento: string;
   ativo: boolean;
+  valorTotal: number;
   idTitulo: string;
+  idConta: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

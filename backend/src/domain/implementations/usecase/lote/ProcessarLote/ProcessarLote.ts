@@ -31,9 +31,9 @@ export class ProcessarLote {
       throw new AcaoInvalida('Lote já foi processado');
     }
 
-    if(isLoteExist.situacao === 'PROCESSADO') {
-      throw new AcaoInvalida('Lote já foi processado');
-    }
+    // if(isLoteExist.situacao === 'PROCESSADO') {
+    //   throw new AcaoInvalida('Lote já foi processado');
+    // }
 
     const listagemDeTitulos = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, pInputLote.idLote, pInputLote.idConta);
     let aux = 0;
@@ -53,7 +53,8 @@ export class ProcessarLote {
         valorTotalMulta: 0,
         valorTotalJuros: 0,
         valorTotalDesconto: 0,
-        idTitulo: i.idTitulo
+        idTitulo: i.idTitulo,
+        idConta: i.idConta,
       });
 
       await this.movimentacaoRepository.criar(pUnitOfWork, movimentacao);

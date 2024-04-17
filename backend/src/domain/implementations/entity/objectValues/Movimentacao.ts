@@ -10,6 +10,7 @@ export class Movimentacao implements IMovimentacao {
   public valorTotalDesconto: number = 0;
   public dataUltimoRecebimento?: Date;
   public idTitulo: string = '';
+  public idConta: string = '';
   public createdAt?: Date;
   public updatedAt?: Date;
 
@@ -23,6 +24,7 @@ export class Movimentacao implements IMovimentacao {
     this.valorTotalJuros = pValores.valorTotalJuros ?? this.valorTotalJuros;
     this.dataUltimoRecebimento = pValores.dataUltimoRecebimento ?? this.dataUltimoRecebimento;
     this.idTitulo = pValores.idTitulo ?? this.idTitulo;
+    this.idConta = pValores.idConta ?? this.idConta;
     this.createdAt = pValores.createdAt ?? this.createdAt;
     this.updatedAt = pValores.updatedAt ?? this.updatedAt;
 
@@ -39,6 +41,7 @@ export class Movimentacao implements IMovimentacao {
       valorTotalDesconto: this.valorTotalDesconto,
       dataUltimoRecebimento: this.dataUltimoRecebimento,
       idTitulo: this.idTitulo,
+      idConta: this.idConta,
     };
   }
 }

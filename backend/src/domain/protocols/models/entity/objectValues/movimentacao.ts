@@ -7,6 +7,7 @@ export interface IMovimentacao {
   valorTotalDesconto: number;
   dataUltimoRecebimento?: Date;
   idTitulo: string;
+  idConta: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

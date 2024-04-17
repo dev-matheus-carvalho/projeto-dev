@@ -12,6 +12,7 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
   public valorTotalDesconto!: number;
   public dataUltimoRecebimento!: Date;
   public idTitulo!: string;
+  public idConta!: string;
   
   static initialization(sequelize: Sequelize): void {
     this.init(
@@ -46,6 +47,10 @@ export default class MovimentacaoSequelizeModel extends Model<IMovimentacao, IMo
           allowNull: true,
         },
         idTitulo: {
+          type: DataTypes.UUID,
+          allowNull: false,
+        },
+        idConta: {
           type: DataTypes.UUID,
           allowNull: false,
         },
