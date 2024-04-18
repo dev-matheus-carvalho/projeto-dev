@@ -1,12 +1,13 @@
 import db from '../db';
-import IUnitOfWork from '../../../domain/protocols/models/UnitOfWork';
+// import IUnitOfWork from '../../../domain/protocols/models/UnitOfWork';
+import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 import IMovimentacaoRepository from '../../../domain/protocols/repository/movimentacaoRepository';
 import { Movimentacao } from '../../../domain/implementations/entity/objectValues/Movimentacao';
 import MovimentacaoSequelizeModel from '../models/MovimentacaoSequelizeModel';
 
 export default class MovimentacaoSequelizeRepository implements IMovimentacaoRepository {
 
-  public async criar(pUnitOfWork: IUnitOfWork, pMovimentacao: Movimentacao): Promise<Movimentacao> {
+  public async criar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<Movimentacao> {
     const movimentacaoDb = await db.models.movimentacao.create(pMovimentacao.gerarObjCriar(), {
       transaction: pUnitOfWork.getTransition(),
     });
@@ -14,7 +15,18 @@ export default class MovimentacaoSequelizeRepository implements IMovimentacaoRep
     return new Movimentacao(movimentacaoDb);
   }
 
-  public async editar(pUnitOfWork: IUnitOfWork, pMovimentacao: Movimentacao): Promise<boolean> {
+  public async buscarMovimentacao(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Movimentacao | null> {
+    const movimentacaoDb = await db.models.movimentacao.findOne<MovimentacaoSequelizeModel>({
+      where: {
+        idTitulo: pIdTitulo,
+        idConta: pIdConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return movimentacaoDb ? new Movimentacao(movimentacaoDb) : null;
+  }
+
+  public async editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean> {
     const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizar(), {
       where: {
         idMovimentacao: pMovimentacao.idMovimentacao,

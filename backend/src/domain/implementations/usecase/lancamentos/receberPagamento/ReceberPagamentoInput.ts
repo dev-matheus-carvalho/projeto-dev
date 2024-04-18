@@ -11,7 +11,6 @@ export class ReceberPagamentoInput {
   public valorJuros: number;
   public desconto: number;
   public tipoPagamento: string;
-  public ativo: boolean;
   public idTitulo: string;
   public idConta: string;
 
@@ -23,7 +22,6 @@ export class ReceberPagamentoInput {
     const valorJurosValidador = ValidadorDados.iniciar(pData.body?.valorJuros, 'body.valorJuros').obrigatorio().number();
     const descontoValidador = ValidadorDados.iniciar(pData.body?.desconto, 'body.desconto').obrigatorio().number();
     const tipoPagamentoValidador = ValidadorDados.iniciar(pData.body?.tipoPagamento, 'body.tipoPagamento').obrigatorio().string();
-    const ativoValidador = ValidadorDados.iniciar(pData.body?.ativo, 'body.ativo').obrigatorio().boolean();
     const idTituloValidador = ValidadorDados.iniciar(pData.body?.idTitulo, 'body.idTitulo').obrigatorio().string();
     const idContaValidador = ValidadorDados.iniciar(pData.body?.idConta, 'body.idConta').obrigatorio().string();
   
@@ -48,9 +46,6 @@ export class ReceberPagamentoInput {
     if (tipoPagamentoValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "tipoPagamento": ${tipoPagamentoValidador.getErro()}`);
     }
-    if (ativoValidador.estaValido() === false) {
-      throw new InformacaoNaoInfomada(`O atributo "ativo": ${ativoValidador.getErro()}`);
-    }
     if (idTituloValidador.estaValido() === false) {
       throw new InformacaoNaoInfomada(`O atributo "idTitulo": ${idTituloValidador.getErro()}`);
     }
@@ -65,7 +60,6 @@ export class ReceberPagamentoInput {
     this.valorJuros = Number(pData.body.valorJuros);
     this.desconto = Number(pData.body.desconto);
     this.tipoPagamento = pData.body.tipoPagamento;
-    this.ativo = Boolean(pData.body.ativo);
     this.idTitulo = pData.body.idTitulo;
     this.idConta = pData.body.idConta;
   }

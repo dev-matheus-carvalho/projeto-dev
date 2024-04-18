@@ -3,7 +3,7 @@ import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate } from '../
 interface IMovimentacaoModelUpdate {
   idMovimentacao: string;
   saldo: number;
-  valorTotalPrincipal: number;
+  // valorTotalPrincipal: number;
   valorTotalMulta: number;
   valorTotalJuros: number;
   valorTotalDesconto: number;
@@ -64,7 +64,7 @@ export class Movimentacao implements IMovimentacao {
     return {
       idMovimentacao: this.idMovimentacao,
       saldo: this.saldo,
-      valorTotalPrincipal: this.valorTotalPrincipal,
+      // valorTotalPrincipal: this.valorTotalPrincipal,
       valorTotalMulta: this.valorTotalMulta,
       valorTotalJuros: this.valorTotalJuros,
       valorTotalDesconto: this.valorTotalDesconto,
