@@ -14,6 +14,32 @@ export default class LancamentoSequelizeRepository implements ILancamentoReposit
     return new Lancamento(lancamentosDb);
   }
 
+  public async verificarSeLancamentoExiste(pUnitOfWork: IUnitOfWork, pIdLancamento: string): Promise<Lancamento | null> {
+    const lancamentoDb = await db.models.lancamentos.findOne<LancamentosSequelizeModel>({
+      where: {
+        idLancamento: pIdLancamento,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return lancamentoDb ? new Lancamento(lancamentoDb) : null;
+  }
+
+  public async editarLancamento(pUnitOfWork: IUnitOfWork, pIdLancamento: string, pIdTitulo: string, pIdConta: string): Promise<boolean> {
+    const result = await db.models.lancamentos.update<LancamentosSequelizeModel>(
+      {
+        ativo: false,
+      }, 
+      {
+      where: {
+        idLancamento: pIdLancamento,
+        idTitulo: pIdTitulo,
+        idConta: pIdConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
   public async listarPagamentos(pUnitOfWork: IUnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Lancamento[]> {
     const lancamentoDb = await db.models.lancamentos.findAll<LancamentosSequelizeModel>({
       where: {

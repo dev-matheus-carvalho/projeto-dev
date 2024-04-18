@@ -62,6 +62,9 @@ import ReceberPagamentoEntrypoint from './application/entryPoint/lancamento/rece
 import { ListarPagamentos } from './domain/implementations/usecase/lancamentos/listarPagamentos/ListarPagamentos';
 import { ListarPagamentosController } from './application/controllers/lancamento/ListarPagamentosController';
 import ListarPagamentosEntrypoint from './application/entryPoint/lancamento/listarPagamentosEntrypoint';
+import { CancelarPagamento } from './domain/implementations/usecase/lancamentos/cancelarPagamento/CancelarPagamento';
+import { CancelarPagamentoController } from './application/controllers/lancamento/CancelarPagamentoController';
+import CancelarPagamentoEntrypoint from './application/entryPoint/lancamento/cancelarPagamentoEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -159,6 +162,10 @@ const listarPagamenos = new ListarPagamentos(tituloRepository, contaRepository, 
 const listarPagamentosController = new ListarPagamentosController(listarPagamenos);
 const listarPagamentosEntryPoint = new ListarPagamentosEntrypoint(listarPagamentosController);
 
+const cancelarPagamento = new CancelarPagamento(tituloRepository, contaRepository, movimentacaoRepository, lancamentoRepository);
+const cancelarPagamentoController = new CancelarPagamentoController(cancelarPagamento);
+const cancelarPagamentoEntrypint = new CancelarPagamentoEntrypoint(cancelarPagamentoController);
+
 
 
 const entryPoints: EntryPoint[] = [
@@ -176,7 +183,8 @@ const entryPoints: EntryPoint[] = [
   criarPagadorEntrypoint,
   editarPagadorEntrypoint,
   receberPagamentoEntrypoint,
-  listarPagamentosEntryPoint
+  listarPagamentosEntryPoint,
+  cancelarPagamentoEntrypint
 ];
 
 const expressServer: ExpressServer = new ExpressServer();
