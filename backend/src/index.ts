@@ -56,6 +56,9 @@ import { ProcessarLoteController } from './application/controllers/lote/Processa
 import ProcessarLoteEntrypoint from './application/entryPoint/lote/processarLoteEntrypoint';
 import MovimentacaoSequelizeRepository from './infra/sequelize/repository/MovimentacaoSequelizeRepository';
 import LancamentoSequelizeRepository from './infra/sequelize/repository/LancamentoSequelizeRepository';
+import { ReceberPagamento } from './domain/implementations/usecase/lancamentos/receberPagamento/ReceberPagamento';
+import { ReceberPagamentoController } from './application/controllers/lancamento/ReceberPagamentoController';
+import ReceberPagamentoEntrypoint from './application/entryPoint/lancamento/receberPagamentoEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -123,6 +126,10 @@ const filtrarLotes = new FiltrarLotes(loteRepository, contaRepository);
 const filtrarLotesController = new FiltrarLotesController(filtrarLotes);
 const filtrarLotesEntrypoint = new FiltrarLotesEntrypoint(filtrarLotesController);
 
+const excluirLote = new ExcluirLote(loteRepository, contaRepository, tituloRepository);
+const excluirLoteController = new ExcluirLoteController(excluirLote);
+const excluirLoteEntrypoint = new ExcluirLoteEntrypoint(excluirLoteController);
+
 
 // Pagador
 
@@ -138,9 +145,13 @@ const editarPagador = new EditarPagador(pagadorRepository, contaRepository);
 const editarPagadorController = new EditarPagadorController(editarPagador);
 const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorController);
 
-const excluirLote = new ExcluirLote(loteRepository, contaRepository, tituloRepository);
-const excluirLoteController = new ExcluirLoteController(excluirLote);
-const excluirLoteEntrypoint = new ExcluirLoteEntrypoint(excluirLoteController);
+
+// Lancamento
+
+const receberPagamento = new ReceberPagamento(tituloRepository, contaRepository, movimentacaoRepository, lancamentoRepository);
+const receberPagamentoController = new ReceberPagamentoController(receberPagamento);
+const receberPagamentoEntrypoint = new ReceberPagamentoEntrypoint(receberPagamentoController);
+
 
 
 const entryPoints: EntryPoint[] = [
@@ -156,7 +167,8 @@ const entryPoints: EntryPoint[] = [
   excluirLoteEntrypoint,
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
-  editarPagadorEntrypoint
+  editarPagadorEntrypoint,
+  receberPagamentoEntrypoint
 ];
 
 const expressServer: ExpressServer = new ExpressServer();

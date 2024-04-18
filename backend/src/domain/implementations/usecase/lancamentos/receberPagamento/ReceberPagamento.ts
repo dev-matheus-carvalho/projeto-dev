@@ -22,7 +22,7 @@ export class ReceberPagamento {
     private lancamentoRepository: ILancamentoRepository,
   ) {
   }
-  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: ReceberPagamentoInput): Promise<ReceberPagamentoOutput | null> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: ReceberPagamentoInput): Promise<ReceberPagamentoOutput | null | any> {
 
     const dataRecebimento = FormatarData(pInputLancamento.dataEvento);
     const dataCredito = FormatarData(pInputLancamento.dataCredito);
@@ -51,7 +51,7 @@ export class ReceberPagamento {
 
     const movimentacao: Movimentacao = new Movimentacao({
       idMovimentacao: isMovimentacaoExist.idMovimentacao,
-      saldo: titulo.valorDoTitulo - pInputLancamento.valorPrincipal,
+      saldo: isMovimentacaoExist.saldo - pInputLancamento.valorPrincipal,
       valorTotalMulta: isMovimentacaoExist.valorTotalMulta + pInputLancamento.valorMulta,
       valorTotalJuros: isMovimentacaoExist.valorTotalJuros + pInputLancamento.valorJuros,
       valorTotalDesconto: isMovimentacaoExist.valorTotalDesconto + pInputLancamento.desconto,
