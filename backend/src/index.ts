@@ -59,6 +59,9 @@ import LancamentoSequelizeRepository from './infra/sequelize/repository/Lancamen
 import { ReceberPagamento } from './domain/implementations/usecase/lancamentos/receberPagamento/ReceberPagamento';
 import { ReceberPagamentoController } from './application/controllers/lancamento/ReceberPagamentoController';
 import ReceberPagamentoEntrypoint from './application/entryPoint/lancamento/receberPagamentoEntrypoint';
+import { ListarPagamentos } from './domain/implementations/usecase/lancamentos/listarPagamentos/ListarPagamentos';
+import { ListarPagamentosController } from './application/controllers/lancamento/ListarPagamentosController';
+import ListarPagamentosEntrypoint from './application/entryPoint/lancamento/listarPagamentosEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -152,6 +155,10 @@ const receberPagamento = new ReceberPagamento(tituloRepository, contaRepository,
 const receberPagamentoController = new ReceberPagamentoController(receberPagamento);
 const receberPagamentoEntrypoint = new ReceberPagamentoEntrypoint(receberPagamentoController);
 
+const listarPagamenos = new ListarPagamentos(tituloRepository, contaRepository, lancamentoRepository);
+const listarPagamentosController = new ListarPagamentosController(listarPagamenos);
+const listarPagamentosEntryPoint = new ListarPagamentosEntrypoint(listarPagamentosController);
+
 
 
 const entryPoints: EntryPoint[] = [
@@ -168,7 +175,8 @@ const entryPoints: EntryPoint[] = [
   buscarPagadorEntrypoint,
   criarPagadorEntrypoint,
   editarPagadorEntrypoint,
-  receberPagamentoEntrypoint
+  receberPagamentoEntrypoint,
+  listarPagamentosEntryPoint
 ];
 
 const expressServer: ExpressServer = new ExpressServer();
