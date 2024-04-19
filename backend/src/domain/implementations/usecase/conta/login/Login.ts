@@ -5,16 +5,21 @@ import { Conta } from '../../../entity/objectValues/Conta';
 import senhaUtil from '../../../utils/senhaUtil';
 import { LoginInput } from './LoginInput';
 import { LoginOutput } from './LoginOutput';
+import { ITokenService } from '../../../../protocols/services/token.service';
 
 export class Login {
-  constructor(private contaRepository: IContaRepository) {
+  constructor(
+    private contaRepository: IContaRepository,
+    private tokenService: ITokenService
+  ) {
   }
 
   public async execute(pUnitOfWork: UnitOfWork, pInputConta: LoginInput): Promise<LoginOutput | null> {
     const conta = new Conta({
       email: pInputConta.email,
       senha: senhaUtil.criptografarSenha(pInputConta.senha),
-    })
+    });
+
     const isContaExist = await this.contaRepository.verificarContaExistente(pUnitOfWork, conta);
     
     if(isContaExist === null) {
@@ -27,6 +32,8 @@ export class Login {
       throw new InformacaoNaoEncontrada('Email ou senha inválido.');
     }
 
-    return new LoginOutput(contaDb); 
+    const token = this.tokenService.criarToken(contaDb);
+
+    return new LoginOutput(contaDb, token); 
   }
 }

@@ -8,9 +8,12 @@ export default class CriarPagadorEntrypoint {
 
   public httpMetodo: HttpMetodos = HttpMetodos.post;
 
+  public guards: IEntrypointGuard[];
+
   public controller: IController;
 
-  constructor(pController: IController) {
+  constructor(pController: IController, pGuards: IEntrypointGuard[]) {
+    this.guards = pGuards;
     this.controller = pController;
   }
 }

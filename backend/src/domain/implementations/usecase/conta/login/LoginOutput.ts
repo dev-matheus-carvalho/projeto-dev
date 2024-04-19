@@ -4,9 +4,11 @@ export class LoginOutput {
   public idConta: string;
   public nome: string;
   public email: string;
-  constructor(pConta: Conta) {
+  public token: string;
+  constructor(pConta: Conta, pToken: string) {
     this.idConta = pConta.idConta;
     this.nome = pConta.nome;
     this.email = pConta.email;
+    this.token = pToken;
   }
 }

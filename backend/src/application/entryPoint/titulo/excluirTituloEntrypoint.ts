@@ -8,12 +8,12 @@ export default class ExcluirTituloEntrypoint {
 
   public httpMetodo: HttpMetodos = HttpMetodos.delete;
 
-  // public guards: IEntrypointGuard[];
+  public guards: IEntrypointGuard[];
 
   public controller: IController;
 
-  constructor(pController: IController) {
-    // this.guards = pGuards;
+  constructor(pController: IController, pGuards: IEntrypointGuard[]) {
+    this.guards = pGuards;
     this.controller = pController;
   }
 }

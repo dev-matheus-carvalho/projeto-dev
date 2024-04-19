@@ -8,9 +8,12 @@ export default class BuscarPagadorEntrypoint {
 
   public httpMetodo: HttpMetodos = HttpMetodos.get;
 
+  public guards: IEntrypointGuard[];
+
   public controller: IController;
 
-  constructor(pController: IController) {
+  constructor(pController: IController, pGuards: IEntrypointGuard[]) {
+    this.guards = pGuards;
     this.controller = pController;
   }
 }

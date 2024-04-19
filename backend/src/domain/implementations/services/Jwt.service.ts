@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { ITokenService } from '../../protocols/services/token.service';
 import { environments } from '../../../environment';
-import Conta from '../entity/objectValues/Conta';
+import { Conta } from '../entity/objectValues/Conta';
 
 export default class JwtServices implements ITokenService {
   public validar(pToken: string): boolean {

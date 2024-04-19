@@ -69,14 +69,8 @@ import { ListarTitulosProcessados } from './domain/implementations/usecase/titul
 import { ListarTitulosProcessadosController } from './application/controllers/titulo/ListarTitulosProcessadosController';
 import ListarTitulosProcessadosEntrypoint from './application/entryPoint/titulo/listarTitulosProcessadosEntrypoint';
 
-const bufferUtils = new BufferUtils();
-const assertUtils = new AssertsUtils();
-
-// const contaRepository = new ContaSequelizeRepository();
 
 const jwtServices = new JwtServices();
-// const criptografiaServices = new CriptografiaServices(bufferUtils);
-
 const autenticadoGuard = new AutenticadoGuard(jwtServices);
 
 // Repositórios
@@ -92,86 +86,86 @@ const lancamentoRepository = new LancamentoSequelizeRepository();
 
 const criarConta = new CriarConta(contaRepository);
 const criarContaController = new CriarContaController(criarConta)
-const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController);
+const criarContaEntryPoint = new CriarContaEntrypoint(criarContaController, []);
 
 
 // Login
 
-const login = new Login(contaRepository);
+const login = new Login(contaRepository, jwtServices);
 const loginController = new LoginController(login);
-const loginEntrypoint = new LoginEntrypoint(loginController);
+const loginEntrypoint = new LoginEntrypoint(loginController, []);
 
 
 // Título
 
 const criarTitulo = new CriarTitulo(tituloRepository, loteRepository, contaRepository);
 const criarTituloController = new CriarTituloController(criarTitulo);
-const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
+const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController, [autenticadoGuard]);
 
 const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository, loteRepository, contaRepository);
 const listarTitulosPorLoteController = new ListarTitulosPorLoteController(listarTitulosPorLote);
-const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController);
+const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController, [autenticadoGuard]);
 
 const listarTitulosProcessados = new ListarTitulosProcessados(tituloRepository, contaRepository, movimentacaoRepository, pagadorRepository);
 const listarTitulosProcessadosController = new ListarTitulosProcessadosController(listarTitulosProcessados);
-const listarTitulosProcessadosEntrypoint = new ListarTitulosProcessadosEntrypoint(listarTitulosProcessadosController);
+const listarTitulosProcessadosEntrypoint = new ListarTitulosProcessadosEntrypoint(listarTitulosProcessadosController, [autenticadoGuard]);
 
 const editarTitulo = new EditarTitulo(tituloRepository, loteRepository, contaRepository);
 const editarTituloController = new EditarTituloController(editarTitulo);
-const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController);
+const editarTituloEntrypoint = new EditarTituloEntrypoint(editarTituloController, [autenticadoGuard]);
 
 const excluirTitulo = new ExcluirTitulo(tituloRepository, loteRepository, contaRepository);
 const excluirTituloController = new ExcluirTituloController(excluirTitulo);
-const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController);
+const excluirTituloEntrypoint = new ExcluirTituloEntrypoint(excluirTituloController, [autenticadoGuard]);
 
 
 // Lote
 
 const listarLotes = new ListarLotes(loteRepository, contaRepository);
 const listarLotesContoller = new ListarLotesController(listarLotes);
-const listarLotesEntrypoint = new ListarLotesEntrypoint(listarLotesContoller);
+const listarLotesEntrypoint = new ListarLotesEntrypoint(listarLotesContoller, [autenticadoGuard]);
 
 const processarLote = new ProcessarLote(tituloRepository, loteRepository, movimentacaoRepository, lancamentoRepository);
 const processarLoteController = new ProcessarLoteController(processarLote);
-const processarLoteEntrypoint = new ProcessarLoteEntrypoint(processarLoteController);
+const processarLoteEntrypoint = new ProcessarLoteEntrypoint(processarLoteController, [autenticadoGuard]);
 
 const filtrarLotes = new FiltrarLotes(loteRepository, contaRepository);
 const filtrarLotesController = new FiltrarLotesController(filtrarLotes);
-const filtrarLotesEntrypoint = new FiltrarLotesEntrypoint(filtrarLotesController);
+const filtrarLotesEntrypoint = new FiltrarLotesEntrypoint(filtrarLotesController, [autenticadoGuard]);
 
 const excluirLote = new ExcluirLote(loteRepository, contaRepository, tituloRepository);
 const excluirLoteController = new ExcluirLoteController(excluirLote);
-const excluirLoteEntrypoint = new ExcluirLoteEntrypoint(excluirLoteController);
+const excluirLoteEntrypoint = new ExcluirLoteEntrypoint(excluirLoteController, [autenticadoGuard]);
 
 
 // Pagador
 
 const buscarPagador = new BuscarPagador(pagadorRepository, contaRepository);
 const buscarPagadorController = new BuscarPagadorController(buscarPagador);
-const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController);
+const buscarPagadorEntrypoint = new BuscarPagadorEntrypoint(buscarPagadorController, [autenticadoGuard]);
 
 const criarPagador = new CriarPagador(pagadorRepository, contaRepository);
 const criarPagadorController = new CriarPagadorController(criarPagador);
-const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController);
+const criarPagadorEntrypoint = new CriarPagadorEntrypoint(criarPagadorController, [autenticadoGuard]);
 
 const editarPagador = new EditarPagador(pagadorRepository, contaRepository);
 const editarPagadorController = new EditarPagadorController(editarPagador);
-const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorController);
+const editarPagadorEntrypoint = new EditarPagadorEntrypoint(editarPagadorController, [autenticadoGuard]);
 
 
 // Lancamento
 
 const receberPagamento = new ReceberPagamento(tituloRepository, contaRepository, movimentacaoRepository, lancamentoRepository);
 const receberPagamentoController = new ReceberPagamentoController(receberPagamento);
-const receberPagamentoEntrypoint = new ReceberPagamentoEntrypoint(receberPagamentoController);
+const receberPagamentoEntrypoint = new ReceberPagamentoEntrypoint(receberPagamentoController, [autenticadoGuard]);
 
 const listarPagamenos = new ListarPagamentos(tituloRepository, contaRepository, lancamentoRepository);
 const listarPagamentosController = new ListarPagamentosController(listarPagamenos);
-const listarPagamentosEntryPoint = new ListarPagamentosEntrypoint(listarPagamentosController);
+const listarPagamentosEntryPoint = new ListarPagamentosEntrypoint(listarPagamentosController, [autenticadoGuard]);
 
 const cancelarPagamento = new CancelarPagamento(tituloRepository, contaRepository, movimentacaoRepository, lancamentoRepository);
 const cancelarPagamentoController = new CancelarPagamentoController(cancelarPagamento);
-const cancelarPagamentoEntrypint = new CancelarPagamentoEntrypoint(cancelarPagamentoController);
+const cancelarPagamentoEntrypint = new CancelarPagamentoEntrypoint(cancelarPagamentoController, [autenticadoGuard]);
 
 
 

@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import EntryPoint from '../../domain/implementations/entity/entryPoint/EntryPoint';
 import EntrypointData from '../../domain/implementations/entity/entryPoint/EntryPointData';
 import EntryPointFail from '../../domain/implementations/entity/entryPoint/EntryPointFail';
-import ErrorHandler from '../../domain/implementations/entity/errors/ErrorHandler';
 import ErroInternoServidor from '../../domain/implementations/entity/errors/ErrorInternoServidor';
+import ErrorHandler from '../../domain/implementations/entity/errors/ErrorHandler';
 
 export default class ExpressAdapter {
   static handler(pEntryPoint: EntryPoint) {
@@ -14,12 +14,12 @@ export default class ExpressAdapter {
 
         const entryData = new EntrypointData(tokenAuthorizationHeader, pRequest.body, pRequest.params);
 
-        // for (const guard of pEntryPoint.guards) {
-        //   const guardResult = await guard.execute(entryData, requestIp);
-        //   if (guardResult.erro !== null) {
-        //     throw guardResult.erro;
-        //   }
-        // }
+        for (const guard of pEntryPoint.guards) {
+          const guardResult = await guard.execute(entryData, requestIp);
+          if (guardResult.erro !== null) {
+            throw guardResult.erro;
+          }
+        }
         const controllerResult = await pEntryPoint.controller.execute(entryData);
 
         pResponse.status(controllerResult.codigo).json(controllerResult);

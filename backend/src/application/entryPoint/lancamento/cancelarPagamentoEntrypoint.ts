@@ -8,12 +8,12 @@ export default class CancelarPagamentoEntrypoint {
 
   public httpMetodo: HttpMetodos = HttpMetodos.post;
 
-  // public guards: IEntrypointGuard[];
+  public guards: IEntrypointGuard[];
 
   public controller: IController;
 
-  constructor(pController: IController) {
-    // this.guards = pGuards;
+  constructor(pController: IController, pGuards: IEntrypointGuard[]) {
+    this.guards = pGuards;
     this.controller = pController;
   }
 }

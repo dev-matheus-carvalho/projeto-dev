@@ -8,12 +8,12 @@ export default class EditarTituloEntrypoint {
 
   public httpMetodo: HttpMetodos = HttpMetodos.put;
 
-  // public guards: IEntrypointGuard[];
+  public guards: IEntrypointGuard[];
 
   public controller: IController;
 
-  constructor(pController: IController) {
-    // this.guards = pGuards;
+  constructor(pController: IController, pGuards: IEntrypointGuard[]) {
+    this.guards = pGuards;
     this.controller = pController;
   }
 }
