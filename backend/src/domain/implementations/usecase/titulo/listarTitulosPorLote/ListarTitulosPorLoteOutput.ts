@@ -1,6 +1,7 @@
 import { Titulo } from '../../../entity/objectValues/Titulo';
 
 export class ListarTitulosOutput {
+  public idTitulo: string;
   public numeroTitulo: string;
   public tipoTitulo: string;
   public vencimento: Date;
@@ -20,6 +21,7 @@ export class ListarTitulosOutput {
   public isProcessado: boolean;
   
   constructor(pTitulo: Titulo) {
+    this.idTitulo = pTitulo.idTitulo,
     this.numeroTitulo = pTitulo.numeroTitulo,
     this.tipoTitulo = pTitulo.tipoTitulo,
     this.vencimento = pTitulo.vencimento,

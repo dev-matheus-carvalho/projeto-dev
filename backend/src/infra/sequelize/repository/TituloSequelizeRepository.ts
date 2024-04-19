@@ -64,7 +64,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
   public async listarTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<Titulo[]> {
     const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
       where: {
+        isProcessado: false,
         idLote: pIdLote,
+        idConta: pIdConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+     return tituloDb.map((titulo) => new Titulo(titulo));
+  }
+
+  public async listarTitulosProcessados(pUnitOfWork: UnitOfWork, pIdConta: string): Promise<Titulo[]> {
+    const tituloDb = await db.models.titulo.findAll<TituloSequelizeModel>({
+      where: {
+        isProcessado: true,
         idConta: pIdConta
       },
       transaction: pUnitOfWork.getTransition(),
@@ -74,6 +86,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
 
   public async editar(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
     const result = await db.models.titulo.update<TituloSequelizeModel>(pTitulo.gerarObjAtualizar(), {
+      where: {
+        idTitulo: pTitulo.idTitulo,
+        idConta: pTitulo.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
+  public async atualizarVencimento(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
+    const result = await db.models.titulo.update<TituloSequelizeModel>({
+      situacaoTitulo: pTitulo.situacaoTitulo,
+    }, {
       where: {
         idTitulo: pTitulo.idTitulo,
         idConta: pTitulo.idConta,

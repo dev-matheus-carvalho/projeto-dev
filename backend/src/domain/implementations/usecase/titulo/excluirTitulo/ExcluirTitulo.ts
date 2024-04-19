@@ -15,7 +15,7 @@ export class ExcluirTitulo {
     private contaRepository: IContaRepository
   ) { }
 
-  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: ExcluirTituloInput): Promise<boolean | any> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: ExcluirTituloInput): Promise<boolean> {
     
     const titulo = new Titulo({
       idTitulo: pInputTitulo.idTitulo,
@@ -44,6 +44,13 @@ export class ExcluirTitulo {
     }
     
     const titulosPorLote = await this.titulosRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
+
+    if(titulosPorLote.length === 1) {
+      await this.titulosRepository.excluir(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
+      await this.loteRepository.ExcluirLote(pUnitOfWork, pInputTitulo.idLote, pInputTitulo.idConta);
+      return Promise.resolve(true);
+    }
+
     const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0) - isTituloExist.valorDoTitulo;   
     await this.titulosRepository.excluir(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
     await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, soma, titulosPorLote.length - 1);

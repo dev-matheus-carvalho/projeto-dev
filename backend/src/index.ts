@@ -65,6 +65,9 @@ import ListarPagamentosEntrypoint from './application/entryPoint/lancamento/list
 import { CancelarPagamento } from './domain/implementations/usecase/lancamentos/cancelarPagamento/CancelarPagamento';
 import { CancelarPagamentoController } from './application/controllers/lancamento/CancelarPagamentoController';
 import CancelarPagamentoEntrypoint from './application/entryPoint/lancamento/cancelarPagamentoEntrypoint';
+import { ListarTitulosProcessados } from './domain/implementations/usecase/titulo/listarTitulosProcessados/ListarTitulosProcessados';
+import { ListarTitulosProcessadosController } from './application/controllers/titulo/ListarTitulosProcessadosController';
+import ListarTitulosProcessadosEntrypoint from './application/entryPoint/titulo/listarTitulosProcessadosEntrypoint';
 
 const bufferUtils = new BufferUtils();
 const assertUtils = new AssertsUtils();
@@ -108,6 +111,10 @@ const criarTituloEntrypoint = new CriarTituloEntrypoint(criarTituloController);
 const listarTitulosPorLote = new ListarTitulosPorLote(tituloRepository, loteRepository, contaRepository);
 const listarTitulosPorLoteController = new ListarTitulosPorLoteController(listarTitulosPorLote);
 const listarTitulosPorLoteEntrypoint = new ListarTitulosPorLoteEntrypoint(listarTitulosPorLoteController);
+
+const listarTitulosProcessados = new ListarTitulosProcessados(tituloRepository, contaRepository, movimentacaoRepository, pagadorRepository);
+const listarTitulosProcessadosController = new ListarTitulosProcessadosController(listarTitulosProcessados);
+const listarTitulosProcessadosEntrypoint = new ListarTitulosProcessadosEntrypoint(listarTitulosProcessadosController);
 
 const editarTitulo = new EditarTitulo(tituloRepository, loteRepository, contaRepository);
 const editarTituloController = new EditarTituloController(editarTitulo);
@@ -173,6 +180,7 @@ const entryPoints: EntryPoint[] = [
   loginEntrypoint,
   criarTituloEntrypoint,
   listarTitulosPorLoteEntrypoint,
+  listarTitulosProcessadosEntrypoint,
   editarTituloEntrypoint,
   excluirTituloEntrypoint,
   listarLotesEntrypoint,
