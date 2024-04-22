@@ -8,6 +8,8 @@ import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontra
 import { Lancamento } from '../../../entity/objectValues/Lancamento';
 import { CancelarPagamentoInput } from './CancelarPagamentoInput';
 import { Movimentacao } from '../../../entity/objectValues/Movimentacao';
+import { verificarVencimento } from '../../../services/verificarVencimento';
+import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
 
 
 export class CancelarPagamento {
@@ -18,9 +20,9 @@ export class CancelarPagamento {
     private lancamentoRepository: ILancamentoRepository,
   ) {
   }
-  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: CancelarPagamentoInput): Promise<any> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: CancelarPagamentoInput): Promise<boolean> {
 
-    const titulo: Titulo = new Titulo({
+    let titulo: Titulo = new Titulo({
       idTitulo: pInputLancamento.idTitulo,
       idConta: pInputLancamento.idConta,
     });
@@ -46,17 +48,30 @@ export class CancelarPagamento {
       throw new InformacaoNaoEncontrada('Lançamento não encontrado');
     }
 
+    if(!isLancamentoExist.ativo) {
+      throw new AcaoInvalida('Lançamento já foi cancelado');
+    }
+
+    const vencimento = verificarVencimento(isTituloExist.vencimento);
+
+    titulo = new Titulo({
+      situacaoTitulo: vencimento,
+      idTitulo: pInputLancamento.idTitulo,
+      idConta: pInputLancamento.idConta,
+    });
+
     const movimentacao: Movimentacao = new Movimentacao({
       idMovimentacao: isMovimentacaoExist.idMovimentacao,
       saldo: isMovimentacaoExist.saldo + isLancamentoExist.valorPrincipal,
       valorTotalPrincipal: isMovimentacaoExist.valorTotalPrincipal,
-      valorTotalMulta: isMovimentacaoExist.valorTotalMulta + isLancamentoExist.valorMulta,
-      valorTotalJuros: isMovimentacaoExist.valorTotalJuros + isLancamentoExist.valorJuros,
+      valorTotalMulta: isMovimentacaoExist.valorTotalMulta,
+      valorTotalJuros: isMovimentacaoExist.valorTotalJuros,
       valorTotalDesconto: isMovimentacaoExist.valorTotalDesconto + isLancamentoExist.desconto,
       idTitulo: pInputLancamento.idTitulo,
       idConta: pInputLancamento.idConta,
     });
 
+    await this.tituloRepository.cancelarPagamento(pUnitOfWork, titulo);
     await this.lancamentoRepository.editarLancamento(pUnitOfWork, pInputLancamento.idLancamento, pInputLancamento.idTitulo, pInputLancamento.idConta);
     await this.movimentacaoRepository.editar(pUnitOfWork, movimentacao);
 

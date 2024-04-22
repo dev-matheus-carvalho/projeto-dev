@@ -135,6 +135,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return Promise.resolve(result.length > 0);
   }
 
+  public async cancelarPagamento(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
+    const result = await db.models.titulo.update<TituloSequelizeModel>({
+      situacaoTitulo: pTitulo.situacaoTitulo,
+    }, {
+      where: {
+        idTitulo: pTitulo.idTitulo,
+        idConta: pTitulo.idConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
   public async excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean> {
     const result = await db.models.titulo.destroy<TituloSequelizeModel>({
       where: {
