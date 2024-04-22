@@ -12,7 +12,7 @@ import ILancamentoRepository from '../../../../protocols/repository/lancamentoRe
 import { Movimentacao } from '../../../entity/objectValues/Movimentacao';
 import { GerarData } from '../../../services/gerarData';
 import { ReceberPagamentoOutput } from './ReceberPagamentoOutput';
-
+import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
 
 export class ReceberPagamento {
   constructor(
@@ -22,7 +22,7 @@ export class ReceberPagamento {
     private lancamentoRepository: ILancamentoRepository,
   ) {
   }
-  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: ReceberPagamentoInput): Promise<ReceberPagamentoOutput | null | any> {
+  public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: ReceberPagamentoInput): Promise<ReceberPagamentoOutput | null> {
 
     const dataRecebimento = FormatarData(pInputLancamento.dataEvento);
     const dataCredito = FormatarData(pInputLancamento.dataCredito);
@@ -49,9 +49,24 @@ export class ReceberPagamento {
       throw new InformacaoNaoEncontrada('Título não encontrado');
     }
 
+    if(isMovimentacaoExist.saldo === 0) {
+      throw new AcaoInvalida('Título já quitado');
+    }
+
+    const saldo = isMovimentacaoExist.saldo - pInputLancamento.valorPrincipal;
+
+    if(saldo === 0) {
+      console.log('Vai ter quitar')
+      await this.tituloRepository.quitarTitulo(pUnitOfWork, titulo);
+    }
+    
+    if(saldo < 0) {
+      throw new AcaoInvalida('Valor a receber excede o valor do saldo');
+    }
+
     const movimentacao: Movimentacao = new Movimentacao({
       idMovimentacao: isMovimentacaoExist.idMovimentacao,
-      saldo: isMovimentacaoExist.saldo - pInputLancamento.valorPrincipal,
+      saldo: saldo,
       valorTotalMulta: isMovimentacaoExist.valorTotalMulta + pInputLancamento.valorMulta,
       valorTotalJuros: isMovimentacaoExist.valorTotalJuros + pInputLancamento.valorJuros,
       valorTotalDesconto: isMovimentacaoExist.valorTotalDesconto + pInputLancamento.desconto,

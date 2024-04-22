@@ -37,4 +37,17 @@ export default class MovimentacaoSequelizeRepository implements IMovimentacaoRep
     });
     return Promise.resolve(result.length > 0);
   }
+
+  public async quitarSaldo(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean> {
+    const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>({
+      saldo: 0,
+    }, {
+      where: {
+        idMovimentacao: pMovimentacao.idMovimentacao,
+        idConta: pMovimentacao.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
 }

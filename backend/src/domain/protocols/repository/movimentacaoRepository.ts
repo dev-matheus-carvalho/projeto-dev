@@ -6,4 +6,5 @@ export default interface IMovimentacaoRepository {
   criar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<Movimentacao>;
   buscarMovimentacao(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Movimentacao | null>;
   editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean>;
+  quitarSaldo(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean>;
 }

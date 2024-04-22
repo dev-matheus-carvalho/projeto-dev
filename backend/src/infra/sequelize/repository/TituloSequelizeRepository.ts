@@ -4,6 +4,7 @@ import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 import { Titulo } from '../../../domain/implementations/entity/objectValues/Titulo';
 import ITituloRepository from '../../../domain/protocols/repository/tituloRepository';
 import TituloSequelizeModel from '../models/TituloSequelizeModel';
+import { SituacaoTituloEnum } from '../../../domain/implementations/constants/enum/situacaoTituloEnum';
 
 export default class TituloSequelizeRepository implements ITituloRepository {
   
@@ -115,6 +116,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
       where: {
         idLote: pIdLote,
         idConta: pIdConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
+  public async quitarTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
+    const result = await db.models.titulo.update<TituloSequelizeModel>({
+      situacaoTitulo: SituacaoTituloEnum.QUITADO,
+    }, {
+      where: {
+        idTitulo: pTitulo.idTitulo,
+        idConta: pTitulo.idConta
       },
       transaction: pUnitOfWork.getTransition(),
     });
