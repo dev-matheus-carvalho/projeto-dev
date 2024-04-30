@@ -1,0 +1,29 @@
+
+
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+
+.black-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5f7fa; 
+  z-index: -1;
+}
+
+.listagem-container {
+  @include spacing.ds-spacing-3;
+  height: 100%;
+
+  .header-listagem-lote {
+      .botao-adicionar-lote {
+          width: max-content;
+      }
+  }
+
+  .titulo-vazio {
+      font-size: 1rem;
+      font-weight: bold;
+  }
+}

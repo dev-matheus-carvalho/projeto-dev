@@ -1,0 +1,24 @@
+.container-listagem {
+    padding: 20px; 
+    background-color: #fff;
+    border-left: 1px solid #ced4da;
+    width: calc(32% - 50px + 1px); /* Largura do container (25% do tamanho total da tela, menos o padding, mais 1px para sobrepor a borda do container pai) */
+    position: absolute; 
+    right: 20px; 
+    top: 52px; 
+    height: 100vh;
+    overflow-y: auto;
+    display: flex; 
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+.card {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Espaçamento entre os cards */
+}
+
+.sem-info {
+    text-align: center;
+}

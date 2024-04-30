@@ -1,0 +1,42 @@
+<div class="black-background"></div>
+<div class="listagem-container">
+  <div class="ds-row header-listagem-lote">
+    <div class="ds-col-2 ds-d-flex">
+      <ds-button
+        [labelButton]="'Novo lote'"
+        [iconeEsquerda]="'ds-icon-add'"
+        [tipoBotao]="'PRIMARY'"
+        (click)="adicionarLote()"
+        class="botao-adicionar-lote ds-mr-4"
+      ></ds-button>
+    </div>
+    <div class="ds-col-10 ds-d-flex ds-justify-content-end">
+      <ds-button
+        [tipoBotao]="'SECONDARY'"
+        [labelButton]="'Filtro'"
+        [iconeEsquerda]="'ds-icon-funnel'"
+      ></ds-button>
+    </div>
+  </div>
+  <div class="ds-row ds-mt-4">
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-row ds-mt-4"></div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+
+@use "../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/border.scss";
+
+
+$content-margin-top: 10px;
+$content-margin-bottom: 30px;
+$content-margin-left: 25px;
+$content-margin-right: 20px;
+
+
+.container {
+    margin-left: var(--ds-sidebar-width);
+    margin-top: var(--ds-navbar-height) !important;
+    min-height: calc(100vh - var(--ds-navbar-height) - var(--ds-footer-height));
+    margin-right: 10px;
+    width: calc(100vw - var(--ds-sidebar-width));
+    min-width: calc(100vw - var(--ds-sidebar-width));
+    display: flex;
+    box-sizing: border-box;
+}
+
+.main-content {
+    margin-top: 30px;
+    margin-right: 16px;
+    margin-left: 16px;
+    margin-bottom: 50px;
+    min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.main-container {
+    background-color: white;
+    margin-top: 16px;
+    box-sizing: border-box;
+    @include border.ds-border-radius-medium;
+    @include border.ds-border-solid-hairline;
+    border-color: var(--gray-color-200);
+    max-height: 100%;
+}
+
+.position-fixed {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+  }

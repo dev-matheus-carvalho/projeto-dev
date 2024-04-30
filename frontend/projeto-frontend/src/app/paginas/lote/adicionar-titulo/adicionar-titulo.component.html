@@ -1,0 +1,175 @@
+<div class="black-background"></div>
+<div class="adicionar-titulos">
+  <div class="header-container">
+    <div class="ds-row ds-mt-2">
+      <div class="ds-col-3">
+        <h1 class="ds-typo-semi-bold ds-color-gray-400">
+          Data do lote: 04/12/2024
+        </h1>
+      </div>
+      <div class="ds-col-3">
+        <span class="ds-typo-semi-bold ds-color-gray-400"
+          >Quantidade de títulos: 0</span
+        >
+      </div>
+      <div class="ds-col-3 ds-d-flex">
+        <span class="ds-typo-semi-bold ds-color-gray-400"
+          >Valor total dos títulos: R$ 0,00</span
+        >
+      </div>
+      <div class="ds-col-3 ds-d-flex ds-justify-content-end">
+        <h2 class="ds-typo-semi-bold ds-color-gray-400">Situação:</h2>
+        <ds-badge
+          class="badge"
+          [labelBadge]="'Não enviado'"
+          [icone]="''"
+          [tipoBadge]="'GRAY'"
+        ></ds-badge>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-row">
+    <div class="ds-col-8">
+      <div class="informacoes-titulo">
+        <div class="ds-row teste ds-ml-2">
+          <div class="ds-col-4 ds-mt-2">
+            <h5 class="">Adicionar-titulos</h5>
+          </div>
+          <div class="ds-col-8 ds-mt-2 ds-d-flex ds-justify-content-end">
+            <small class="ds-color-gray-400">* Campos Obrigatórios</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="seletor-titulos ds-mt-2">
+        <div class="ds-col-12">
+          <div class="ds-row ds-ml-2">
+            <div class="ds-col-4">
+              <ds-input-select
+                [listaOptions]="listaOptions"
+                [labelInput]="'Tipo do título'"
+                [placeholderInputSelect]="'Selecione'"
+                (valueChangeEvento)="selecionarTipoTitulo($event)"
+              >
+              </ds-input-select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-row" *ngIf="mostrarInputsDup">
+        <div class="ds-col-12">
+          <app-duplicata> </app-duplicata>
+        </div>
+      </div>
+
+      <div class="ds-row" *ngIf="mostrarInputCheque">
+        <div class="ds-col-12">
+          <app-cheque> </app-cheque>
+        </div>
+      </div>
+
+      <div class="ds-row" *ngIf="mostrarInputNotaPromissoria">
+        <div class="ds-col-12">
+          <app-nota-promissoria> </app-nota-promissoria>
+        </div>
+      </div>
+
+      <div class="inputs-titulo" *ngIf="nenhumCampoSelecionado()">
+        <div class="ds-col-12">
+          <div class="ds-row ds-ml-2">
+            <div class="ds-col-4">
+              <ds-input-number
+                [control]="criarLoteForm.controls.numTitulo"
+                [labelInput]="'Número do título'"
+              >
+              </ds-input-number>
+            </div>
+            <div class="ds-col-4">
+              <ds-input-currency
+                [control]="criarLoteForm.controls.valorTitulo"
+                [labelInput]="'Valor do título'"
+                [permiteNegativo]="false"
+                [placeholderInputCurrency]="'0,00'"
+              >
+              </ds-input-currency>
+            </div>
+            <div class="ds-col-4">
+              <ds-input-date
+                [control]="criarLoteForm.controls.vencimento"
+                [labelInput]="'Vencimento'"
+                [placeholderInputDate]="'DD/MM/AAAA'"
+              >
+              </ds-input-date>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="ds-row pagador ds-mt-2 ds-ml-2"
+        *ngIf="nenhumCampoSelecionado()"
+      >
+        <span>Pagador</span>
+      </div>
+
+      <div class="inputs-nome ds-mt-2" *ngIf="nenhumCampoSelecionado()">
+        <div class="ds-col-12">
+          <div class="ds-row ds-ml-2">
+            <div class="ds-col-3">
+              <ds-input-text
+                [control]="criarLoteForm.controls.cpf"
+                [labelInput]="'CPF/CNPJ'"
+              >
+              </ds-input-text>
+            </div>
+            <div class="ds-col-9">
+              <ds-input-text
+                [control]="criarLoteForm.controls.nome"
+                [labelInput]="'Nome'"
+              >
+              </ds-input-text>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="botoes" *ngIf="nenhumCampoSelecionado()">
+        <div class="ds-row ds-d-flex ds-justify-content-end ds-mt-4">
+          <div class="ds-col-auto">
+            <ds-button
+              [tipoBotao]="'SYSTEM'"
+              [labelButton]="'Cancelar'"
+              [iconeEsquerda]="'ds-icon-close'"
+            >
+            </ds-button>
+          </div>
+          <div class="ds-col-auto">
+            <ds-button
+              [tipoBotao]="'PRIMARY'"
+              [isDesabilitado]="verificarSeFormularioEInvalido()"
+              [labelButton]="'Salvar Título'"
+              [iconeEsquerda]="'ds-icon-check'"
+              (click)="salvarTitulo()"
+            >
+            </ds-button>
+          </div>
+          <div class="ds-col-auto">
+            <ds-button
+              [tipoBotao]="'PRIMARY'"
+              [isDesabilitado]="true"
+              [labelButton]="'Enviar Lote'"
+              [iconeDireita]="'ds-icon-right'"
+            >
+            </ds-button>
+          </div>
+          <div class="ds-row ds-mt-8"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-col-4 container-listagem">
+      <app-listagem-titulos></app-listagem-titulos>
+    </div>
+  </div>
+</div>

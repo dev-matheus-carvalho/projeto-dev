@@ -1,0 +1,48 @@
+<div class="listagem-titulos-container ds-mt-2">
+  <h5>Títulos</h5>
+  <div class="ds-row">
+    <div class="ds-col-12">
+      <div class="sem-documentos">
+        <div
+          *ngIf="
+            !titulosAdicionados || listarTitulos().length < 1;
+            else conteudoTitulos
+          "
+        >
+          <div
+            class="ds-row ds-ml-2 ds-mr-4 ds-mt-2 sem-documentos-container ds-d-flex ds-justify-content-center"
+          >
+            <img
+              src="../../../../../../assets/Nada por aqui 2.svg"
+              style="width: 166.44px"
+            />
+            <div class="ds-mt-2 ds-d-flex ds-justify-content-center">
+              <span class="ds-typo-semi-bold ds-d-flex"
+                >Nenhum título adicionado ainda.</span
+              >
+            </div>
+            <div class="ds-d-flex ds-justify-content-center">
+              <small
+                >Após incluir o primeiro, você poderá visualizar a lista de
+                títulos aqui</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #conteudoTitulos>
+    <ds-input-search></ds-input-search>
+    <div class="checkbox">
+      <ds-checkbox
+        #marcarTodosCheckbox
+        [idCheckbox]="'marcarTodosCheckbox'"
+        [formControl]="marcarTodos"
+        [labelCheckbox]="'Marcar todos'"
+        (changeEvento)="marcarTodosTitulos()"
+      ></ds-checkbox>
+    </div>
+    <app-card-titulos></app-card-titulos>
+  </ng-template>
+</div>

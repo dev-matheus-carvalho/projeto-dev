@@ -1,0 +1,28 @@
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/border.scss";
+
+.black-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f5f7fa; 
+    z-index: -1;
+  }
+
+
+
+.header-container {
+    @include spacing.ds-spacing-3;
+    border-bottom: 1px solid var(--gray-color-300);
+    }
+
+    .container-listagem {
+      border-left: 1px solid var(--gray-color-300);
+      min-height: 100%;
+  }
+
+
+
+

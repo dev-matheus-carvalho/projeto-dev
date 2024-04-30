@@ -1,0 +1,70 @@
+<div class="criar-conta">
+    <div>
+      <div class="centralizar">
+        <img src="../../../../assets/decsiao img.svg"/>
+      </div>
+        <div class="ds-row centralizar-inputs ds-mb-3 ds-mx-0">
+          <div class="ds-col-12">
+            <ds-input-text
+              [labelInput]="'Nome'"
+              [placeholderInputText]="'Insira seu nome'"
+              [control]="criarContaForm.controls.nome"
+              [errosCustomizados]="errosCustomizados"
+            ></ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row centralizar-inputs ds-mb-3 ds-mx-0">
+          <div class="ds-col-12">
+            <ds-input-text
+              [labelInput]="'E-mail'"
+              [placeholderInputText]="'Insira seu e-mail'"
+              [control]="criarContaForm.controls.email"
+              [errosCustomizados]="errosCustomizados"
+            ></ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row centralizar-inputs ds-mb-3 ds-mx-0">
+          <div class="ds-col-12">
+            <ds-input-text
+              [labelInput]="'Senha'"
+              [placeholderInputText]="'Insira a nova senha'"
+              [control]="criarContaForm.controls.senha"
+              [errosCustomizados]="errosCustomizados"
+              (valueChangeEvento)="
+              verificarSenha($event, criarContaForm.controls.senha)
+            "
+            ></ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row centralizar-inputs ds-mb-3 ds-mx-0">
+          <div class="ds-col-12">
+            <ds-input-text
+              [labelInput]="'Confirmar senha'"
+              [placeholderInputText]="'Repita a senha inserida'"
+              [control]="criarContaForm.controls.senha2"
+              [errosCustomizados]="errosCustomizados"
+              (valueChangeEvento)="
+              verificarSenha($event, criarContaForm.controls.senha2);
+              verificarSeSenhasSaoIguais()">
+              </ds-input-text>
+          </div>
+        </div>
+        <div class="ds-row ds-mb-3 ds-mx-0">
+          <div class="ds-col-12">
+            <ds-button
+              class="ds-d-inline-block width-100"
+              [tipoBotao]="'PRIMARY'"
+              [labelButton]="'Criar conta'"
+              [isDesabilitado]="verificarSeFormularioEInvalido()"
+              (click)="criarConta()"
+            ></ds-button>
+          </div>
+        </div>
+        <small class="ds-d-flex ds-justify-content-flex-start ds-ml-3"> * Campos obrigatórios</small>
+        <span class="ds-d-flex ds-justify-content-center ds-mt-4">
+          Já possui cadastro?
+          <a class="" [routerLink]="'/login'">Faça Log in</a>
+        </span>
+      </div>
+    </div>
+  

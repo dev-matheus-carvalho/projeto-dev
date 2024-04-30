@@ -1,0 +1,64 @@
+<div
+  class="container-listagem ds-mt-4"
+  *ngFor="let titulo of titulosAdicionados"
+>
+  <div class="ds-col-12">
+    <div class="ds-row ds-d-flex card">
+      <div class="ds-col-10 ds-d-flex ds-align-items-center">
+        <div class="ds-mr-2">
+          <ds-checkbox
+            #checkboxTitulo
+            [isChecked]="titulo.isChecked"
+            (changeEvento)="changeValorCheckbox($event.isChecked)"
+          ></ds-checkbox>
+        </div>
+        <div class="ds-mt-2">
+          <ds-icon icone="ds-icon-receipt-multiple"> </ds-icon>
+        </div>
+        <span class="ds-align-items-center ds-mt-1"
+          >{{ titulo.numeroTitulo }}
+        </span>
+      </div>
+      <div class="ds-col-2 icones ds-mt-2 ds-d-flex ds-justify-content-end">
+        <i class="ds-icon-edit ds-mr-2 editar"></i>
+        <i class="ds-icon-trash excluir"></i>
+      </div>
+    </div>
+    <div class="titulo-container">
+      <div class="ds-row">
+        <div class="ds-col-6">
+          <small class="ds-ml-2 system-400 subtext"> Valor </small>
+        </div>
+        <div class="ds-col-6 ds-d-flex ds-justify-content-end">
+          <small class="system-400 subtext"> Vencimento </small>
+        </div>
+      </div>
+      <div class="ds-row">
+        <div class="ds-col-6">
+          <span class="ds-ml-2 ds-color-gray-300"> R$ </span>
+          <span>{{ titulo.valorTitulo | currency : "display" : "" }} </span>
+        </div>
+        <div class="ds-col-6">
+          <span class="ds-d-flex ds-justify-content-end">
+            {{ titulo.vencimento }}
+          </span>
+        </div>
+      </div>
+      <div class="ds-row">
+        <div class="ds-col-12 ds-mt-2 ds-ml-2">
+          <small class=""> Pagador </small>
+        </div>
+      </div>
+      <div class="ds-row">
+        <div class="ds-col-6">
+          <span class="ds-ml-2">{{ titulo.nome }} </span>
+        </div>
+        <div class="ds-col-6">
+          <span class="ds-d-flex ds-justify-content-end">
+            {{ titulo.cpf }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
