@@ -26,5 +26,6 @@ export class CancelarPagamentoInput {
     this.idLancamento = pData.body.idLancamento;
     this.idTitulo = pData.body.idTitulo;
     this.idConta = pData.body.idConta;
+    
   }
 }
