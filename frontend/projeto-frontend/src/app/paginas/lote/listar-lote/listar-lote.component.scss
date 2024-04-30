@@ -1,30 +1,29 @@
-.listar-lote {
-  overflow: hidden;
-    height: calc(100vh - 86px - 32px);
-    padding-top: 1rem;
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
+
+
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+
+.black-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5f7fa; 
+  z-index: -1;
+}
+
+.listagem-container {
+  @include spacing.ds-spacing-3;
+  height: 100%;
+
+  .header-listagem-lote {
+      .botao-adicionar-lote {
+          width: max-content;
+      }
   }
-  
-  .lote-header {
-    margin-left: 50px;
-    display: flex;
-    justify-content: flex-start; /* Alinha o botão no canto superior esquerdo */
+
+  .titulo-vazio {
+      font-size: 1rem;
+      font-weight: bold;
   }
-  
-  .lote-container-vazio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex: 1; /* Ocupa o restante do espaço disponível */
-  }
-  
-  .texto-imagem {
-    margin-top: 1rem; /* Espaçamento entre as imagens */
-    font-weight: 700;
-  }
-   body {
-    background-color: red;
-   }
+}

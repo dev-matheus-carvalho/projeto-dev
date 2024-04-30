@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './rodape.component.scss'
 })
 export class RodapeComponent {
+  public dataAtual = new Date();
 
 }

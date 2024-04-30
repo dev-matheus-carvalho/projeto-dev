@@ -1,3 +1,6 @@
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/border.scss";
+
 .black-background {
     position: fixed;
     top: 0;
@@ -6,67 +9,20 @@
     height: 100vh;
     background-color: #f5f7fa; 
     z-index: -1;
-}
-
-.container {
-    margin: 100px 20px 52px calc(52px + 20px); /* Margem: acima de 100px, direita e esquerda de 20px, 52px antes do fim da página */
-    padding: 20px; 
-    background-color: #fff; 
-    border-radius: 15px; 
-    border: 1px solid #ced4da; 
-    min-height: calc(75vh - 52px); /* Altura mínima do container, menos a altura da navbar */
-    position: relative;
-    overflow: hidden; /* esconde a parte da borda que será sobreposta */
-}
-
-.container-listagem {
-    padding: 20px; 
-    background-color: #fff;
-    border-left: 1px solid #ced4da;
-    width: calc(32% - 50px + 1px); /* Largura do container (25% do tamanho total da tela, menos o padding, mais 1px para sobrepor a borda do container pai) */
-    position: absolute; 
-    right: 20px; 
-    top: 52px; 
-    height: 100vh;
-    overflow-y: auto;
-    display: flex; 
-    justify-content: center;
-    align-items: flex-start; 
-}
-
-.card {
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  margin-bottom: 10px; /* Espaçamento entre os cards */
-}
+  }
 
 
 
-.card h5 {
-  margin-top: 0;
-  margin-bottom: 40px;
-}
+.header-container {
+    @include spacing.ds-spacing-3;
+    border-bottom: 1px solid var(--gray-color-300);
+    }
 
-.card p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
+    .container-listagem {
+      border-left: 1px solid var(--gray-color-300);
+      min-height: 100%;
+  }
 
-.h
-.sem-info {
-    text-align: center;
-}
-
-.hr {
-    margin: 10px 0;
-    background-color: #ddd;
-    width: 100%; /* Largura do hr igual à largura do container */
-    border: none;
-    height: 1px;
-    position: absolute; /* Posicionamento absoluto */
-    left: 0; 
-    right: 0; 
-}
 
 
 

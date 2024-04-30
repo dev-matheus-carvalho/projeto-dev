@@ -1,0 +1,18 @@
+
+
+.card {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Espaçamento entre os cards */
+}
+
+.sem-info {
+    text-align: center;
+}
+
+.sem-documentos-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

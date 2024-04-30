@@ -1,5 +1,5 @@
 export interface INotaPromissoriaInterface {
-    numeroTitulo: string;
-    valorTitulo: string;
-    vencimento: Date;
+    numTitulo: string | null;
+    valorTitulo: string | null;
+    vencimento: string | null;
     }

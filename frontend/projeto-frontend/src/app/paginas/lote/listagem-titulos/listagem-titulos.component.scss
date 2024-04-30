@@ -1,0 +1,27 @@
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/border.scss";
+@use "../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+
+    .editar {
+        color: var(--primary-color-300);
+        cursor: pointer;
+    }
+
+    .listagem-titulos-container{
+        margin-right: 14px;
+    }
+
+    .excluir {
+        color: var(--danger-color-300);
+        cursor: pointer;
+    }
+
+    .container-listagem {
+        display: flex;
+        border-radius: 4px;
+        margin-bottom: 10px; /* Espaçamento entre os cards */
+        border: 1px solid var(--gray-color-300);
+        width: 95%;
+        margin-left: 4px;
+    
+    }
+

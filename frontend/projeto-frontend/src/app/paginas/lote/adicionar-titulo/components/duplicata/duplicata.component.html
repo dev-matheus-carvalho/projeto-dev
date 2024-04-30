@@ -1,77 +1,225 @@
-<div class="duplicata-titulo">
-    <div class="ds-row duplicata">
-        <div class="ds-col-8">
-            <ds-input-text 
-                [labelInput]="'Chave da nota'"
-                [control]="criarLoteForm.controls.chaveNota">
-            </ds-input-text>
-        </div>
+<div class="duplicatas">
+  <div class="inputs-duplicatas">
+    <div class="ds-row ds-ml-2">
+      <div class="ds-col-8">
+        <ds-input-text
+          [labelInput]="'Chave da nota'"
+          [control]="criarLoteForm.controls.chaveNota"
+        >
+        </ds-input-text>
+      </div>
     </div>
-    <div class="ds-row duplicata">
-        <div class="ds-col-8">
-            <ds-input-text 
-                [labelInput]="'Protocolo da nota'"
-                [control]="criarLoteForm.controls.protocoloNota">
-            </ds-input-text>
-        </div>
+    <div class="ds-row ds-ml-2 ds-mt-2">
+      <div class="ds-col-8">
+        <ds-input-text
+          [labelInput]="'Protocolo da nota'"
+          [control]="criarLoteForm.controls.protocoloNota"
+        >
+        </ds-input-text>
+      </div>
     </div>
-    <div class="ds-row duplicata ds-mt-2">
-        <div class="ds-col-4">
-            <ds-input-text 
-                [labelInput]="'Número da nota'"
-                [control]="criarLoteForm.controls.numeroNota">
-            </ds-input-text>
-        </div>
-        <div class="ds-col-4">
-            <ds-input-text 
-                [labelInput]="'Série'"
-                [control]="criarLoteForm.controls.serie">
-            </ds-input-text>
-        </div>
-        <div class="ds-col-4">
-            <ds-input-date 
-                [labelInput]="'Data de emissão'"
-                [control]="criarLoteForm.controls.dataEmissao"
-                [placeholderInputDate]="'DD/MM/AAAA'">
-            </ds-input-date>
-        </div>
+    <div class="ds-row ds-ml-2 duplicata ds-mt-2">
+      <div class="ds-col-4">
+        <ds-input-text
+          [labelInput]="'Número da nota'"
+          [control]="criarLoteForm.controls.numeroNota"
+        >
+        </ds-input-text>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-text
+          [labelInput]="'Série'"
+          [control]="criarLoteForm.controls.serie"
+        >
+        </ds-input-text>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-date
+          [labelInput]="'Data de emissão'"
+          [control]="criarLoteForm.controls.dataEmissao"
+          [placeholderInputDate]="'DD/MM/AAAA'"
+        >
+        </ds-input-date>
+      </div>
     </div>
-    <div class="ds-row duplicata ds-mt-2">
-        <div class="ds-col-4">
-            <ds-input-text 
-                [labelInput]="'Número da fatura'"
-                [control]="criarLoteForm.controls.numeroFatura">
-            </ds-input-text>
-        </div>
-        <div class="ds-col-4">
-            <ds-input-text 
-                [labelInput]="'Valor líquido da fatura'"
-                [control]="criarLoteForm.controls.valorLiquidoFatura">
-            </ds-input-text>
-        </div>
+    <div class="ds-row ds-ml-2 duplicata ds-mt-2">
+      <div class="ds-col-4">
+        <ds-input-text
+          [labelInput]="'Número da fatura'"
+          [control]="criarLoteForm.controls.numeroFatura"
+        >
+        </ds-input-text>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-text
+          [labelInput]="'Valor líquido da fatura'"
+          [control]="criarLoteForm.controls.valorLiquidoFatura"
+        >
+        </ds-input-text>
+      </div>
     </div>
-    <div class="ds-row informacoes-titulo ds-mt-2">
-        <div class="ds-col-4">
-            <ds-input-text
-                [control]="criarLoteForm.controls.numTitulo"
-                [labelInput]="'Número do título'">
-            </ds-input-text>
-        </div>
-        <div class="ds-col-4">
-            <ds-input-number
-                [control]="criarLoteForm.controls.valorTitulo"
-                [labelInput]="'Valor do título'"
-                [icone]="'ds-icon-coin'"
-                [placeholderInputNumber]="'0,00'">
-            </ds-input-number>
-        </div>
-        <div class="ds-col-4">
-            <ds-input-date
-                [control]="criarLoteForm.controls.vencimento" 
-                [labelInput]="'Vencimento'"
-                [placeholderInputDate]="'DD/MM/AAAA'">
-            </ds-input-date>
-        </div>
+    <div class="ds-row informacoes-titulo ds-ml-2 ds-mt-2">
+      <div class="ds-col-4">
+        <ds-input-text
+          [control]="criarLoteForm.controls.numTitulo"
+          [labelInput]="'Número do título'"
+        >
+        </ds-input-text>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-number
+          [control]="criarLoteForm.controls.valorTitulo"
+          [labelInput]="'Valor do título'"
+          [icone]="'ds-icon-coin'"
+          [placeholderInputNumber]="'0,00'"
+        >
+        </ds-input-number>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-date
+          [control]="criarLoteForm.controls.vencimento"
+          [labelInput]="'Vencimento'"
+          [placeholderInputDate]="'DD/MM/AAAA'"
+        >
+        </ds-input-date>
+      </div>
     </div>
-    
+
+    <div class="pagador ds-mt-2">
+      <span class="ds-ml-4">Pagador</span>
+    </div>
+
+    <div class="ds-row informacoes-pagador ds-ml-2 ds-mt-2">
+      <div class="ds-col-3">
+        <ds-input-text
+          [control]="criarLoteForm.controls.cpf"
+          [labelInput]="'CPF/CNPJ'"
+        >
+        </ds-input-text>
+      </div>
+      <div class="ds-col-9">
+        <ds-input-text
+          [control]="criarLoteForm.controls.nome"
+          [labelInput]="'Nome'"
+        >
+        </ds-input-text>
+      </div>
+    </div>
+    <div class="botoes">
+      <div class="ds-row ds-d-flex ds-justify-content-end ds-mt-4">
+        <div class="ds-col-auto">
+          <ds-button
+            [tipoBotao]="'SYSTEM'"
+            [labelButton]="'Cancelar'"
+            [iconeEsquerda]="'ds-icon-close'"
+          >
+          </ds-button>
+        </div>
+        <div class="ds-col-auto">
+          <ds-button
+            [tipoBotao]="'PRIMARY'"
+            [isDesabilitado]="verificarSeFormularioEInvalido()"
+            [labelButton]="'Salvar Título'"
+            [iconeEsquerda]="'ds-icon-check'"
+            (click)="salvarTitulo()"
+          >
+          </ds-button>
+        </div>
+        <div class="ds-col-auto">
+          <ds-button
+            [tipoBotao]="'PRIMARY'"
+            [isDesabilitado]="true"
+            [labelButton]="'Enviar Lote'"
+            [iconeDireita]="'ds-icon-right'"
+          >
+          </ds-button>
+        </div>
+        <div class="ds-row ds-mt-8"></div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- <div class="nota-promissoria">
+  <div class="inputs-nota-promissoria">
+    <div class="ds-row ds-ml-2">
+      <div class="ds-col-4">
+        <ds-input-number
+          [control]="criarLoteForm.controls.numTitulo"
+          [labelInput]="'Número do título'"
+        >
+        </ds-input-number>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-currency
+          [control]="criarLoteForm.controls.valorTitulo"
+          [labelInput]="'Valor do título'"
+          [permiteNegativo]="false"
+          [placeholderInputCurrency]="'0,00'"
+        >
+        </ds-input-currency>
+      </div>
+      <div class="ds-col-4">
+        <ds-input-date
+          [control]="criarLoteForm.controls.vencimento"
+          [labelInput]="'Vencimento'"
+          [placeholderInputDate]="'DD/MM/AAAA'"
+        >
+        </ds-input-date>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-row pagador ds-mt-2 ds-ml-2">
+    <span>Pagador</span>
+  </div>
+
+  <div class="ds-row informacoes-pagador ds-mt-2 ds-ml-2">
+    <div class="ds-col-3">
+      <ds-input-text
+        [control]="criarLoteForm.controls.cpf"
+        [labelInput]="'CPF/CNPJ'"
+      >
+      </ds-input-text>
+    </div>
+    <div class="ds-col-9">
+      <ds-input-text
+        [control]="criarLoteForm.controls.nome"
+        [labelInput]="'Nome'"
+      >
+      </ds-input-text>
+    </div>
+  </div>
+
+  <div
+    class="ds-row botoes ds-mt-4 ds-ml-2 ds-mr-4 ds-d-flex ds-justify-content-end"
+  >
+    <div class="ds-col-auto">
+      <ds-button
+        [tipoBotao]="'SYSTEM'"
+        [labelButton]="'Cancelar'"
+        [iconeEsquerda]="'ds-icon-close'"
+      >
+      </ds-button>
+    </div>
+    <div class="ds-col-auto">
+      <ds-button
+        [tipoBotao]="'PRIMARY'"
+        [isDesabilitado]="verificarSeFormularioEInvalido()"
+        [labelButton]="'Salvar Título'"
+        [iconeEsquerda]="'ds-icon-check'"
+        (click)="salvarTitulo()"
+      >
+      </ds-button>
+    </div>
+    <div class="ds-col-auto">
+      <ds-button
+        [tipoBotao]="'PRIMARY'"
+        [isDesabilitado]="true"
+        [labelButton]="'Enviar Lote'"
+        [iconeDireita]="'ds-icon-right'"
+      >
+      </ds-button>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,40 @@
+@use "../../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/spacing.scss";
+@use "../../../../../../node_modules/@decisaosistemas/angular-ds/assets/ds/mixin/border.scss";
+
+.card-listagem{
+  @include border.ds-border-radius-medium;
+  border: solid 1px var(--gray-color-300);
+  margin-bottom: 10px;
+}
+.card-header {
+  background-color: var(--primary-color-100);
+  @include spacing.ds-spacing-3;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  border-bottom: 1px solid var(--gray-color-200);
+  }
+
+  .card-body {
+    @include spacing.ds-spacing-3-x;
+    @include spacing.ds-spacing-3-top;
+}
+
+  .hr{
+    width: 93%;
+  }
+
+  .width-100{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cor-gray-400 {
+    color: var(--gray-color-400);
+}
+
+.situacao{
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+

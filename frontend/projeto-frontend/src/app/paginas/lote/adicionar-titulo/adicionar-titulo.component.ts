@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { InputSelectItem } from '@decisaosistemas/angular-ds';
+import { CheckboxComponent, InputSelectItem, ToasterService } from '@decisaosistemas/angular-ds';
 import { INotaPromissoriaInterface } from '../../../paginas/lote/adicionar-titulo/models/INotaPromissoria';
 import { FormularioTitulo } from './models/IFormularioTitulo';
+import { ITitulo } from './models/ITitulo';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-adicionar-titulo',
@@ -12,20 +15,24 @@ import { FormularioTitulo } from './models/IFormularioTitulo';
 export class AdicionarTituloComponent {
 
 
-
   public mostrarInputsDup = false;
   public mostrarInputCheque = false;
   public mostrarInputNotaPromissoria = false;
   public inputSelecionado: InputSelectItem | null = null;
   public formularioInvalido = false;
-  public numeroTituloTemp: string | null = null;
-  public novoTitulo: FormularioTitulo = {
-    numTitulo: null,
-    valorTitulo: null,
-    vencimento: null,
-    cpf: null,
-    nome: null
-};
+  public titulosSelecionados: boolean[] = [];
+  public titulosAdicionados: ITitulo[] = [];
+  public novoTitulo: ITitulo = {
+  numeroTitulo: null,
+  valorTitulo: null,
+  vencimento: null,
+  cpf: null,
+  nome: null,
+  isChecked: false
+  };
+
+
+@ViewChild('checkboxTitulo') checkboxTitulo!: CheckboxComponent;
 
   listaOptions: InputSelectItem[] = [
     { label: 'Duplicata', valor: 'Duplicata' },
@@ -40,11 +47,21 @@ export class AdicionarTituloComponent {
     cpf: new FormControl<string | null>(null, Validators.required),
     nome: new FormControl<string | null>(null, Validators.required),
   });
-  titulosAdicionados: any[] = [];
 
+  constructor(private ngbModal: NgbModal , private toasterService: ToasterService) {
+    this.listarTitulos = this.listarTitulos;
+     // Atribui a função diretamente à variável
+  }
 
-  constructor() {
-    this.listarTitulos = this.listarTitulos; // Atribui a função diretamente à variável
+  listarTitulos(): ITitulo[] {
+    // Retorna a lista de títulos adicionados
+    return this.titulosAdicionados;
+  }
+  
+  public selecionarTipoTitulo(event: InputSelectItem): void {
+    this.mostrarCampoDuplicata(event);
+    this.mostrarCampoCheque(event);
+    this.mostrarCampoNotaPromissoria(event);
   }
 
   mostrarCampoDuplicata(event: InputSelectItem): void  {
@@ -59,21 +76,6 @@ export class AdicionarTituloComponent {
     this.mostrarInputNotaPromissoria = event.valor === 'Nota Promissória';
   }
 
-  nenhumCampoSelecionado(): boolean {
-    return !this.mostrarInputsDup && !this.mostrarInputCheque && !this.mostrarInputNotaPromissoria;
-  }
-
-  listarTitulos(): { titulo: string; descricao: string; }[] {
-    // Verifica se há títulos cadastrados no momento
-    if (this.titulosAdicionados.length > 0) {
-        // Se houver, retorna a lista de títulos cadastrados
-        return this.titulosAdicionados;
-    } else {
-        // Caso contrário, retorna uma lista vazia
-        return [];
-    }
-}
-
   public verificarSeFormularioEInvalido(): boolean {
     if (this.criarLoteForm.invalid || this.formularioInvalido) {
       return true;
@@ -81,20 +83,28 @@ export class AdicionarTituloComponent {
     return false;
   }
 
-  public salvarTitulo() {
+  public salvarTitulo(): void {
     if (!this.verificarSeFormularioEInvalido()) {
-        // Adiciona o novo título à lista de títulos adicionados
-        this.titulosAdicionados.push({
-            numeroTitulo: this.novoTitulo.numTitulo,
-            valorTitulo: this.novoTitulo.valorTitulo,
-            vencimentoTitulo: this.novoTitulo.vencimento,
-            nomePagador: this.novoTitulo.nome,
-            cpfPagador: this.novoTitulo.cpf,
-        });
+      // Adiciona o novo título à lista de títulos adicionados
+      this.titulosAdicionados.push({
+        numeroTitulo: this.criarLoteForm.controls.numTitulo.value,
+        valorTitulo: this.criarLoteForm.controls.valorTitulo.value,
+        vencimento: this.criarLoteForm.controls.vencimento.value,
+        cpf: this.criarLoteForm.controls.cpf.value,
+        nome: this.criarLoteForm.controls.nome.value,
+        isChecked: false
+      });
 
-        // Limpa os inputs após salvar
-        this.criarLoteForm.reset();
+      // Limpa os inputs após salvar
+      this.criarLoteForm.reset();
     }
-}
+  }
 
-}
+
+
+  nenhumCampoSelecionado(): boolean {
+    return !this.mostrarInputsDup && !this.mostrarInputCheque && !this.mostrarInputNotaPromissoria;
+  }
+  
+  }
+

@@ -5,12 +5,14 @@ import { ButtonModule, InputModule, ButtonDropdownModule, InputDateModule, Divid
 import { LoteRoutingModule } from '../lote-routing.module';
 import { LoteComponent } from '../lote.component';
 import { ListarLoteComponent } from './listar-lote.component';
+import { CardsLoteComponent } from './cards-lote/cards-lote.component';
 
 
 
 @NgModule({
   declarations: [
     ListarLoteComponent,
+    CardsLoteComponent,
   ],
   imports: [
     CommonModule,

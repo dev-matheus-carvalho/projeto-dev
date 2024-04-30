@@ -17,11 +17,11 @@ const routes: Routes = [
         canActivate: [AuthService],
         loadChildren: () => import('../../paginas/lote/lote.module').then((m) => m.LoteModule),
       },
-    //   {
-    //     path: 'contas-receber',
-    //     canActivate: [AuthService],
-    //     loadChildren: () => import('../../pages/contas-receber/contas-receber.module').then((m) => m.contas-receberModule),
-    //   },
+      {
+        path: 'contas-receber',
+        canActivate: [AuthService],
+        loadChildren: () => import('../../paginas/contas-receber/contas-receber.module').then((m) => m.ContasReceberModule),
+      },
     ]
   }
 ];

@@ -1,18 +1,42 @@
-<div class="listar-lote ds-mt-4">
-    <div class="lote-header ds-mt-8 ">
-      <div class="ds-row">
-        <div class="ds-col-12">
-          <ds-button
-          [iconeEsquerda]="'ds-icon-add'"
-          [tipoBotao]="'PRIMARY'"
-          [labelButton]="'Novo Lote'"
-          (click)="adicionarLote()"
-        ></ds-button>
-        </div>
-      </div>
+<div class="black-background"></div>
+<div class="listagem-container">
+  <div class="ds-row header-listagem-lote">
+    <div class="ds-col-2 ds-d-flex">
+      <ds-button
+        [labelButton]="'Novo lote'"
+        [iconeEsquerda]="'ds-icon-add'"
+        [tipoBotao]="'PRIMARY'"
+        (click)="adicionarLote()"
+        class="botao-adicionar-lote ds-mr-4"
+      ></ds-button>
     </div>
-    <div class="lote-container-vazio ds-mt-4" *ngIf="listarLote.length === 0">
-      <img src="../../../assets/Nada por aqui 2.svg" />
-      <img src="../../../assets/Texte.svg" />
+    <div class="ds-col-10 ds-d-flex ds-justify-content-end">
+      <ds-button
+        [tipoBotao]="'SECONDARY'"
+        [labelButton]="'Filtro'"
+        [iconeEsquerda]="'ds-icon-funnel'"
+      ></ds-button>
     </div>
   </div>
+  <div class="ds-row ds-mt-4">
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-col-4">
+      <app-cards-lote></app-cards-lote>
+    </div>
+    <div class="ds-row ds-mt-4"></div>
+  </div>
+</div>

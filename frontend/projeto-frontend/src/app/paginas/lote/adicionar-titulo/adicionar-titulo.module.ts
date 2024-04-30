@@ -9,6 +9,8 @@ import { DuplicataComponent } from './components/duplicata/duplicata.component';
 import { ChequeComponent } from './components/cheque/cheque.component';
 import { NotaPromissoriaComponent } from './components/nota-promissoria/nota-promissoria.component';
 import { AdicionarTituloComponent } from './adicionar-titulo.component';
+import { ListagemTitulosModule } from '../listagem-titulos/listagem-titulos.module';
+
 
 
 
@@ -22,6 +24,7 @@ import { AdicionarTituloComponent } from './adicionar-titulo.component';
   imports: [
     CommonModule,
     LoteRoutingModule,
+    ListagemTitulosModule,
     ButtonModule,
     InputModule,
     ButtonDropdownModule,
