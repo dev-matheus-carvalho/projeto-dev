@@ -9,6 +9,8 @@ export class CriarPagadorInput {
   public identificacao: string;
   public idConta: string;
 
+  // jakch
+
   constructor(pData: EntrypointData) {
 
     const nomeValidador = ValidadorDados.iniciar(pData.body?.nome, 'body.nome').obrigatorio().string();
