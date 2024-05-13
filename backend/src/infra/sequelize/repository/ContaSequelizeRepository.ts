@@ -14,10 +14,10 @@ export default class ContaSequelizeRepository implements IContaRepository {
     return new Conta(contaDb);
   }
 
-  public async verificarContaExistente(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta | null> {
+  public async verificarContaExistente(pUnitOfWork: IUnitOfWork, pEmail: string): Promise<Conta | null> {
     const contaDb = await db.models.conta.findOne({
       where: {
-        email: pConta.email
+        email: pEmail
        },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -34,11 +34,11 @@ export default class ContaSequelizeRepository implements IContaRepository {
     return contaDb ? new Conta(contaDb) : null;
   }
 
-  public async verificaSenhaLogin(pUnitOfWork: IUnitOfWork, pConta: Conta): Promise<Conta | null> {
+  public async verificaSenhaLogin(pUnitOfWork: IUnitOfWork, pEmail: string, pSenha: string): Promise<Conta | null> {
     const contaDb = await db.models.conta.findOne<ContaSequelizeModel>({
       where: {
-        email: pConta.email,
-        senha: pConta.senha,
+        email: pEmail,
+        senha: pSenha,
       },
       transaction: pUnitOfWork.getTransition(),
     });

@@ -21,14 +21,14 @@ export class CriarPagador {
       idConta: pInputPagador.idConta
     });
 
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pagador.idConta);
-    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pagador);
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
+    const isPagadorExist = await this.pagadorRepository.verificarPagadorPorIdentificacao(pUnitOfWork, pInputPagador.identificacao, pInputPagador.idConta);
 
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(isPagadorExist) {
+    if(!!isPagadorExist === true) {
       throw new InformacaoDuplicada('Pagador já cadastrado');
     }
 

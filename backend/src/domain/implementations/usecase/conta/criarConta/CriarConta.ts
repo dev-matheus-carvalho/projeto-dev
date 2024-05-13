@@ -21,7 +21,7 @@ export class CriarConta {
 
     const isContaExist = await this.contaRepository.verificarContaExistente(pUnitOfWork, conta);
     
-    if (isContaExist) {
+    if (!!isContaExist === true) {
       throw new InformacaoDuplicada('Conta duplicada');
     }
     const contaDb = await this.contaRepository.criar(pUnitOfWork, conta);

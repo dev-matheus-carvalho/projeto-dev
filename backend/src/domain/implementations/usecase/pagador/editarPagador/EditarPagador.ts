@@ -19,14 +19,14 @@ export class EditarPagador {
       idConta: pInputPagador.idConta,
     });
 
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pagador.idConta);
-    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pagador);
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
+    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pInputPagador.idPagador, pInputPagador.identificacao, pInputPagador.idConta);
     
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(!isPagadorExist) {
+    if(!!isPagadorExist === false) {
       throw new InformacaoNaoEncontrada('Pagador não encontrado');
     }
 
