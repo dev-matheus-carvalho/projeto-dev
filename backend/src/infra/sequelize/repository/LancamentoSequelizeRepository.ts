@@ -3,6 +3,7 @@ import IUnitOfWork from '../../../domain/protocols/models/UnitOfWork';
 import ILancamentoRepository from '../../../domain/protocols/repository/lancamentoRepository';
 import { Lancamento } from '../../../domain/implementations/entity/objectValues/Lancamento';
 import LancamentosSequelizeModel from '../models/LancamentosSequelizeModel';
+import { Ilancamentos } from '../../../domain/protocols/models/entity/objectValues/lancamentos';
 
 export default class LancamentoSequelizeRepository implements ILancamentoRepository {
 
@@ -64,6 +65,8 @@ export default class LancamentoSequelizeRepository implements ILancamentoReposit
       },
       transaction: pUnitOfWork.getTransition(),
     });
-     return lancamentoDb.map((lancamento) => new Lancamento(lancamento));
+    
+     return lancamentoDb.map((lancamento) => new Lancamento(lancamento))
+     .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime());
   }
 }

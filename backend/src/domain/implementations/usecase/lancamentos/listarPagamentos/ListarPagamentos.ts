@@ -18,31 +18,21 @@ export class ListarPagamentos {
   ) {
   }
   public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: ListarPagamentosInput): Promise<ListarPagamentosOutput[]> {
-    
-    const titulo: Titulo = new Titulo({
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
-
+   
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
-    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
     
     if(!isUsuarioExist) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
+    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    
     if(!isTituloExist) {
       throw new InformacaoNaoEncontrada('Título não encontrado');
     }
 
-    const lancamentosDb = await this.lancamentoRepository.listarPagamentos(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
-    const lancamentosOrdenados = lancamentosDb.sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime());
-    let lancamentos: ListarPagamentosOutput[] = [];
+    const lancamentosDb = (await this.lancamentoRepository.listarPagamentos(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta));
 
-    for(let lancamento of lancamentosOrdenados) {
-      lancamentos.push(lancamento);
-    }
-
-    return lancamentos;
+    return lancamentosDb.map(pLancamento => new ListarPagamentosOutput(pLancamento));
   }
 }
