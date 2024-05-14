@@ -19,7 +19,7 @@ export class CriarConta {
       senha: senhaUtil.criptografarSenha(pInputConta.senha),
     });
 
-    const isContaExist = await this.contaRepository.verificarContaExistente(pUnitOfWork, conta);
+    const isContaExist = await this.contaRepository.verificarContaExistente(pUnitOfWork, pInputConta.email);
     
     if (!!isContaExist === true) {
       throw new InformacaoDuplicada('Conta duplicada');

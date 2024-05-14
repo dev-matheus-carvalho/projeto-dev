@@ -10,6 +10,7 @@ import { CancelarPagamentoInput } from './CancelarPagamentoInput';
 import { Movimentacao } from '../../../entity/objectValues/Movimentacao';
 import { verificarVencimento } from '../../../services/verificarVencimento';
 import AcaoInvalida from '../../../entity/errors/AcaoInvalida';
+import { SituacaoTituloEnum } from '../../../constants/enum/situacaoTituloEnum';
 
 
 export class CancelarPagamento {
@@ -21,59 +22,40 @@ export class CancelarPagamento {
   ) {
   }
   public async execute(pUnitOfWork: UnitOfWork, pInputLancamento: CancelarPagamentoInput): Promise<boolean> {
-
-    let titulo: Titulo = new Titulo({
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
-
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
-    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
-    const isLancamentoExist = await this.lancamentoRepository.verificarSeLancamentoExiste(pUnitOfWork, pInputLancamento.idLancamento);
-    const isMovimentacaoExist = await this.movimentacaoRepository.buscarMovimentacao(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
     
-    if(!isUsuarioExist) {
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(!isTituloExist) {
+    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    if(!!isTituloExist === false) {
       throw new InformacaoNaoEncontrada('Título não encontrado');
     }
     
-    if(!isMovimentacaoExist) {
+    const isMovimentacaoExist = await this.movimentacaoRepository.buscarMovimentacao(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    if(!!isMovimentacaoExist === false) {
       throw new InformacaoNaoEncontrada('Movimentação não encontrada');
     }
 
-    if(!isLancamentoExist) {
+    const isLancamentoExist = await this.lancamentoRepository.verificarSeLancamentoExiste(pUnitOfWork, pInputLancamento.idLancamento);
+    if(!!isLancamentoExist === false) {
       throw new InformacaoNaoEncontrada('Lançamento não encontrado');
     }
 
-    if(!isLancamentoExist.ativo) {
+    if(!!isLancamentoExist.ativo === false) {
       throw new AcaoInvalida('Lançamento já foi cancelado');
     }
 
-    const vencimento = verificarVencimento(isTituloExist.vencimento);
+    isMovimentacaoExist.saldo = isMovimentacaoExist.saldo + isLancamentoExist.valorPrincipal;
+    isMovimentacaoExist.valorTotalDesconto = isMovimentacaoExist.valorTotalDesconto + isLancamentoExist.desconto;
 
-    titulo = new Titulo({
-      situacaoTitulo: vencimento,
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
+    const situacaoTitulo = verificarVencimento(isTituloExist.vencimento);
+    isTituloExist.situacaoTitulo = situacaoTitulo;
 
-    const movimentacao: Movimentacao = new Movimentacao({
-      idMovimentacao: isMovimentacaoExist.idMovimentacao,
-      saldo: isMovimentacaoExist.saldo + isLancamentoExist.valorPrincipal,
-      valorTotalPrincipal: isMovimentacaoExist.valorTotalPrincipal,
-      valorTotalMulta: isMovimentacaoExist.valorTotalMulta,
-      valorTotalJuros: isMovimentacaoExist.valorTotalJuros,
-      valorTotalDesconto: isMovimentacaoExist.valorTotalDesconto + isLancamentoExist.desconto,
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
-
-    await this.tituloRepository.cancelarPagamento(pUnitOfWork, titulo);
-    await this.lancamentoRepository.editarLancamento(pUnitOfWork, pInputLancamento.idLancamento, pInputLancamento.idTitulo, pInputLancamento.idConta);
-    await this.movimentacaoRepository.editar(pUnitOfWork, movimentacao);
+    await this.tituloRepository.setarSituacaoDeVencimentoDoTitulo(pUnitOfWork, isTituloExist.idTitulo, isTituloExist.situacaoTitulo, pInputLancamento.idConta);
+    await this.lancamentoRepository.setarOEstadoDoLancamentoParaInativo(pUnitOfWork, pInputLancamento.idLancamento, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    await this.movimentacaoRepository.editar(pUnitOfWork, isMovimentacaoExist, isLancamentoExist);
 
     return Promise.resolve(true);
   }

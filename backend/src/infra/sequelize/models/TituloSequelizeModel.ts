@@ -3,6 +3,7 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 import type Models from '../models';
 import { ITitulo, ITituloModel, ITituloModelCreate } from '../../../domain/protocols/models/entity/objectValues/titulo';
 import { Ilancamentos } from '../../../domain/protocols/models/entity/objectValues/lancamentos';
+import { SituacaoTituloEnum } from '../../../domain/implementations/constants/enum/situacaoTituloEnum';
 
 export default class TituloSequelizeModel extends Model<ITitulo, ITituloModelCreate> implements ITituloModel {
   public idTitulo!: string;

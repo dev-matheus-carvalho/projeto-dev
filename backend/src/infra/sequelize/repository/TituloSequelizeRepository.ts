@@ -16,11 +16,11 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return new Titulo(tituloDb);
   }
 
-  public async verificarSeExisteTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<Titulo | null> {
+  public async verificarSeExisteTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Titulo | null> {
     const tituloDb = await db.models.titulo.findOne<TituloSequelizeModel>({
       where: {
-        idTitulo: pTitulo.idTitulo,
-        idConta: pTitulo.idConta,
+        idTitulo: pIdTitulo,
+        idConta: pIdConta,
       },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -142,6 +142,19 @@ export default class TituloSequelizeRepository implements ITituloRepository {
       where: {
         idTitulo: pTitulo.idTitulo,
         idConta: pTitulo.idConta
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
+  public async setarSituacaoDeVencimentoDoTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string, pSituacao: string, pIdConta: string): Promise<boolean> {
+    const result = await db.models.titulo.update<TituloSequelizeModel>({
+      situacaoTitulo: pSituacao,
+    }, {
+      where: {
+        idTitulo: pIdTitulo,
+        idConta: pIdConta
       },
       transaction: pUnitOfWork.getTransition(),
     });

@@ -40,6 +40,22 @@ export default class LancamentoSequelizeRepository implements ILancamentoReposit
     return Promise.resolve(result.length > 0);
   }
 
+  public async setarOEstadoDoLancamentoParaInativo(pUnitOfWork: IUnitOfWork, pIdLancamento: string, pIdTitulo: string, pIdConta: string): Promise<boolean> {
+    const result = await db.models.lancamentos.update<LancamentosSequelizeModel>(
+      {
+        ativo: false,
+      }, 
+      {
+      where: {
+        idLancamento: pIdLancamento,
+        idTitulo: pIdTitulo,
+        idConta: pIdConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
   public async listarPagamentos(pUnitOfWork: IUnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Lancamento[]> {
     const lancamentoDb = await db.models.lancamentos.findAll<LancamentosSequelizeModel>({
       where: {

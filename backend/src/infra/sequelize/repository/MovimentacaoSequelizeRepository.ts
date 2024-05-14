@@ -4,6 +4,7 @@ import UnitOfWork from '../../../domain/implementations/entity/UnitOfWork';
 import IMovimentacaoRepository from '../../../domain/protocols/repository/movimentacaoRepository';
 import { Movimentacao } from '../../../domain/implementations/entity/objectValues/Movimentacao';
 import MovimentacaoSequelizeModel from '../models/MovimentacaoSequelizeModel';
+import { Lancamento } from '../../../domain/implementations/entity/objectValues/Lancamento';
 
 export default class MovimentacaoSequelizeRepository implements IMovimentacaoRepository {
 
@@ -26,7 +27,7 @@ export default class MovimentacaoSequelizeRepository implements IMovimentacaoRep
     return movimentacaoDb ? new Movimentacao(movimentacaoDb) : null;
   }
 
-  public async editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean> {
+  public async editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean> {
     const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizar(), {
       where: {
         idMovimentacao: pMovimentacao.idMovimentacao,
