@@ -20,7 +20,7 @@ export default interface ITituloRepository {
   setarSituacaoDeVencimentoDoTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string, pSituacao: string, pIdConta: string): Promise<boolean>;
   
   buscarTituloPorIdTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string): Promise<Titulo | null>;
-  excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string,): Promise<boolean>;
+  excluirTodosOsTitulosdeUmLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string,): Promise<boolean>;
 
   buscarTituloPorEmailDoTitulo(pEmail: string): Promise<Titulo | null>;
   buscarTituloPorEmailEPagadorDoTitulo(pEmail: string, pPagador: string): Promise<Titulo | null>;

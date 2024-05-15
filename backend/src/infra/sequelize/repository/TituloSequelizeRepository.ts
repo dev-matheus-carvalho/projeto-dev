@@ -173,7 +173,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return Promise.resolve(result > 0);
   }
 
-  public async excluirTitulosPorLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean> {
+  public async excluirTodosOsTitulosdeUmLote(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean> {
     const result = await db.models.titulo.destroy<TituloSequelizeModel>({
       where: {
         idLote: pIdLote,
