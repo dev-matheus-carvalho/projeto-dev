@@ -21,13 +21,13 @@ export class ListarPagamentos {
    
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
     
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
     const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
     
-    if(!isTituloExist) {
+    if(!!isTituloExist === false) {
       throw new InformacaoNaoEncontrada('Título não encontrado');
     }
 
