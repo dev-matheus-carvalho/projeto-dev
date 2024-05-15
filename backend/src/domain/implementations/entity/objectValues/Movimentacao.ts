@@ -1,19 +1,6 @@
-import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate } from '../../../protocols/models/entity/objectValues/movimentacao';
-
-interface IMovimentacaoModelUpdate {
-  idMovimentacao: string;
-  saldo: number;
-  // valorTotalPrincipal: number;
-  valorTotalMulta: number;
-  valorTotalJuros: number;
-  valorTotalDesconto: number;
-  dataUltimoRecebimento?: Date;
-  idTitulo: string;
-  idConta: string;
-}
-
-
-
+import { IMovimentacao, IMovimentacaoModel, IMovimentacaoModelCreate, IMovimentacaoUpdate } from '../../../protocols/models/entity/objectValues/movimentacao';
+import { GerarData } from '../../services/gerarData';
+import { Lancamento } from './Lancamento';
 
 export class Movimentacao implements IMovimentacao {
 
@@ -60,17 +47,33 @@ export class Movimentacao implements IMovimentacao {
     };
   }
 
-  public gerarObjAtualizar(): IMovimentacaoModelUpdate {
+  public gerarObjAtualizar(pLancamento: Lancamento): IMovimentacaoUpdate {
     return {
-      idMovimentacao: this.idMovimentacao,
       saldo: this.saldo,
-      // valorTotalPrincipal: this.valorTotalPrincipal,
       valorTotalMulta: this.valorTotalMulta,
       valorTotalJuros: this.valorTotalJuros,
       valorTotalDesconto: this.valorTotalDesconto,
-      dataUltimoRecebimento: this.dataUltimoRecebimento,
-      idTitulo: this.idTitulo,
-      idConta: this.idConta,
+      dataUltimoRecebimento: this.dataUltimoRecebimento
+    };
+  }
+
+  public gerarObjAtualizarRecebimentoDePagamento(pInputLancamento: Lancamento): IMovimentacaoUpdate {
+    return {
+      saldo: this.saldo - pInputLancamento.valorPrincipal,
+      valorTotalMulta: this.valorTotalMulta + pInputLancamento.valorMulta,
+      valorTotalJuros: this.valorTotalJuros + pInputLancamento.valorJuros,
+      valorTotalDesconto: this.valorTotalDesconto + pInputLancamento.desconto,
+      dataUltimoRecebimento: GerarData(new Date())
+    };
+  }
+
+  public gerarObjAtualizarCancelamentoDePagamento(pInputLancamento: Lancamento): IMovimentacaoUpdate {
+    return {
+      saldo: this.saldo + pInputLancamento.valorPrincipal,
+      valorTotalMulta: this.valorTotalMulta - pInputLancamento.valorMulta,
+      valorTotalJuros: this.valorTotalJuros - pInputLancamento.valorJuros,
+      valorTotalDesconto: this.valorTotalDesconto - pInputLancamento.desconto,
+      dataUltimoRecebimento: GerarData(new Date())
     };
   }
 }

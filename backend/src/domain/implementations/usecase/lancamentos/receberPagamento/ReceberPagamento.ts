@@ -28,24 +28,22 @@ export class ReceberPagamento {
     const dataCredito = FormatarData(pInputLancamento.dataCredito);
     const valorTotal = pInputLancamento.valorPrincipal + pInputLancamento.valorMulta + pInputLancamento.valorJuros - pInputLancamento.desconto;
 
-    const titulo: Titulo = new Titulo({
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
-
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
-    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
-    const isMovimentacaoExist = await this.movimentacaoRepository.buscarMovimentacao(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
     
-    if(!isMovimentacaoExist) {
-      throw new InformacaoNaoEncontrada('Movimentação não encontrada');
-    }
-
-    if(!isUsuarioExist) {
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputLancamento.idConta);
+    
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(!isTituloExist) {
+    const isMovimentacaoExist = await this.movimentacaoRepository.buscarMovimentacao(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    
+    if(!!isMovimentacaoExist === false) {
+      throw new InformacaoNaoEncontrada('Movimentação não encontrada');
+    }
+
+    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    
+    if(!!isTituloExist === false) {
       throw new InformacaoNaoEncontrada('Título não encontrado');
     }
 
@@ -55,25 +53,9 @@ export class ReceberPagamento {
 
     const saldo = isMovimentacaoExist.saldo - pInputLancamento.valorPrincipal;
 
-    if(saldo === 0) {
-      console.log('Vai ter quitar')
-      await this.tituloRepository.quitarTitulo(pUnitOfWork, titulo);
-    }
-    
     if(saldo < 0) {
       throw new AcaoInvalida('Valor a receber excede o valor do saldo');
     }
-
-    const movimentacao: Movimentacao = new Movimentacao({
-      idMovimentacao: isMovimentacaoExist.idMovimentacao,
-      saldo: saldo,
-      valorTotalMulta: isMovimentacaoExist.valorTotalMulta + pInputLancamento.valorMulta,
-      valorTotalJuros: isMovimentacaoExist.valorTotalJuros + pInputLancamento.valorJuros,
-      valorTotalDesconto: isMovimentacaoExist.valorTotalDesconto + pInputLancamento.desconto,
-      dataUltimoRecebimento: GerarData(new Date()),
-      idTitulo: pInputLancamento.idTitulo,
-      idConta: pInputLancamento.idConta,
-    });
 
     const lancamento: Lancamento = new Lancamento({
       idLancamento: v4(),
@@ -91,8 +73,12 @@ export class ReceberPagamento {
     });
 
     await this.lancamentoRepository.criar(pUnitOfWork, lancamento);
-    await this.movimentacaoRepository.editar(pUnitOfWork, movimentacao);
+    await this.movimentacaoRepository.editar(pUnitOfWork, isMovimentacaoExist, lancamento);
  
+    if(saldo === 0) {
+      await this.tituloRepository.setarSituacaoTituloParaQuitado(pUnitOfWork, pInputLancamento.idTitulo, pInputLancamento.idConta);
+    }
+    
     return new ReceberPagamentoOutput(lancamento);
   }
 }

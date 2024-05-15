@@ -6,6 +6,10 @@ import { Movimentacao } from '../../implementations/entity/objectValues/Moviment
 export default interface IMovimentacaoRepository {
   criar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<Movimentacao>;
   buscarMovimentacao(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Movimentacao | null>;
-  editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean>;
+
+  editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean>; // Apagar
+  receberPagamento(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean>;
+  cancelarPagamento(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean>;
+
   quitarSaldo(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao): Promise<boolean>;
 }

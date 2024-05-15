@@ -13,7 +13,8 @@ export default interface ITituloRepository {
   atualizarVencimento(pUnitOfWork: UnitOfWork, pIdTitulo: Titulo): Promise<boolean>;
   excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean>;
-  quitarTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean>;
+  
+  setarSituacaoTituloParaQuitado(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   
   cancelarPagamento(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean>; // Apagar depois
   setarSituacaoDeVencimentoDoTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string, pSituacao: string, pIdConta: string): Promise<boolean>;

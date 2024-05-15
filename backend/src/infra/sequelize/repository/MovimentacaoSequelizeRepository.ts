@@ -27,8 +27,33 @@ export default class MovimentacaoSequelizeRepository implements IMovimentacaoRep
     return movimentacaoDb ? new Movimentacao(movimentacaoDb) : null;
   }
 
+  // Apagar
   public async editar(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean> {
-    const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizar(), {
+    const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizar(pLancamento), {
+      where: {
+        idMovimentacao: pMovimentacao.idMovimentacao,
+        idTitulo: pMovimentacao.idTitulo,
+        idConta: pMovimentacao.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
+  public async receberPagamento(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean> {
+    const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizarRecebimentoDePagamento(pLancamento), {
+      where: {
+        idMovimentacao: pMovimentacao.idMovimentacao,
+        idTitulo: pMovimentacao.idTitulo,
+        idConta: pMovimentacao.idConta,
+      },
+      transaction: pUnitOfWork.getTransition(),
+    });
+    return Promise.resolve(result.length > 0);
+  }
+
+  public async cancelarPagamento(pUnitOfWork: UnitOfWork, pMovimentacao: Movimentacao, pLancamento: Lancamento): Promise<boolean> {
+    const result = await db.models.movimentacao.update<MovimentacaoSequelizeModel>(pMovimentacao.gerarObjAtualizarCancelamentoDePagamento(pLancamento), {
       where: {
         idMovimentacao: pMovimentacao.idMovimentacao,
         idTitulo: pMovimentacao.idTitulo,

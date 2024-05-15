@@ -63,10 +63,10 @@ export default class LancamentoSequelizeRepository implements ILancamentoReposit
         idTitulo: pIdTitulo,
         idConta: pIdConta,
       },
+      order: [['updatedAt', 'DESC']],
       transaction: pUnitOfWork.getTransition(),
     });
     
-     return lancamentoDb.map((lancamento) => new Lancamento(lancamento))
-     .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime());
+     return lancamentoDb.map((lancamento) => new Lancamento(lancamento));
   }
 }

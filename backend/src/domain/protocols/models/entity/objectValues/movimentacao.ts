@@ -15,3 +15,11 @@ export interface IMovimentacao {
 export interface IMovimentacaoModel extends Partial<IMovimentacao> {}
 
 export interface IMovimentacaoModelCreate extends Partial<IMovimentacaoModel> {}
+
+export interface IMovimentacaoUpdate {
+  saldo: number;
+  valorTotalMulta: number;
+  valorTotalJuros: number;
+  valorTotalDesconto: number;
+  dataUltimoRecebimento?: Date;
+}

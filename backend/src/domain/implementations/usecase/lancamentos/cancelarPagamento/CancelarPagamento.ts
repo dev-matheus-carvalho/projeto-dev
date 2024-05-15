@@ -47,15 +47,15 @@ export class CancelarPagamento {
       throw new AcaoInvalida('Lançamento já foi cancelado');
     }
 
-    isMovimentacaoExist.saldo = isMovimentacaoExist.saldo + isLancamentoExist.valorPrincipal;
-    isMovimentacaoExist.valorTotalDesconto = isMovimentacaoExist.valorTotalDesconto + isLancamentoExist.desconto;
+    // isMovimentacaoExist.saldo = isMovimentacaoExist.saldo + isLancamentoExist.valorPrincipal;
+    // isMovimentacaoExist.valorTotalDesconto = isMovimentacaoExist.valorTotalDesconto + isLancamentoExist.desconto;
 
     const situacaoTitulo = verificarVencimento(isTituloExist.vencimento);
     isTituloExist.situacaoTitulo = situacaoTitulo;
 
     await this.tituloRepository.setarSituacaoDeVencimentoDoTitulo(pUnitOfWork, isTituloExist.idTitulo, isTituloExist.situacaoTitulo, pInputLancamento.idConta);
     await this.lancamentoRepository.setarOEstadoDoLancamentoParaInativo(pUnitOfWork, pInputLancamento.idLancamento, pInputLancamento.idTitulo, pInputLancamento.idConta);
-    await this.movimentacaoRepository.editar(pUnitOfWork, isMovimentacaoExist, isLancamentoExist);
+    await this.movimentacaoRepository.cancelarPagamento(pUnitOfWork, isMovimentacaoExist, isLancamentoExist);
 
     return Promise.resolve(true);
   }
