@@ -17,25 +17,21 @@ export class ExcluirTitulo {
 
   public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: ExcluirTituloInput): Promise<boolean> {
     
-    const titulo = new Titulo({
-      idTitulo: pInputTitulo.idTitulo,
-      idLote: pInputTitulo.idLote,
-      idConta: pInputTitulo.idConta,
-    });
-
-    const isTituloExist = await this.titulosRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
 
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(!isLoteExist) {
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
+
+    if(!!isLoteExist === false) {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
     }
 
-    if(!isTituloExist) {
+    const isTituloExist = await this.titulosRepository.verificarSeExisteTitulo(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
+
+    if(!!isTituloExist === false) {
       throw new InformacaoNaoEncontrada('Titulo não encontrado');
     }
 
@@ -43,7 +39,7 @@ export class ExcluirTitulo {
       throw new AcaoInvalida('Operação negada. Lote já processado');
     }
     
-    const titulosPorLote = await this.titulosRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
+    const titulosPorLote: Titulo[] = await this.titulosRepository.listarTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, pInputTitulo.idConta);
 
     if(titulosPorLote.length === 1) {
       await this.titulosRepository.excluir(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
