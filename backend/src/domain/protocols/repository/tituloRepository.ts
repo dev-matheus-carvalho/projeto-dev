@@ -10,7 +10,9 @@ export default interface ITituloRepository {
   verificarSeExisteTitulo(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<Titulo | null>;
   
   editar(pUnitOfWork: UnitOfWork, pIdTitulo: Titulo): Promise<boolean>;
-  atualizarVencimento(pUnitOfWork: UnitOfWork, pIdTitulo: Titulo): Promise<boolean>;
+  
+  atualizarSituacaoTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean>;
+  
   excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean>;
   

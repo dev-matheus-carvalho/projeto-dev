@@ -96,7 +96,7 @@ export default class TituloSequelizeRepository implements ITituloRepository {
     return Promise.resolve(result.length > 0);
   }
 
-  public async atualizarVencimento(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
+  public async atualizarSituacaoTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean> {
     const result = await db.models.titulo.update<TituloSequelizeModel>({
       situacaoTitulo: pTitulo.situacaoTitulo,
     }, {
