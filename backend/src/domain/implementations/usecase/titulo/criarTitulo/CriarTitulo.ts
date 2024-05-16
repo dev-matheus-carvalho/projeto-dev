@@ -22,15 +22,16 @@ export class CriarTitulo {
 
     const vencimento = FormatarData(pInputTitulo.vencimento);
     const situacaoTitulo = verificarVencimento(vencimento);
-    let idLote = pInputTitulo.idLote;
+    // const idLote = '';
+    // const inputIdLote = pInputTitulo.idLote;
 
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
     
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(idLote === '' || idLote === null || idLote === undefined) {
+    if(pInputTitulo.idLote === '' || pInputTitulo.idLote === null || pInputTitulo.idLote === undefined) {
       const data = new Date();
       const lote = new Lote({
         idLote: v4(),
@@ -40,13 +41,13 @@ export class CriarTitulo {
       });
 
       await this.loteRepository.criar(pUnitOfWork, lote);
-      idLote = lote.idLote;
+      pInputTitulo.idLote = lote.idLote;
     }
 
     
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, idLote);
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
     
-    if(!isLoteExist) {
+    if(!!isLoteExist === false) {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
     }
 
@@ -71,15 +72,18 @@ export class CriarTitulo {
         chequeCmc7: pInputTitulo.chequeCmc7,
         idConta: pInputTitulo.idConta,
         idPagador: pInputTitulo.idPagador,
-        idLote: idLote,
+        idLote: pInputTitulo.idLote,
         isProcessado: pInputTitulo.isProcessado,
       });
       
-      const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
+      const titulosPorLote: Titulo[] = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, pInputTitulo.idConta);
+      
       await this.tituloRepository.criar(pUnitOfWork, titulo);
+
       const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0);
       const somaTotal = soma + pInputTitulo.valorDoTitulo;
-      await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, idLote, somaTotal, titulosPorLote.length + 1);
+      
+      await this.loteRepository.editarValorTotalDeTitulosPorLote(pUnitOfWork, pInputTitulo.idLote, somaTotal, titulosPorLote.length + 1);
 
       return new CriarTituloOutput(titulo);
   }
