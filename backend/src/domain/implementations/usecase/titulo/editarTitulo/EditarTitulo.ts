@@ -46,18 +46,20 @@ export class EditarTitulo {
 
     // 1º: Descobrir se usuário, lote e título existem
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
-    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
-    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, titulo);
 
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
-    if(!isLoteExist) {
+    const isLoteExist = await this.loteRepository.buscaLotePorId(pUnitOfWork, pInputTitulo.idLote);
+
+    if(!!isLoteExist === false) {
       throw new InformacaoNaoEncontrada('Lote não encontrado');
     }
 
-    if(!isTituloExist) {
+    const isTituloExist = await this.tituloRepository.verificarSeExisteTitulo(pUnitOfWork, pInputTitulo.idTitulo, pInputTitulo.idConta);
+
+    if(!!isTituloExist === false) {
       throw new InformacaoDuplicada('Título não encontrado');
     }
 
