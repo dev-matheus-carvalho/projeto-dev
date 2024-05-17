@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 import ILoteRepository from '../../../../protocols/repository/loteRepository';
 import { Lote } from '../../../entity/objectValues/Lote';
 import { FormatarData } from '../../../services/formatarData';
-import { verificarVencimento } from '../../../services/verificarVencimento';
+import { verificarSituacaoDeVencimentoDoTitulo, verificarVencimento } from '../../../services/verificarVencimento';
 import InformacaoDuplicada from '../../../entity/errors/InformacaoDuplicada';
 import IContaRepository from '../../../../protocols/repository/contaRepository';
 import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontrada';
@@ -22,27 +22,8 @@ export class EditarTitulo {
   }
   
   public async execute(pUnitOfWork: UnitOfWork, pInputTitulo: EditarTituloInput): Promise<EditarTituloOutput> {
-    const vencimento = FormatarData(pInputTitulo.vencimento);
-    const situacaoTitulo = verificarVencimento(vencimento);
-
-    const titulo = new Titulo({
-      idTitulo: pInputTitulo.idTitulo,
-      numeroTitulo: pInputTitulo.numeroTitulo,
-      tipoTitulo: pInputTitulo.tipoTitulo,
-      vencimento: vencimento,
-      situacaoTitulo: situacaoTitulo,
-      duplicataChaveNota: pInputTitulo.duplicataChaveNota,
-      duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
-      duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
-      duplicataSerieNota: pInputTitulo.duplicataSerieNota,
-      duplicataNumeroFatura: pInputTitulo.duplicataNumeroFatura,
-      duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
-      valorDoTitulo: pInputTitulo.valorDoTitulo,
-      chequeCmc7: pInputTitulo.chequeCmc7,
-      idConta: pInputTitulo.idConta,
-      idPagador: pInputTitulo.idPagador,
-      idLote: pInputTitulo.idLote,
-    });
+    const dataDeVencimentoDoTitulo = FormatarData(pInputTitulo.vencimento);
+    const situacaoTitulo = new verificarSituacaoDeVencimentoDoTitulo(dataDeVencimentoDoTitulo).verificarVencimentoDoTitulo();
 
     // 1º: Descobrir se usuário, lote e título existem
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputTitulo.idConta);
@@ -67,6 +48,25 @@ export class EditarTitulo {
     if(isLoteExist.situacao === 'PROCESSADO') {
       throw new AcaoInvalida('Operação negada. Lote já processado');
     }
+
+    const titulo = new Titulo({
+      idTitulo: pInputTitulo.idTitulo,
+      numeroTitulo: pInputTitulo.numeroTitulo,
+      tipoTitulo: pInputTitulo.tipoTitulo,
+      vencimento: dataDeVencimentoDoTitulo,
+      situacaoTitulo: situacaoTitulo,
+      duplicataChaveNota: pInputTitulo.duplicataChaveNota,
+      duplicataProtocoloNota: pInputTitulo.duplicataProtocoloNota,
+      duplicataNumeroNota: pInputTitulo.duplicataNumeroNota,
+      duplicataSerieNota: pInputTitulo.duplicataSerieNota,
+      duplicataNumeroFatura: pInputTitulo.duplicataNumeroFatura,
+      duplicataValorLiquidoFatura: pInputTitulo.duplicataValorLiquidoFatura,
+      valorDoTitulo: pInputTitulo.valorDoTitulo,
+      chequeCmc7: pInputTitulo.chequeCmc7,
+      idConta: pInputTitulo.idConta,
+      idPagador: pInputTitulo.idPagador,
+      idLote: pInputTitulo.idLote,
+    });
     
     const titulosPorLote = await this.tituloRepository.listarTitulosPorLote(pUnitOfWork, titulo.idLote, titulo.idConta);
     const soma = titulosPorLote.reduce((total, valor) => total + valor.valorDoTitulo, 0) - isTituloExist.valorDoTitulo;
