@@ -14,23 +14,24 @@ export class CriarPagador {
 
   public async execute(pUnitOfWork: UnitOfWork, pInputPagador: CriarPagadorInput): Promise<CriarPagadorOutput | null> {
     
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
+    
+    if(!!isUsuarioExist === false) {
+      throw new InformacaoNaoEncontrada('Usuário não encontrado');
+    }
+    
+    const isPagadorExist = await this.pagadorRepository.verificarPagadorPorIdentificacao(pUnitOfWork, pInputPagador.identificacao, pInputPagador.idConta);
+    
+    if(!!isPagadorExist === true) {
+      throw new InformacaoDuplicada('Pagador já cadastrado');
+    }
+
     const pagador = new Pagador({
       idPagador: v4(),
       nome: pInputPagador.nome,
       identificacao: pInputPagador.identificacao,
       idConta: pInputPagador.idConta
     });
-
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
-    const isPagadorExist = await this.pagadorRepository.verificarPagadorPorIdentificacao(pUnitOfWork, pInputPagador.identificacao, pInputPagador.idConta);
-
-    if(!!isUsuarioExist === false) {
-      throw new InformacaoNaoEncontrada('Usuário não encontrado');
-    }
-
-    if(!!isPagadorExist === true) {
-      throw new InformacaoDuplicada('Pagador já cadastrado');
-    }
 
     await this.pagadorRepository.criar(pUnitOfWork, pagador);
     return new CriarPagadorOutput(pagador);

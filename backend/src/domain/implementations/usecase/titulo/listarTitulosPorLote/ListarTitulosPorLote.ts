@@ -34,7 +34,7 @@ export class ListarTitulosPorLote {
     const titulosPorLote: Titulo[] = await this.titulosRepository.listarTitulosPorLote(pUnitWork, pInputTitulo.idLote, pInputTitulo.idConta);
     
     for(let titulo of titulosPorLote) {
-      await this.titulosRepository.atualizarSituacaoTitulo(pUnitWork, titulo);
+      await this.titulosRepository.atualizarSituacaoTitulo(pUnitWork, titulo.situacaoTitulo, titulo.idTitulo, pInputTitulo.idConta);
     }
 
     if(titulosPorLote.length === 0) {

@@ -15,11 +15,11 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
     return new Pagador(pagadorDb);
   }
 
-  public async buscarPagador(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<Pagador | null> {
+  public async buscarPagador(pUnitOfWork: UnitOfWork, pIdPagador: string, pIdConta: string): Promise<Pagador | null> {
     const pagadorDb = await db.models.pagador.findOne<PagadorSequelizeModel>({
       where: {
-        idPagador: pPagador.idPagador,
-        idConta: pPagador.idConta,
+        idPagador: pIdPagador,
+        idConta: pIdConta,
       },
       transaction: pUnitOfWork.getTransition(),
     });
@@ -49,13 +49,13 @@ export default class PagadorSequelizeRepository implements IPagadorRepository {
         return pagadorDb ? new Pagador(pagadorDb) : null;
   }
 
-  async editar(pUnitOfWork: UnitOfWork, pPagador: Pagador): Promise<boolean> {
+  async editarNomePagador(pUnitOfWork: UnitOfWork, pNome: string, pIdPagador: string, pIdConta: string): Promise<boolean> {
     const result = await db.models.pagador.update<PagadorSequelizeModel>({
-      nome: pPagador.nome,
-      identificacao: pPagador.identificacao
+      nome: pNome,
     }, {
       where: {
-        idPagador: pPagador.idPagador
+        idPagador: pIdPagador,
+        idConta: pIdConta
       },
       transaction: pUnitOfWork.getTransition(),
     });

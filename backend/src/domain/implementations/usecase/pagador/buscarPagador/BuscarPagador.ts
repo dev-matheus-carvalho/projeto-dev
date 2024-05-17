@@ -13,12 +13,13 @@ export class BuscarPagador {
   public async execute(pUnitOfWork: UnitOfWork, pInputPagador: BuscarPagadorInput): Promise<BuscarPagadorOutput | null> {
     
     const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
-    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pInputPagador.idPagador, pInputPagador.identificacao, pInputPagador.idConta);
-
+    
     if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
-
+    
+    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pInputPagador.idPagador, pInputPagador.identificacao, pInputPagador.idConta);
+    
     if(!!isPagadorExist === false) {
       throw new InformacaoNaoEncontrada('Pagador não encontrado');
     }

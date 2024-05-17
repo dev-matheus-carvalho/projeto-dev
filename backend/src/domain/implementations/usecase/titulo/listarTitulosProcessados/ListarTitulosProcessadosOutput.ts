@@ -12,14 +12,14 @@ export class ListarTitulosProcessadosOutput {
   public idConta: string;
   public pagador?: string;
   
-  constructor(pTitulo: Titulo, pMovimentacao: Movimentacao, pPagador: Pagador) {
+  constructor(pTitulo: Titulo, pPagamento: Date | undefined, pPagador: string | undefined) {
     this.numeroTitulo = pTitulo.numeroTitulo,
     this.tipoTitulo = pTitulo.tipoTitulo,
     this.vencimento = pTitulo.vencimento,
-    this.pagamento = pMovimentacao.dataUltimoRecebimento,
+    this.pagamento = pPagamento,
     this.situacaoTitulo = pTitulo.situacaoTitulo,
     this.valorDoTitulo = pTitulo.valorDoTitulo,
     this.idConta = pTitulo.idConta,
-    this.pagador = pPagador.nome
+    this.pagador = pPagador
   }
 }

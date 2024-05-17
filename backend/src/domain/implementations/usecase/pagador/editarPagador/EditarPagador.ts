@@ -12,6 +12,18 @@ export class EditarPagador {
 
   public async execute(pUnitOfWork: UnitOfWork, pInputPagador: EditarPagadorInput): Promise<EditarPagadorOutput | null> {
     
+    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
+    
+    if(!!isUsuarioExist === false) {
+      throw new InformacaoNaoEncontrada('Usuário não encontrado');
+    }
+    
+    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pInputPagador.idPagador, pInputPagador.identificacao, pInputPagador.idConta);
+
+    if(!!isPagadorExist === false) {
+      throw new InformacaoNaoEncontrada('Pagador não encontrado');
+    }
+
     const pagador = new Pagador({
       idPagador: pInputPagador.idPagador,
       nome: pInputPagador.nome,
@@ -19,18 +31,7 @@ export class EditarPagador {
       idConta: pInputPagador.idConta,
     });
 
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitOfWork, pInputPagador.idConta);
-    const isPagadorExist = await this.pagadorRepository.verificarSePagadorExiste(pUnitOfWork, pInputPagador.idPagador, pInputPagador.identificacao, pInputPagador.idConta);
-    
-    if(!!isUsuarioExist === false) {
-      throw new InformacaoNaoEncontrada('Usuário não encontrado');
-    }
-
-    if(!!isPagadorExist === false) {
-      throw new InformacaoNaoEncontrada('Pagador não encontrado');
-    }
-
-    await this.pagadorRepository.editar(pUnitOfWork, pagador);
+    await this.pagadorRepository.editarNomePagador(pUnitOfWork, pInputPagador.nome, pInputPagador.idPagador, pInputPagador.idConta);
     return new EditarPagadorOutput(pagador);
   }
 }

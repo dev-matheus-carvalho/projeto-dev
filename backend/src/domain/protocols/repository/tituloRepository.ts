@@ -11,7 +11,7 @@ export default interface ITituloRepository {
   
   editar(pUnitOfWork: UnitOfWork, pIdTitulo: Titulo): Promise<boolean>;
   
-  atualizarSituacaoTitulo(pUnitOfWork: UnitOfWork, pTitulo: Titulo): Promise<boolean>;
+  atualizarSituacaoTitulo(pUnitOfWork: UnitOfWork, pStituacaoTitulo: string, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   
   excluir(pUnitOfWork: UnitOfWork, pIdTitulo: string, pIdConta: string): Promise<boolean>;
   editarSituacaoTitulos(pUnitOfWork: UnitOfWork, pIdLote: string, pIdConta: string): Promise<boolean>;

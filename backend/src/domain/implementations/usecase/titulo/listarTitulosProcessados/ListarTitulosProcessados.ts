@@ -6,10 +6,12 @@ import InformacaoNaoEncontrada from '../../../entity/errors/InfomacaoNaoEncontra
 import IMovimentacaoRepository from '../../../../protocols/repository/movimentacaoRepository';
 import { ListarTitulosProcessadosInput } from './ListarTitulosProcessadosInput';
 import { ListarTitulosProcessadosOutput } from './ListarTitulosProcessadosOutput';
-import { verificarVencimento } from '../../../services/verificarVencimento';
+import { verificarSituacaoDeVencimentoDoTitulo, verificarVencimento } from '../../../services/verificarVencimento';
 import IPagadorRepository from '../../../../protocols/repository/pagadorRepository';
 import { Pagador } from '../../../entity/objectValues/Pagador';
 import { BuscarPagador } from '../../pagador/buscarPagador/BuscarPagador';
+import { Conta } from '../../../entity/objectValues/Conta';
+import { Movimentacao } from '../../../entity/objectValues/Movimentacao';
 
 export class ListarTitulosProcessados {
   constructor(
@@ -21,9 +23,9 @@ export class ListarTitulosProcessados {
 
   public async execute(pUnitWork: UnitOfWork, pInputTitulo: ListarTitulosProcessadosInput): Promise<ListarTitulosProcessadosOutput[] | any> {
     
-    const isUsuarioExist = await this.contaRepository.buscarUsuario(pUnitWork, pInputTitulo.idConta);
+    const isUsuarioExist: Conta | null = await this.contaRepository.buscarUsuario(pUnitWork, pInputTitulo.idConta);
 
-    if(!isUsuarioExist) {
+    if(!!isUsuarioExist === false) {
       throw new InformacaoNaoEncontrada('Usuário não encontrado');
     }
 
@@ -41,38 +43,45 @@ export class ListarTitulosProcessados {
       pagador: '',
     };
 
-    for(let i of titulosDb) {
+    for(let titulo of titulosDb) {
 
-      const titulo: Titulo = new Titulo({
-        situacaoTitulo: verificarVencimento(i.vencimento),
-        idTitulo: i.idTitulo,
-        idConta: i.idConta,
-      });
+      titulo.situacaoTitulo = new verificarSituacaoDeVencimentoDoTitulo(titulo.vencimento)
+      .verificarVencimentoDoTitulo();
 
-      const pagador: Pagador = new Pagador({
-        idPagador: i.idPagador,
-        idConta: i.idConta,
-      });
-
-      const movimentacaoDb = await this.movimentacaoRepository.buscarMovimentacao(pUnitWork ,i.idTitulo, i.idConta);
-      const pagadorDb = await this.pagadorRepository.buscarPagador(pUnitWork, pagador);
-      await this.titulosRepository.atualizarVencimento(pUnitWork, titulo);
+      const movimentacaoDb: Movimentacao | null = await this.movimentacaoRepository.buscarMovimentacao(pUnitWork ,titulo.idTitulo, titulo.idConta);
+      const pagadorDb: Pagador | null = await this.pagadorRepository.buscarPagador(pUnitWork, titulo.idPagador, titulo.idConta);
+      await this.titulosRepository.atualizarSituacaoTitulo(pUnitWork, titulo.situacaoTitulo, titulo.idTitulo, pInputTitulo.idConta);
 
       aux = ({
-        numeroTitulo: i.numeroTitulo,
-        tipoTitulo: i.tipoTitulo,
-        vencimento: i.vencimento,
+        numeroTitulo: titulo.numeroTitulo,
+        tipoTitulo: titulo.tipoTitulo,
+        vencimento: titulo.vencimento,
         pagamento: movimentacaoDb?.dataUltimoRecebimento,
-        situacaoTitulo: i.situacaoTitulo,
-        valorDoTitulo: i.valorDoTitulo,
-        idConta: i.idConta,
+        situacaoTitulo: titulo.situacaoTitulo,
+        valorDoTitulo: titulo.valorDoTitulo,
+        idConta: titulo.idConta,
         pagador: pagadorDb?.nome
       });
       
       listaDeTitulosOutput.push(aux);
-    }
 
-    return listaDeTitulosOutput;
+      // return new ListarTitulosProcessadosOutput(titulo, movimentacaoDb!, pagadorDb!);
+    }
+    // return listaDeTitulosOutput;
+    return titulosDb.map(titulo => {
+      
+    });
+
+    // return titulosDb.map(async titulo => {
+    //   titulo.situacaoTitulo = new verificarSituacaoDeVencimentoDoTitulo(titulo.vencimento)
+    //   .verificarVencimentoDoTitulo();
+
+    //   const movimentacaoDb: Movimentacao | null = await this.movimentacaoRepository.buscarMovimentacao(pUnitWork ,titulo.idTitulo, titulo.idConta);
+    //   const pagadorDb: Pagador | null = await this.pagadorRepository.buscarPagador(pUnitWork, titulo.idPagador, titulo.idConta);
+    //   await this.titulosRepository.atualizarSituacaoTitulo(pUnitWork, titulo.situacaoTitulo, titulo.idTitulo, pInputTitulo.idConta);
+
+    //   new  ListarTitulosProcessadosOutput(titulo, movimentacaoDb!, pagadorDb!);
+    // });
 
   }
 }
